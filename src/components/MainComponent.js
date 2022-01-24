@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Navbar from './NavbarComponent';
-import Home from './HomeComponent';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Publications from './Publications';
-import Team from './TeamComponent';
-import AboutUs from './AboutUsComponent';
-import ContactUs from './ContactUsComponent';
+import Publications from '../pages/PublicationsPage';
+import Home from '../pages/HomePage';
+import Team from '../pages/TeamPage';
+import AboutUs from '../pages/AboutUsPage';
+import ContactUs from '../pages/ContactUsPage';
 const customTheme = createTheme({
     palette: {
         primary: {
