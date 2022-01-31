@@ -13,7 +13,8 @@ const useStyles = makeStyles(() => {
     },
     navLinks: {
       textDecoration: 'none',
-      color: 'inherit'
+      textTransform: 'none',
+      color: '#FF8040'
     }
   }
 
@@ -26,6 +27,7 @@ const useStyles = makeStyles(() => {
   
     const pages = [
       {
+        key: 1,
         name: "Home",
         url: "/"
       },
@@ -34,14 +36,17 @@ const useStyles = makeStyles(() => {
         url: "/publications"
       },
       {
+        key: 2,
         name: "Team",
         url: "/team"
       },
       {
+        key: 3,
         name: "About us",
         url: "/about"
       },
       {
+        key: 4,
         name: "Contact us",
         url: "contact"
       }
@@ -98,7 +103,7 @@ const useStyles = makeStyles(() => {
                     }}
                     >
                     {pages.map(page => (
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <MenuItem key={page.key} onClick={handleCloseNavMenu}>
                       <Typography textAlign="center"><Link className={styles.navLinks} to={page.url}>{page.name}</Link></Typography>
                     </MenuItem>
                     ))}            
@@ -113,7 +118,7 @@ const useStyles = makeStyles(() => {
                     </Typography>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         {pages.map(page => (
-                          <Button key={page} sx={{ my: 2, color: '#ed9609', display: 'block' }}>
+                          <Button key={page.key} sx={{ my: 2, display: 'block' }}>
                             <Link className={styles.navLinks} to={page.url} >
                             <Typography
                             variant="h6"

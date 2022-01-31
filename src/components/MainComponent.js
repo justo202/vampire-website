@@ -10,7 +10,7 @@ import ContactUs from '../pages/ContactUsPage';
 const customTheme = createTheme({
     palette: {
         primary: {
-            main: '#141414',
+            main: '#FFFCF2',
         },
 
     }
