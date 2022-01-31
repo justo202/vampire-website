@@ -9,7 +9,7 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles(() => {
   return {
     toolbarHeigh: {
-      padding: '25px'
+      padding: '40px'
     },
     navLinks: {
       textDecoration: 'none',
