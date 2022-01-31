@@ -14,7 +14,8 @@ const useStyles = makeStyles(() => {
     navLinks: {
       textDecoration: 'none',
       textTransform: 'none',
-      color: '#FF8040'
+      color: 'inherit'
+      
     }
   }
 
@@ -63,9 +64,9 @@ const useStyles = makeStyles(() => {
 
     return (
         <>
-        <AppBar>
+        <AppBar color="lightBackground">
             <Container >
-                <Toolbar  disableGutters>
+                <Toolbar   disableGutters>
                     <Typography
                         variant="h6"
                         noWrap 
@@ -118,10 +119,11 @@ const useStyles = makeStyles(() => {
                     </Typography>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         {pages.map(page => (
-                          <Button key={page.key} sx={{ my: 2, display: 'block' }}>
-                            <Link className={styles.navLinks} to={page.url} >
+                          <Button  color="accent"key={page.key} sx={{ my: 2, display: 'block' }}>
+                            <Link  className={styles.navLinks} to={page.url} >
                             <Typography
                             variant="h6"
+                            
                             >
                               {page.name}
                             </Typography>
