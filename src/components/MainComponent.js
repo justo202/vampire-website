@@ -9,9 +9,22 @@ import AboutUs from '../pages/AboutUsPage';
 import ContactUs from '../pages/ContactUsPage';
 const customTheme = createTheme({
     palette: {
-        primary: {
+        lightBackground: {
             main: '#FFFCF2',
         },
+        darkBackground: {
+            main: '#CCC5B9'
+        },
+        black: {
+            main: '#252422'
+        },
+        lightBlack: {
+            main: '#403D39'
+        },
+        accent: {
+            main: '#FF8040'
+        }
+
 
     }
 })
