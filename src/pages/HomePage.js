@@ -2,16 +2,17 @@ import React from "react";
 import { Grid } from "@mui/material";
 
 import Testimonials from "../components/TestimonialsComponent";
+import Jumbotron from "../components/JumbotronComponent";
 
 const Home = () => {
 
     return(
         <Grid container direction={"column"} alignItems={"center"}>
-            <Grid item xs={12}>
-            <Testimonials />
+            <Grid item>
+            <Jumbotron />
             </Grid>
             <Grid item>
-                <h1>hello</h1>
+            <Testimonials />
             </Grid>
         </Grid>
     );

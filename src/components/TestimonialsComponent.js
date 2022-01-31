@@ -1,8 +1,7 @@
 import React from "react";
 import Carousel from 'react-material-ui-carousel'
-import { Paper, Typography, Card, CardContent } from "@mui/material";
+import { Typography, Card, CardContent } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { width } from "@mui/system";
 
 const useStyles = makeStyles(() => {
     return {
@@ -57,7 +56,7 @@ const Testimonials = () => {
             name: "who"
         },
         {
-            description: "they were really good to work with and im happy that everything went well, cant wait to work with them again in the futurewe rawer awer awerawerasdfawe",
+            description: "they were really good to work with and im happy that everything went well, cant wait to work with them again in the futur",
             name: "person"
         }
     ]
