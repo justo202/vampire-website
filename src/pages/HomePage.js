@@ -8,7 +8,7 @@ const Home = () => {
 
     return(
         <Grid container direction={"column"} alignItems={"center"}>
-            <Grid item>
+            <Grid item width={'100%'} >
             <Jumbotron />
             </Grid>
             <Grid item>
