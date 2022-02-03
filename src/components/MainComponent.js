@@ -22,7 +22,8 @@ const customTheme = createTheme({
             main: '#403D39'
         },
         accent: {
-            main: '#FF8040'
+            main: '#FF8040',
+            contrastText: '#fff'
         }
 
 
