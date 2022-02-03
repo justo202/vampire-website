@@ -26,7 +26,7 @@ const Logos = () => {
         return(
 
             <Grid key={image.key} item xs={6} md={6}>
-             <a href={'https://mui.com/components/grid/'}> <img height={'150px'} width={'100%'} alt='Failed to load image' src={image.imageURL} />  </a>
+             <a href={'https://mui.com/components/grid/'}> <img height={'150px'} width={'100%'} alt='logo' src={image.imageURL} />  </a>
             
             </Grid>
         )
