@@ -43,8 +43,8 @@ const useStyles = makeStyles(() => {
       },
       {
         key: 3,
-        name: "About us",
-        url: "/about"
+        name: "Research",
+        url: "/research"
       },
       {
         key: 4,
