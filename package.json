@@ -14,6 +14,8 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.25.0",
     "doi2bib": "^1.0.10",
+    "faunadb": "^4.5.2",
+    "firebase": "^9.6.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-material-ui-carousel": "^3.1.1",
@@ -49,6 +51,7 @@
     ]
   },
   "devDependencies": {
-    "netlify-cli": "^8.16.1"
+    "netlify-cli": "^8.16.1",
+    "netlify-lambda": "^2.0.15"
   }
 }

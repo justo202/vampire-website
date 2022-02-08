@@ -1,9 +1,25 @@
-import {Container, Grid, Typography} from "@mui/material";
-import React from "react";
+import {Book, Link, School} from "@mui/icons-material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
+import {useTheme} from "@mui/styles";
+import axios from "axios";
+import React, {useEffect} from "react";
 import Jumbotron from "../components/JumbotronComponent";
 import {team} from "../data/team.json";
 
 const Team = () => {
+  const theme = useTheme();
+  useEffect(() => {
+    axios.get("/.netlify/functions/team-read").then((res) => {
+      console.log(res);
+    });
+  }, []);
   return (
     <>
       <Jumbotron title='Team' />
@@ -12,14 +28,48 @@ const Team = () => {
           {Object.values(team).length > 0 &&
             Object.values(team).map((member) => {
               return (
-                <Grid item xs={6} key={member.id} component='li'>
-                  <Typography
-                    variant='h6'
-                    sx={{display: "inline-block", marginRight: "1rem"}}
+                <Grid item xs={4} key={member.id}>
+                  <Card
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "flex-start",
+                      padding: "1rem",
+                    }}
                   >
-                    {member.name}
-                  </Typography>
-                  <Typography variant='span'>{member.dateJoined}</Typography>
+                    <CardMedia
+                      height='100'
+                      component='img'
+                      sx={{width: "auto", borderRadius: "50%"}}
+                      image='https://picsum.photos/id/1005/200'
+                    />
+                    <CardContent sx={{flex: 1}}>
+                      <Typography
+                        variant='h6'
+                        sx={{display: "inline-block", marginRight: "1rem"}}
+                      >
+                        {member.name}
+                      </Typography>
+                      <Typography
+                        variant='span'
+                        color={theme.palette.accent.main}
+                      >
+                        {member.dateJoined}
+                      </Typography>
+                      <Grid container spacing={1}>
+                        <Grid item>
+                          <Link></Link>
+                        </Grid>
+                        <Grid item>
+                          <Book></Book>
+                        </Grid>
+                        <Grid item>
+                          <School></School>
+                        </Grid>
+                      </Grid>
+                    </CardContent>
+                  </Card>
                 </Grid>
               );
             })}
