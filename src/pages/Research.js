@@ -28,11 +28,9 @@ const ResearchItem = ({imgUrl, description, title, even}) => {
                 <Grid item xs={12} sm={5}>
                 <img className={styles.researchImages} src={imgUrl} alt='Research'/>
             </Grid>
-            <Grid item xs={12} sm={7} padding={10}>
-                
+            <Grid item xs={12} sm={7} padding={10}>             
                 <Typography
                 variant="h5"
-                
                 >
                     {title}
                 </Typography>
@@ -45,7 +43,6 @@ const ResearchItem = ({imgUrl, description, title, even}) => {
             </Paper>
             </Grid>
             </>
-
         );
     } else {
         return(
@@ -68,10 +65,8 @@ const ResearchItem = ({imgUrl, description, title, even}) => {
                       </Grid>
                         <Grid item xs={12} sm={5} sx={{display: { xs: 'none', sm: 'flex' } }}>
                              <img className={styles.researchImages} src={imgUrl} alt='Research'/>
-                        </Grid>
-                  
+                        </Grid>                  
                     </Grid>
-                
                 </Paper>
             </Grid>
             </>
