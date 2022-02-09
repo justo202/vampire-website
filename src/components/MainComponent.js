@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Publications from '../pages/PublicationsPage';
 import Home from '../pages/HomePage';
 import Team from '../pages/TeamPage';
-import AboutUs from '../pages/AboutUsPage';
+import Research from '../pages/Research';
 import ContactUs from '../pages/ContactUsPage';
 const customTheme = createTheme({
     palette: {
@@ -42,7 +42,7 @@ class Main extends Component {
                         <Route path='/' element={<Home/>}/>
                         <Route path='/publications' element={<Publications/>}/>
                         <Route path='/team' element={<Team/>}/>
-                        <Route path='/about' element={<AboutUs/>}/>
+                        <Route path='/research' element={<Research/>}/>
                         <Route path='/contact' element={<ContactUs/>}/>
 
                     </Routes>
