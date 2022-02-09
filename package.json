@@ -14,12 +14,15 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.25.0",
     "doi2bib": "^1.0.10",
+    "firebase": "^9.6.6",
+    "firebase-admin": "^10.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-material-ui-carousel": "^3.1.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "^4.0.3",
     "styled-components": "^5.3.3",
+    "uuid": "^8.3.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -48,6 +51,7 @@
     ]
   },
   "devDependencies": {
-    "netlify-cli": "^8.16.1"
+    "netlify-cli": "^8.16.1",
+    "netlify-lambda": "^2.0.15"
   }
 }

@@ -20,3 +20,6 @@ yarn-debug.log*
 yarn-error.log*
 
 library.bib
+
+# Local Netlify folder
+.netlify
