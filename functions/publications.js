@@ -4,7 +4,7 @@ const refs = require("../src/data/publications.json");
 
 // TODO: Parse Author text for specialise characters
 
-exports.handler = async function (e, ctx) {
+exports.handler = async function (e, ct, callback) {
   let data = [];
   const {pageNumber = 1, pubsPerPage = 12} = JSON.parse(e.body);
 
@@ -16,8 +16,8 @@ exports.handler = async function (e, ctx) {
       )
   );
 
-  return {
+  return callback(null, {
     statusCode: 200,
     body: JSON.stringify(data),
-  };
+  });
 };

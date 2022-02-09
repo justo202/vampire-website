@@ -1,5 +1,6 @@
 import {Book, Link, School} from "@mui/icons-material";
 import {
+  Button,
   Card,
   CardContent,
   CardMedia,
@@ -9,24 +10,43 @@ import {
 } from "@mui/material";
 import {useTheme} from "@mui/styles";
 import axios from "axios";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Jumbotron from "../components/JumbotronComponent";
 import {team} from "../data/team.json";
+import fireApp from "../firebaseConfig";
+import {collection,documentId,getDocs} from "firebase/firestore";
+import { app } from "../firebaseConfig";
+import { getFirestore } from "firebase/firestore";
 
 const Team = () => {
+  const [team, setTeam] = useState([]);
+  const [loading, setLoading] = useState(true)
   const theme = useTheme();
+
   useEffect(() => {
-    axios.get("/.netlify/functions/team-read").then((res) => {
-      console.log(res);
-    });
-  }, []);
+    async function getData() {
+      const snapshot = await getDocs(collection(getFirestore(), "users"))
+      setTeam(snapshot.docs.map((doc, idx) => {
+        return doc.data()
+      }))
+      setLoading(false);
+    }
+    getData()
+  }, [])
+
+  if (loading) {
+    return (
+      <h1>Fuck Sake</h1>
+      )
+  }
+
   return (
     <>
       <Jumbotron title='Team' />
       <Container sx={{maxWidth: 1200, margin: "2rem auto"}}>
         <Grid container spacing={2}>
-          {Object.values(team).length > 0 &&
-            Object.values(team).map((member) => {
+          {!loading &&
+            team.map((member) => {
               return (
                 <Grid item xs={4} key={member.id}>
                   <Card
@@ -55,7 +75,7 @@ const Team = () => {
                         variant='span'
                         color={theme.palette.accent.main}
                       >
-                        {member.dateJoined}
+                        {/* {member.dateJoined} */}
                       </Typography>
                       <Grid container spacing={1}>
                         <Grid item>
