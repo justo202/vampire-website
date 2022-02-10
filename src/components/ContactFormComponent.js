@@ -43,8 +43,8 @@ class ContactForm extends Component {
       return Object.values(error).every((item) => item === "");
   };
   handleSubmit = (e) => {
-    e.preventDefault();
-    if (this.validate()) alert("working");
+   // e.preventDefault();
+   // if (this.validate()) alert("working");
   };
   handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -63,7 +63,7 @@ class ContactForm extends Component {
         <Typography variant="body2" component={"p"} color="lightBlack">
           Please fill out the form
         </Typography>
-        <form action="POST" data-netlify="true" autoComplete="false" onSubmit={this.handleSubmit}>
+        <form name="contact" action="POST" data-netlify-recaptcha="true" data-netlify="true" autoComplete="false" onSubmit={this.handleSubmit}>
           <Grid container spacing={1}>
             <Grid xs={12} sm={6} item>
               <TextField
@@ -112,6 +112,9 @@ class ContactForm extends Component {
                 helperText={this.state.errors.message}
                 onChange={this.handleInputChange}
               ></TextField>
+            </Grid>
+            <Grid xs={12} item>
+                <div data-netlify-recaptcha="true"></div>
             </Grid>
             <Grid xs={12} item>
               <Button type="submit" variant="contained" color="accent">
