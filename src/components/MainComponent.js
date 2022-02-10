@@ -8,6 +8,8 @@ import Team from '../pages/TeamPage';
 import Research from '../pages/Research';
 import ContactUs from '../pages/ContactUsPage';
 import ContentManagementSystem from '../pages/ContentManagementSystem';
+import Footer from './Footer';
+
 const customTheme = createTheme({
     palette: {
         lightBackground: {
@@ -46,6 +48,8 @@ class Main extends Component {
                         <Route path='/contact' element={<ContactUs/>}/>
                         <Route path='/cms' element={<ContentManagementSystem/>}/>
                     </Routes>
+
+                    <Footer />
                 </Router>
             </ThemeProvider>
             </>

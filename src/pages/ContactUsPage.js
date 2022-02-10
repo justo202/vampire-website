@@ -11,8 +11,6 @@ const ContactUs = () => {
         <Jumbotron
           title="Contact us"
           subtitle="Please let us known if you wish to get in contact"
-          button="Contact form"
-          buttonLink="#form"
         />
       </Grid>
 

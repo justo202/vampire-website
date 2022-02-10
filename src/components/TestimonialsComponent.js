@@ -1,75 +1,75 @@
 import React from "react";
-import Carousel from 'react-material-ui-carousel'
+import Carousel from "react-material-ui-carousel";
 import { Typography, Card, CardContent } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles(() => {
-    return {
-        slides: {
-            width: "400px",
-            height: "300px"
-            
-        },
-        slide: {
-            height: "300px",
-            width: "100%"
-        }
-    }
-})
+  return {
+    slides: {
+      width: "350px",
+
+      height: "300px",
+    },
+    slide: {
+      height: "300px",
+      width: "100%",
+    },
+  };
+});
 
 const Testimonial = (props) => {
-
-    return( 
-        <Card sx={{ minHeight: "150px" }}>
-        <CardContent>
-          <Typography variant="h6" component="div"
-          align="center">
+  return (
+    <Card sx={{ minHeight: "150px" }}>
+      <CardContent>
+        <Typography variant="h6" component="div" align="center">
           {props.description}
-          </Typography>
-          <Typography sx={{ fontStyle: "italic"}} color="text.secondary"
+        </Typography>
+        <Typography
+          sx={{ fontStyle: "italic" }}
+          color="text.secondary"
           align="center"
-          >
-            {props.name}
-          </Typography>
-        </CardContent>
-      </Card>
-
-    );
-
-
-}
-
+        >
+          {props.name}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+};
 
 const Testimonials = () => {
-    const styles = useStyles();
-    const testimonialInfo = [
-        {
-            description: "this is a very good websites yesyesawerawe awerawefaweawe rawera werawer awera",
-            name: "its me"
-        },
-        {
-            description: "what the eck is this even wow so goodsdafsgdfhewrrtwe waeraf awe awera weraw",
-            name: "some guy"
-        },
-        {
-            description: "i cant believe this workser awera weraw erawe rawer awer awer awerawe rawer awerawerawer awera werwae rawer",
-            name: "who"
-        },
-        {
-            description: "they were really good to work with and im happy that everything went well, cant wait to work with them again in the futur",
-            name: "person"
-        }
-    ]
+  const styles = useStyles();
+  const testimonialInfo = [
+    {
+      description: "great website, i like it a lot",
+      name: "its me",
+    },
+    {
+      description:
+        "tfytguhuwjaetissraweopawoeijtawoejaowegnaiuh awej oawnfklgs jfng ;aweork awoen ialeri jaweoijawnligahuwoeij",
+      name: "someone",
+    },
+    {
+      description:
+        "i cant believe this workser awera weraw erawe rawer awer awer awerawe rawer awerawerawer awera werwae rawer",
+      name: "who",
+    },
+    {
+      description:
+        "they were really good to work with and im happy that everything went well, cant wait to work with them again in the futur",
+      name: "person",
+    },
+  ];
 
-    return (
-        <Carousel className={styles.slides} >
-           
-            {testimonialInfo.map(testimonial => <Testimonial description={testimonial.description} name={testimonial.name}/>)}
-           
-          
-        </Carousel>
-    )
-
-}
+  return (
+    <Carousel className={styles.slides}>
+      {testimonialInfo.map((testimonial) => (
+        <Testimonial
+          description={testimonial.description}
+          name={testimonial.name}
+        />
+      ))}
+    </Carousel>
+  );
+};
 
 export default Testimonials;
