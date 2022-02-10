@@ -63,7 +63,7 @@ class ContactForm extends Component {
         <Typography variant="body2" component={"p"} color="lightBlack">
           Please fill out the form
         </Typography>
-        <form name="contact" action="POST" data-netlify-recaptcha="true" data-netlify="true" autoComplete="false" onSubmit={this.handleSubmit}>
+        <form name="contact" method="POST" data-netlify-recaptcha="true" data-netlify="true" autoComplete="false" onSubmit="submit">
           <Grid container spacing={1}>
             <Grid xs={12} sm={6} item>
               <TextField
