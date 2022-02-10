@@ -63,7 +63,7 @@ class ContactForm extends Component {
         <Typography variant="body2" component={"p"} color="lightBlack">
           Please fill out the form
         </Typography>
-        <form id="form" autoComplete="false" onSubmit={this.handleSubmit}>
+        <form action="POST" data-netlify="true" autoComplete="false" onSubmit={this.handleSubmit}>
           <Grid container spacing={1}>
             <Grid xs={12} sm={6} item>
               <TextField
@@ -102,7 +102,6 @@ class ContactForm extends Component {
                 name="message"
                 multiline
                 rows={5}
-                value=""
                 value={this.state.message}
                 placeholder="Your message"
                 variant="outlined"
