@@ -7,6 +7,7 @@ import Home from '../pages/HomePage';
 import Team from '../pages/TeamPage';
 import Research from '../pages/Research';
 import ContactUs from '../pages/ContactUsPage';
+import ContentManagementSystem from '../pages/ContentManagementSystem';
 const customTheme = createTheme({
     palette: {
         lightBackground: {
@@ -37,19 +38,15 @@ class Main extends Component {
             <ThemeProvider theme={customTheme}>
                 <Router>
                  <Navbar />
-                 
                     <Routes>
                         <Route path='/' element={<Home/>}/>
                         <Route path='/publications' element={<Publications/>}/>
                         <Route path='/team' element={<Team/>}/>
                         <Route path='/research' element={<Research/>}/>
                         <Route path='/contact' element={<ContactUs/>}/>
-
+                        <Route path='/cms' element={<ContentManagementSystem/>}/>
                     </Routes>
                 </Router>
-          
-
-           
             </ThemeProvider>
             </>
         );
