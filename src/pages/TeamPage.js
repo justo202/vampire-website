@@ -31,7 +31,7 @@ const Team = () => {
 
   if (loading) {
     return (
-      <h1>Fuck Sake</h1>
+      <h1>Loading...</h1>
       )
   }
 
