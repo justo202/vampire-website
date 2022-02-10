@@ -1,6 +1,5 @@
 import {Book, Link, School} from "@mui/icons-material";
 import {
-  Button,
   Card,
   CardContent,
   CardMedia,
@@ -9,13 +8,9 @@ import {
   Typography,
 } from "@mui/material";
 import {useTheme} from "@mui/styles";
-import axios from "axios";
 import React, {useEffect, useState} from "react";
 import Jumbotron from "../components/JumbotronComponent";
-import {team} from "../data/team.json";
-import fireApp from "../firebaseConfig";
-import {collection,documentId,getDocs} from "firebase/firestore";
-import { app } from "../firebaseConfig";
+import { collection, getDocs} from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
 const Team = () => {
