@@ -5,13 +5,12 @@ import {
   CardMedia,
   Container,
   Grid,
-  Typography,
+  Typography
 } from "@mui/material";
 import {useTheme} from "@mui/styles";
+import {collection, getDocs, getFirestore} from "firebase/firestore";
 import React, {useEffect, useState} from "react";
 import Jumbotron from "../components/JumbotronComponent";
-import { collection, getDocs} from "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
 
 const Team = () => {
   const [team, setTeam] = useState([]);

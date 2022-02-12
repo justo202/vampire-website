@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import Navbar from './NavbarComponent';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Publications from '../pages/PublicationsPage';
-import Home from '../pages/HomePage';
-import Team from '../pages/TeamPage';
-import Research from '../pages/Research';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import React from 'react';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import ContactUs from '../pages/ContactUsPage';
 import ContentManagementSystem from '../pages/ContentManagementSystem';
+import Home from '../pages/HomePage';
+import Publications from '../pages/PublicationsPage';
+import Research from '../pages/Research';
+import Team from '../pages/TeamPage';
+import Navbar from './NavbarComponent';
+
 const customTheme = createTheme({
     palette: {
         lightBackground: {
@@ -30,27 +31,24 @@ const customTheme = createTheme({
 
     }
 })
-class Main extends Component {
-    render() {
-
-        return(
-            <>
-            <ThemeProvider theme={customTheme}>
-                <Router>
-                 <Navbar />
-                    <Routes>
-                        <Route path='/' element={<Home/>}/>
-                        <Route path='/publications' element={<Publications/>}/>
-                        <Route path='/team' element={<Team/>}/>
-                        <Route path='/research' element={<Research/>}/>
-                        <Route path='/contact' element={<ContactUs/>}/>
-                        <Route path='/cms' element={<ContentManagementSystem/>}/>
-                    </Routes>
-                </Router>
-            </ThemeProvider>
-            </>
-        );
-    }
+const Main = () => {
+  return(
+      <>
+      <ThemeProvider theme={customTheme}>
+          <Router>
+            <Navbar />
+              <Routes>
+                  <Route path='/' element={<Home />}/>
+                  <Route path='/publications' element={<Publications />}/>
+                  <Route path='/team' element={<Team />}/>
+                  <Route path='/research' element={<Research />}/>
+                  <Route path='/contact' element={<ContactUs />}/>
+                  <Route path='/cms' element={<ContentManagementSystem />}/>
+              </Routes>
+          </Router>
+      </ThemeProvider>
+      </>
+  );
 }
 
 export default Main;
