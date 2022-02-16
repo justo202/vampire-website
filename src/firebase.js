@@ -1,5 +1,6 @@
 import {initializeApp} from 'firebase/app';
 import {getFirestore} from 'firebase/firestore';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 const app = initializeApp({
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "vampire-research.firebaseapp.com",
@@ -9,5 +10,9 @@ const app = initializeApp({
   appId: process.env.FIREBASE_APP_ID,
   measurementId: "G-L6P85RGSFE"
 });
+
+export {
+  getAuth, signInWithEmailAndPassword
+}
 
 export default getFirestore();
