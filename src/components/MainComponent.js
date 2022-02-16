@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import Navbar from './NavbarComponent';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Publications from '../pages/PublicationsPage';
-import Home from '../pages/HomePage';
-import Team from '../pages/TeamPage';
-import Research from '../pages/Research';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {Component} from 'react';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import ContactUs from '../pages/ContactUsPage';
 import ContentManagementSystem from '../pages/ContentManagementSystem';
+import Home from '../pages/HomePage';
+import Publications from '../pages/PublicationsPage';
+import Research from '../pages/Research';
+import Team from '../pages/TeamPage';
 import Footer from './Footer';
+import Navbar from './NavbarComponent';
 
 const customTheme = createTheme({
     palette: {
