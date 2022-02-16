@@ -1,9 +1,8 @@
+import {Grid, Typography} from "@mui/material";
+import {Box} from "@mui/system";
 import React from "react";
 import ContactForm from "../components/ContactFormComponent";
 import Jumbotron from "../components/JumbotronComponent";
-import { Grid, Typography } from "@mui/material";
-import { Route } from "react-router-dom";
-import { Box } from "@mui/system";
 const ContactUs = () => {
   return (
     <Grid container justifyContent={"center"} alignItems={"center"}>
