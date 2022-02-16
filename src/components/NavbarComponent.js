@@ -201,8 +201,12 @@ const Navbar = (props) => {
       open={open}
       onClose={handleClose}
       aria-labelledby="Login"
-      aria-describedby="Login form">
+      aria-describedby="Login form"
+      >
+        <Box >
         <LoginForm closeForm={handleClose}/>
+        </Box>
+        
       </Modal>
       <div className={styles.toolbarHeigh}></div>
     </>
