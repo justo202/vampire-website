@@ -1,6 +1,7 @@
 import {Grid} from "@mui/material";
 import React from "react";
 import Jumbotron from "../components/JumbotronComponent";
+import LoginForm from "../components/LoginForm";
 import Logos from "../components/LogoSectionComponent";
 import NewsSection from "../components/NewsComponent";
 import Testimonials from "../components/TestimonialsComponent";
@@ -8,6 +9,7 @@ import Testimonials from "../components/TestimonialsComponent";
 const Home = () => {
   return (
     <Grid container direction={"column"} alignItems={"center"} rowSpacing={2}>
+      <LoginForm />
       <Grid item width={"100%"}>
         <Jumbotron
           title='Welcome to VAMPIRE Research'
