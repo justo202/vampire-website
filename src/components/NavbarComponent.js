@@ -7,12 +7,15 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Modal,
   Toolbar,
   Typography,
 } from "@mui/material";
-import {makeStyles} from "@mui/styles";
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import { makeStyles } from "@mui/styles";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import ArrowRightOutlinedIcon from "@mui/icons-material/ArrowRightOutlined";
+import LoginForm from "./LoginForm";
 
 const useStyles = makeStyles(() => {
   return {
@@ -26,10 +29,64 @@ const useStyles = makeStyles(() => {
     },
   };
 });
-const Navbar = () => {
+
+const AccountButton = ({isLogged, logout, openModal}) => {
+  if(!isLogged)
+  return (
+    <Button
+    type="outlined"
+    sx={{
+      color: "accent.contrastText",
+      backgroundColor: "accent.main",
+      "&:hover": {
+        backgroundColor: "lightBackground.main",
+        color: "accent.main",
+      },
+      my: 2,
+      display: "flex",
+    }}
+    endIcon={<ArrowRightOutlinedIcon />}
+    onClick={openModal}
+  >
+      <Typography textAlign={"center"} variant="h6">
+        Login
+      </Typography>
+  </Button>
+  )
+  else
+  return (
+    <Button
+    type="outlined"
+    sx={{
+      color: "accent.contrastText",
+      backgroundColor: "accent.main",
+      "&:hover": {
+        backgroundColor: "lightBackground.main",
+        color: "accent.main",
+      },
+      my: 2,
+      display: "flex",
+    }}
+    endIcon={<ArrowRightOutlinedIcon />}
+    onClick={logout}
+  >
+      <Typography textAlign={"center"} variant="h6">
+        Log out
+      </Typography>
+   
+  </Button>
+  )
+}
+
+const Navbar = (props) => {
+  const { isLogged, signUserOut } = props;
   const styles = useStyles();
 
   const [anchorElNav, setAnchorElNav] = useState(null);
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const pages = [
     {
@@ -64,29 +121,29 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar color='lightBackground'>
+      <AppBar color="lightBackground">
         <Container>
           <Toolbar disableGutters>
             <Typography
-              variant='h6'
+              variant="h6"
               noWrap
-              sx={{flexGrow: 1, display: {xs: "none", md: "flex"}}}
+              sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
             >
               LOGO
             </Typography>
-            <Box sx={{flexGrow: 1, display: {xs: "flex", md: "none"}}}>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
-                size='large'
-                aria-label='account of current user'
-                aria-controls='menu-appbar'
-                aria-haspopup='true'
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
                 onClick={handleOpenNavMenu}
-                color='inherit'
+                color="inherit"
               >
                 <MenuIcon />
               </IconButton>
               <Menu
-                id='menu-appbar'
+                id="menu-appbar"
                 anchorEl={anchorElNav}
                 anchorOrigin={{
                   vertical: "bottom",
@@ -100,13 +157,13 @@ const Navbar = () => {
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
                 sx={{
-                  display: {xs: "block", md: "none"},
+                  display: { xs: "block", md: "none" },
                 }}
               >
                 {pages.map((page, idx) => {
                   return (
                     <MenuItem key={idx} onClick={handleCloseNavMenu}>
-                      <Typography textAlign='center'>
+                      <Typography textAlign="center">
                         <Link className={styles.navLinks} to={page.url}>
                           {page.name}
                         </Link>
@@ -117,24 +174,36 @@ const Navbar = () => {
               </Menu>
             </Box>
             <Typography
-              variant='h6'
+              variant="h6"
               noWrap
-              sx={{flexGrow: 1, display: {xs: "flex", md: "none"}}}
+              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
             >
               LOGO
             </Typography>
-            <Box sx={{display: {xs: "none", md: "flex"}}}>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page, idx) => (
-                <Button color='accent' key={idx} sx={{my: 2, display: "block"}}>
+                <Button
+                  color="accent"
+                  key={idx}
+                  sx={{ my: 2, display: "block" }}
+                >
                   <Link className={styles.navLinks} to={page.url}>
-                    <Typography variant='h6'>{page.name}</Typography>
+                    <Typography variant="h6">{page.name}</Typography>
                   </Link>
                 </Button>
               ))}
             </Box>
+           <AccountButton isLogged={isLogged} logout={signUserOut} openModal={handleOpen}/>
           </Toolbar>
         </Container>
       </AppBar>
+      <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="Login"
+      aria-describedby="Login form">
+        <LoginForm closeForm={handleClose}/>
+      </Modal>
       <div className={styles.toolbarHeigh}></div>
     </>
   );
