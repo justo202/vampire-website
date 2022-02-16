@@ -42,21 +42,25 @@ const Testimonials = () => {
     {
       description: "great website, i like it a lot",
       name: "its me",
+      idd: 1
     },
     {
       description:
         "tfytguhuwjaetissraweopawoeijtawoejaowegnaiuh awej oawnfklgs jfng ;aweork awoen ialeri jaweoijawnligahuwoeij",
       name: "someone",
+      idd: 2
     },
     {
       description:
         "i cant believe this workser awera weraw erawe rawer awer awer awerawe rawer awerawerawer awera werwae rawer",
       name: "who",
+      idd: 3
     },
     {
       description:
         "they were really good to work with and im happy that everything went well, cant wait to work with them again in the futur",
       name: "person",
+      idd: 4
     },
   ];
 
@@ -64,6 +68,7 @@ const Testimonials = () => {
     <Carousel className={styles.slides}>
       {testimonialInfo.map((testimonial) => (
         <Testimonial
+          key={testimonial.idd}
           description={testimonial.description}
           name={testimonial.name}
         />
