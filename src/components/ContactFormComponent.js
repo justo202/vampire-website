@@ -114,7 +114,6 @@ class ContactForm extends Component {
       need: "",
       images: "",
       feedback: "",
-      token: null,
       errors: {
         name: "",
         email: "",
@@ -246,7 +245,7 @@ class ContactForm extends Component {
             </Grid>
             <Grid xs={12} item>
               <TextField
-                label="How many images would you like to measure with VAMPIRE, and from how many patients?"
+                label="How many images would you like to measure?"
                 name="images"
                 multiline
                 rows={3}
@@ -279,11 +278,11 @@ class ContactForm extends Component {
               ></TextField>
             </Grid>
             <Grid xs={12} item>
-              <ReCaptchaV2
+              <ReCaptchaV2 style={{ width: '100%',transform: 'scale(0.7)', transformOrigin: '0 0'}}
                 sitekey="6LfguJseAAAAAKWD94kvIrwRUFgzIx8uqKyIl5vd"
                 onChange={this.handleToken}
                 onExpired={this.handleExpire}
-              />{" "}
+              />
               {/*REMEMBER TO REMOVE SITE KEY WHEN SITE ACTUALLY GOES LIVE*/}
             </Grid>
             <Grid xs={12} item>
