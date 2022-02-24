@@ -77,29 +77,33 @@ class ContactForm extends Component {
       return Object.values(error).every((item) => item === "");
   };
   handleSubmit = (e) => {
-    const data = {
-      name: this.state.name,
-      email: this.state.email,
-      affiliation: this.state.affiliation,
-      description: this.state.description,
-      reason: this.state.need,
-      images: this.state.images,
-      feedback: this.state.feedback,
-    };
     e.preventDefault();
-    axios({
-      method: "POST",
-      url: "/.netlify/functions/sendEmail",
-      data: data,
-    }).then((response) => {
-      if (response.data === "success") {
-        alert("Message Sent.");
-      } else if (response.data === "fail") {
-        alert("Message failed to send.");
-      }
-    });
-    this.resetForm();
-  };
+    if(this.state.token !== null) {
+      const data = {
+        name: this.state.name,
+        email: this.state.email,
+        affiliation: this.state.affiliation,
+        description: this.state.description,
+        reason: this.state.need,
+        images: this.state.images,
+        feedback: this.state.feedback,
+      };
+      axios({
+        method: "POST",
+        url: "/.netlify/functions/sendEmail",
+        data: data,
+      }).then((response) => {
+        if (response.data === "success") {
+          alert("Message Sent.");
+        } else if (response.data === "fail") {
+          alert("Message failed to send.");
+        }
+      });
+      this.resetForm();
+    } else {
+      alert('Please fill out the captcha')
+    } 
+  }
   resetForm = () => {
     this.setState({
       email: "",
