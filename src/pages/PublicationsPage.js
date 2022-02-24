@@ -7,12 +7,14 @@ import {
 import {collection, getDocs} from "firebase/firestore";
 import {useEffect, useState} from "react";
 import Jumbotron from "../components/JumbotronComponent";
-import firebase from "../firebase";
+import firebase, {getAuth} from "../firebase";
 
 const Publications = () => {
   const [pubs, setPubs] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    const user = getAuth();
+    console.log(user);
     async function getData() {
       const snapshot = await getDocs(collection(firebase, "publications"))
       setPubs(snapshot.docs.map((doc, idx) => {

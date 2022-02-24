@@ -1,4 +1,5 @@
 import {initializeApp} from 'firebase/app';
+import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import {getFirestore} from 'firebase/firestore';
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut  } from "firebase/auth";
 const app = initializeApp({
@@ -16,3 +17,4 @@ export {
 }
 
 export default getFirestore();
+

@@ -9,7 +9,7 @@ import {
   MenuItem,
   Modal,
   Toolbar,
-  Typography,
+  Typography
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useState } from "react";
@@ -102,12 +102,12 @@ const Navbar = (props) => {
       url: "/team",
     },
     {
-      name: "About us",
-      url: "/about",
+      name: "Research",
+      url: "/research",
     },
     {
       name: "Contact us",
-      url: "contact",
+      url: "/contact",
     },
   ];
 
