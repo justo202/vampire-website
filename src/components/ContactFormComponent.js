@@ -77,29 +77,34 @@ class ContactForm extends Component {
       return Object.values(error).every((item) => item === "");
   };
   handleSubmit = (e) => {
-    const data = {
-      name: this.state.name,
-      email: this.state.email,
-      affiliation: this.state.affiliation,
-      description: this.state.description,
-      reason: this.state.need,
-      images: this.state.images,
-      feedback: this.state.feedback,
-    };
     e.preventDefault();
-    axios({
-      method: "POST",
-      url: "/.netlify/functions/sendEmail",
-      data: data,
-    }).then((response) => {
-      if (response.data === "success") {
-        alert("Message Sent.");
-      } else if (response.data === "fail") {
-        alert("Message failed to send.");
-      }
-    });
-    this.resetForm();
-  };
+    if(this.state.token !== null) {
+      const data = {
+        name: this.state.name,
+        email: this.state.email,
+        affiliation: this.state.affiliation,
+        description: this.state.description,
+        reason: this.state.need,
+        images: this.state.images,
+        feedback: this.state.feedback,
+        token: this.state.token
+      };
+      axios({
+        method: "POST",
+        url: "/.netlify/functions/sendEmail",
+        data: data,
+      }).then((response) => {
+        if (response.data === "success") {
+          alert("Message Sent.");
+        } else if (response.data === "fail") {
+          alert("Message failed to send.");
+        }
+      });
+      this.resetForm();
+    } else {
+      alert('Please fill out the captcha')
+    } 
+  }
   resetForm = () => {
     this.setState({
       email: "",
@@ -109,7 +114,6 @@ class ContactForm extends Component {
       need: "",
       images: "",
       feedback: "",
-      token: null,
       errors: {
         name: "",
         email: "",
@@ -241,7 +245,7 @@ class ContactForm extends Component {
             </Grid>
             <Grid xs={12} item>
               <TextField
-                label="How many images would you like to measure with VAMPIRE, and from how many patients?"
+                label="How many images would you like to measure?"
                 name="images"
                 multiline
                 rows={3}
@@ -274,11 +278,11 @@ class ContactForm extends Component {
               ></TextField>
             </Grid>
             <Grid xs={12} item>
-              <ReCaptchaV2
+              <ReCaptchaV2 style={{ width: '100%',transform: 'scale(0.7)', transformOrigin: '0 0'}}
                 sitekey="6LfguJseAAAAAKWD94kvIrwRUFgzIx8uqKyIl5vd"
                 onChange={this.handleToken}
                 onExpired={this.handleExpire}
-              />{" "}
+              />
               {/*REMEMBER TO REMOVE SITE KEY WHEN SITE ACTUALLY GOES LIVE*/}
             </Grid>
             <Grid xs={12} item>
