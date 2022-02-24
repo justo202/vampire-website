@@ -8,10 +8,10 @@ import {
   Menu,
   MenuItem,
   Toolbar,
-  Typography,
+  Typography
 } from "@mui/material";
 import {makeStyles} from "@mui/styles";
-import React, {useState} from "react";
+import {useState} from "react";
 import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(() => {
@@ -45,12 +45,12 @@ const Navbar = () => {
       url: "/team",
     },
     {
-      name: "About us",
-      url: "/about",
+      name: "Research",
+      url: "/research",
     },
     {
       name: "Contact us",
-      url: "contact",
+      url: "/contact",
     },
   ];
 

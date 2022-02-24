@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import {useTheme} from "@mui/styles";
 import {collection, getDocs, getFirestore} from "firebase/firestore";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import Jumbotron from "../components/JumbotronComponent";
 
 const Team = () => {
@@ -19,7 +19,7 @@ const Team = () => {
 
   useEffect(() => {
     async function getData() {
-      const snapshot = await getDocs(collection(getFirestore(), "users"))
+      const snapshot = await getDocs(collection(getFirestore(), "team"))
       setTeam(snapshot.docs.map((doc, idx) => {
         return doc.data()
       }))
@@ -39,10 +39,10 @@ const Team = () => {
       <Jumbotron title='Team' />
       <Container sx={{maxWidth: 1200, margin: "2rem auto"}}>
         <Grid container spacing={2}>
-          {!loading &&
+          {team &&
             team.map((member) => {
               return (
-                <Grid item xs={4} key={member.id}>
+                <Grid item xs={12} sm={6} key={member.id} md={4} >
                   <Card
                     sx={{
                       display: "flex",
@@ -56,7 +56,7 @@ const Team = () => {
                       height='100'
                       component='img'
                       sx={{width: "auto", borderRadius: "50%"}}
-                      image='https://picsum.photos/id/1005/200'
+                      image={member.photoUrl ? member.photoUrl : 'https://picsum.photos/id/1005/200'}
                     />
                     <CardContent sx={{flex: 1}}>
                       <Typography
@@ -67,9 +67,8 @@ const Team = () => {
                       </Typography>
                       <Typography
                         variant='span'
-                        color={theme.palette.accent.main}
                       >
-                        {/* {member.dateJoined} */}
+                        {member.dateJoined.toDate().getFullYear()}
                       </Typography>
                       <Grid container spacing={1}>
                         <Grid item>

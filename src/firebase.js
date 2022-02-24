@@ -1,13 +1,20 @@
 import {initializeApp} from 'firebase/app';
+import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import {getFirestore} from 'firebase/firestore';
+
 const app = initializeApp({
-  apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: "AIzaSyCqvF0Y-w4fTN32f-iOVzfSh6VVvfxJ-WA",
   authDomain: "vampire-research.firebaseapp.com",
   projectId: "vampire-research",
   storageBucket: "vampire-research.appspot.com",
   messagingSenderId: "444693724107",
-  appId: process.env.FIREBASE_APP_ID,
+  appId: "1:444693724107:web:f2eef9f917aa270381944e",
   measurementId: "G-L6P85RGSFE"
 });
 
+export {
+  getAuth, signInWithEmailAndPassword
+};
+
 export default getFirestore();
+

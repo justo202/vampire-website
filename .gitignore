@@ -25,3 +25,5 @@ library.bib
 # Local Netlify folder
 .netlify
 .env
+
+ui-debug.log
