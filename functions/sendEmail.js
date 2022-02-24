@@ -45,9 +45,9 @@ exports.handler =  async (event, context, callback)  => {
       console.log('Email sent: ' + info.response);
     }
   });
-
+  
     return callback(null, {
       statusCode: 200,
-      body: "done"
+      body: "success"
     })
   }
