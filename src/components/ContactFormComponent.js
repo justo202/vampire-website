@@ -1,5 +1,7 @@
-import {Button, Grid, TextField, Typography} from "@mui/material";
-import React, {Component} from "react";
+import { Button, Grid, TextField, Typography } from "@mui/material";
+import React, { Component } from "react";
+import axios from "axios";
+import ReCaptchaV2 from "react-google-recaptcha";
 
 const required = (val) => val && val.length;
 const minLength = (len, val) => val && val.length >= len;
@@ -18,6 +20,7 @@ class ContactForm extends Component {
       need: "",
       images: "",
       feedback: "",
+      token: null,
       errors: {
         name: "",
         email: "",
@@ -29,7 +32,6 @@ class ContactForm extends Component {
       },
     };
   }
-
   validate = (values = this.state) => {
     let error = { ...this.state.errors };
     if ("name" in values)
@@ -75,15 +77,68 @@ class ContactForm extends Component {
       return Object.values(error).every((item) => item === "");
   };
   handleSubmit = (e) => {
-    // e.preventDefault();
-    // if (this.validate()) alert("working");
+    const data = {
+      name: this.state.name,
+      email: this.state.email,
+      affiliation: this.state.affiliation,
+      description: this.state.description,
+      reason: this.state.need,
+      images: this.state.images,
+      feedback: this.state.feedback,
+    };
+    e.preventDefault();
+    axios({
+      method: "POST",
+      url: "/.netlify/functions/sendEmail",
+      data: data,
+    }).then((response) => {
+      if (response.data === "success") {
+        alert("Message Sent.");
+      } else if (response.data === "fail") {
+        alert("Message failed to send.");
+      }
+    });
+    this.resetForm();
   };
+  resetForm = () => {
+    this.setState({
+      email: "",
+      name: "",
+      affiliation: "",
+      description: "",
+      need: "",
+      images: "",
+      feedback: "",
+      token: null,
+      errors: {
+        name: "",
+        email: "",
+        affiliation: "",
+        description: "",
+        need: "",
+        images: "",
+        feedback: "",
+      },
+    });
+  };
+
   handleInputChange = (e) => {
     const { name, value } = e.target;
     this.setState({
       [name]: value,
     });
     this.validate({ [name]: value });
+  };
+
+  handleToken = (token) => {
+    this.setState((currentForm) => {
+      return { ...currentForm, token };
+    });
+  };
+  handleExpire = () => {
+    this.setState((currentForm) => {
+      return { ...currentForm, token: null };
+    });
   };
   render() {
     return (
@@ -101,7 +156,7 @@ class ContactForm extends Component {
           data-netlify-recaptcha="true"
           data-netlify="true"
           autoComplete="false"
-          onSubmit="submit"
+          onSubmit={(e) => this.handleSubmit(e)}
         >
           <Grid container spacing={1}>
             <Grid xs={12} sm={6} item>
@@ -219,7 +274,12 @@ class ContactForm extends Component {
               ></TextField>
             </Grid>
             <Grid xs={12} item>
-              <div data-netlify-recaptcha="true"></div>
+              <ReCaptchaV2
+                sitekey="6LfguJseAAAAAKWD94kvIrwRUFgzIx8uqKyIl5vd"
+                onChange={this.handleToken}
+                onExpired={this.handleExpire}
+              />{" "}
+              {/*REMEMBER TO REMOVE SITE KEY WHEN SITE ACTUALLY GOES LIVE*/}
             </Grid>
             <Grid xs={12} item>
               <Button type="submit" variant="contained" color="accent">
