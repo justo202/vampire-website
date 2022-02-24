@@ -87,6 +87,7 @@ class ContactForm extends Component {
         reason: this.state.need,
         images: this.state.images,
         feedback: this.state.feedback,
+        token: this.state.token
       };
       axios({
         method: "POST",
