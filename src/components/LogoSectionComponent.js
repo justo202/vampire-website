@@ -25,7 +25,7 @@ const Logos = () => {
 
         return(
 
-            <Grid key={image.key} item xs={6} md={6}>
+            <Grid key={image.key} item xs={6} md={3}>
              <a href={'https://mui.com/components/grid/'}> <img height={'150px'} width={'100%'} alt='logo' src={image.imageURL} />  </a>
             
             </Grid>
@@ -35,10 +35,10 @@ const Logos = () => {
 
     return(
 
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
             <Grid item xs={12}>
                 <Typography
-                variant='h3'>
+                variant='h4'>
                     Partners
                 </Typography>
             </Grid>
