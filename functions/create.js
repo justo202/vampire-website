@@ -1,7 +1,7 @@
 const {default: axios} = require('axios');
 const getUuidByString = require('uuid-by-string');
 const admin = require('../db/firebase-admin');
-
+const functions = require('firebase-functions');
 const firestore = admin.firestore();
 const bulkWriter = firestore.bulkWriter();
 
@@ -32,7 +32,7 @@ const ieeeXploreSearch = (author) => {
       articles: articles.filter(({authors: { authors }}) => authors.some(included))
     })
   }).catch(err => {
-    console.error(err);
+    // console.error(err);
   });
 }
 
@@ -65,7 +65,7 @@ const googleScholarSearch = async (author) => {
   const articleIds = await axios.get(idQuery).then(res => {
     return res.data.articles.map(ar => ar.citation_id);
   }).catch(err => {
-    console.error(err);
+    // console.error(err);
   });
 
   const query = `${options.urls.base}engine=${options.urls.author_engine}&api_key=${process.env.SERP_API_KEY}&author_id=${id}&citation_id=${articleIds[0]}&view_op=${options.operation}`
@@ -89,21 +89,13 @@ const googleScholarSearch = async (author) => {
 
 const parseString = (str) => str.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join("")
 
-exports.handler = async (event, context, callback) => {
+
+exports.update = functions.https.onRequest(async (req, res) => {
   let articlesAdded = 0;
-  const { collection, author } = JSON.parse(event.body);
+  const { collection, author } = JSON.parse(req.body);
   const {articles: ieeeArticles} = await ieeeXploreSearch(author);
   const scholRes = await googleScholarSearch(author);
   const pubMedRes = await pubMedSearch(author);
-
-  // return callback(null, {
-  //   statusCode: 200,
-  //   body: JSON.stringify({
-  //     sch: scholRes[0],
-  //     iee: ieeeArticles[0],
-  //     pub: Object.values(pubMedRes)[0],
-  //   })
-  // })
 
   for (let item in pubMedRes) {
     let ref = firestore.collection(collection).doc(getUuidByString(parseString(pubMedRes[item].title.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join(""))));
@@ -129,8 +121,7 @@ exports.handler = async (event, context, callback) => {
   // // an idea could be to create a node tree that links authors to publications?????????
 
   await bulkWriter.close();
-  return callback(null, {
-    statusCode: 200,
-    body: JSON.stringify({articlesAdded})
-  })
-}
+  res.json({msg: "Woohoo!"})
+});
+
+module.exports = { pubMedSearch, ieeeXploreSearch, googleScholarSearch, parseString}
