@@ -1,0 +1,70 @@
+[debug] [2022-02-26T16:33:30.519Z] ----------------------------------------------------------------------
+[debug] [2022-02-26T16:33:30.521Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2022-02-26T16:33:30.522Z] CLI Version:   10.2.1
+[debug] [2022-02-26T16:33:30.522Z] Platform:      win32
+[debug] [2022-02-26T16:33:30.522Z] Node Version:  v16.14.0
+[debug] [2022-02-26T16:33:30.522Z] Time:          Sat Feb 26 2022 16:33:30 GMT+0000 (Greenwich Mean Time)
+[debug] [2022-02-26T16:33:30.523Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-02-26T16:33:30.588Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-02-26T16:33:30.588Z] > authorizing via signed-in user (sewellrf@gmail.com)
+[debug] [2022-02-26T16:33:30.588Z] [iam] checking project vampire-research for permissions ["firebase.projects.get"]
+[debug] [2022-02-26T16:33:30.590Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/vampire-research:testIamPermissions [none]
+[debug] [2022-02-26T16:33:30.591Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/vampire-research:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-02-26T16:33:31.260Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/vampire-research:testIamPermissions 200
+[debug] [2022-02-26T16:33:31.261Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/vampire-research:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-02-26T16:33:31.262Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/vampire-research [none]
+[debug] [2022-02-26T16:33:31.497Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/vampire-research 200
+[debug] [2022-02-26T16:33:31.498Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/vampire-research {"projectId":"vampire-research","projectNumber":"444693724107","displayName":"VAMPIRE Research","name":"projects/vampire-research","resources":{"hostingSite":"vampire-research","storageBucket":"vampire-research.appspot.com","locationId":"europe-west"},"state":"ACTIVE"}
+[info] 
+[info] === Serving from 'C:\Users\Ramsay\Documents\Web\vampire-website'...
+[info] 
+[debug] [2022-02-26T16:33:31.500Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/vampire-research/sites 
+[info] +  functions: Using node@16 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Using node@16 from host."}}
+[debug] [2022-02-26T16:33:31.506Z] defaultcredentials: writing to file C:\Users\Ramsay\AppData\Roaming\firebase\sewellrf_gmail_com_application_default_credentials.json
+[debug] [2022-02-26T16:33:31.507Z] Setting GAC to C:\Users\Ramsay\AppData\Roaming\firebase\sewellrf_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\Ramsay\\AppData\\Roaming\\firebase\\sewellrf_gmail_com_application_default_credentials.json"}}
+[debug] [2022-02-26T16:33:31.507Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/vampire-research/adminSdkConfig [none]
+[debug] [2022-02-26T16:33:31.815Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/vampire-research/adminSdkConfig 200
+[debug] [2022-02-26T16:33:31.815Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/vampire-research/adminSdkConfig {"projectId":"vampire-research","storageBucket":"vampire-research.appspot.com","locationId":"europe-west"}
+[debug] [2022-02-26T16:33:32.241Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/vampire-research/sites 200
+[debug] [2022-02-26T16:33:32.241Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/vampire-research/sites {"sites":[{"name":"projects/444693724107/sites/vampire-research","defaultUrl":"https://vampire-research.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2022-02-26T16:33:32.241Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/vampire-research/webApps/-/config [none]
+[debug] [2022-02-26T16:33:32.930Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/vampire-research/webApps/-/config 200
+[debug] [2022-02-26T16:33:32.930Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/vampire-research/webApps/-/config {"projectId":"vampire-research","appId":"1:444693724107:web:f2eef9f917aa270381944e","storageBucket":"vampire-research.appspot.com","locationId":"europe-west","apiKey":"AIzaSyCqvF0Y-w4fTN32f-iOVzfSh6VVvfxJ-WA","authDomain":"vampire-research.firebaseapp.com","messagingSenderId":"444693724107","measurementId":"G-L6P85RGSFE"}
+[info] i  functions: Watching "C:\Users\Ramsay\Documents\Web\vampire-website\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\Ramsay\\Documents\\Web\\vampire-website\\functions\" for Cloud Functions..."}}
+[info] i  hosting: Serving hosting files from: build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mbuild\u001b[22m"}}
+[info] +  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[debug] [2022-02-26T16:33:32.946Z] Validating nodejs source
+[debug] [2022-02-26T16:33:33.819Z] checkFunctionsSDKVersion encountered error:Invalid Version:  {}
+[debug] [2022-02-26T16:33:33.820Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^9.8.0",
+    "firebase-functions": "^3.14.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-02-26T16:33:33.820Z] Building nodejs source
+[debug] [2022-02-26T16:33:33.820Z] Analyzing nodejs backend spec
+[info] +  functions[europe-west2-update]: http function initialized (http://localhost:5001/vampire-research/europe-west2/update). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5001/vampire-research/europe-west2/update)."}}
+[info] +  functions[europe-west2-create]: http function initialized (http://localhost:5001/vampire-research/europe-west2/create). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5001/vampire-research/europe-west2/create)."}}
+[info] i  hosting: 127.0.0.1 - - [26/Feb/2022:16:33:52 +0000] "GET / HTTP/1.1" 200 749 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [26/Feb/2022:16:33:52 +0000] \"GET / HTTP/1.1\" 200 749 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [26/Feb/2022:16:33:52 +0000] "GET /static/css/main.1ef3a49a.css HTTP/1.1" 200 1044 "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [26/Feb/2022:16:33:52 +0000] \"GET /static/css/main.1ef3a49a.css HTTP/1.1\" 200 1044 \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [26/Feb/2022:16:33:53 +0000] "GET /static/js/main.528e4787.js HTTP/1.1" 200 1244199 "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [26/Feb/2022:16:33:53 +0000] \"GET /static/js/main.528e4787.js HTTP/1.1\" 200 1244199 \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [26/Feb/2022:16:33:53 +0000] "GET /manifest.json HTTP/1.1" 200 517 "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [26/Feb/2022:16:33:53 +0000] \"GET /manifest.json HTTP/1.1\" 200 517 \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [26/Feb/2022:16:33:53 +0000] "GET /logo192.png HTTP/1.1" 200 5347 "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [26/Feb/2022:16:33:53 +0000] \"GET /logo192.png HTTP/1.1\" 200 5347 \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36\""}}

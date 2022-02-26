@@ -27,3 +27,9 @@ library.bib
 .env
 
 ui-debug.log
+
+.idea/
+
+.firebase/
+
+package-lock.json
