@@ -1,15 +1,11 @@
 const {default: axios} = require('axios');
 const getUuidByString = require('uuid-by-string');
 const functions = require("firebase-functions");
-const admin = require('../db/firebase-admin');
+const admin = require('firebase-admin');
 const {ieeeXploreSearch, googleScholarSearch, pubMedSearch, parseString} = require('./create');
+admin.initializeApp({}, "main");
 const firestore = admin.firestore();
 const bulkWriter = firestore.bulkWriter();
-const config = functions.config();
-
-for (const key in config.envs) {
-  process.env[key.toUpperCase()] = config.envs[key];
-}
 
 exports.update = functions.region("europe-west2").https.onRequest(async (req, res) => {
   const { data, collection, toDelete, id } = req.body;

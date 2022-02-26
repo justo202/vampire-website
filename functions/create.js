@@ -1,7 +1,8 @@
 const {default: axios} = require('axios');
 const getUuidByString = require('uuid-by-string');
-const admin = require('../db/firebase-admin');
+const admin = require('firebase-admin');
 const functions = require('firebase-functions');
+admin.initializeApp({}, "main");
 const firestore = admin.firestore();
 const bulkWriter = firestore.bulkWriter();
 
@@ -114,11 +115,6 @@ exports.update = functions.https.onRequest(async (req, res) => {
     bulkWriter.set(ref, article);
     articlesAdded++;
   });
-
-  // // TODO
-  // // loop through all fetched publications and add to firestore
-  // // return number of publications fetched
-  // // an idea could be to create a node tree that links authors to publications?????????
 
   await bulkWriter.close();
   res.json({msg: "Woohoo!"})
