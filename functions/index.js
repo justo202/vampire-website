@@ -2,8 +2,11 @@ const {default: axios} = require('axios');
 const getUuidByString = require('uuid-by-string');
 const functions = require("firebase-functions");
 const admin = require('firebase-admin');
+const tinify = require("tinify");
+const {auth} = require("google-auth-library");
+tinify.key = process.env.TINIFY_API_KEY;
 const {ieeeXploreSearch, googleScholarSearch, pubMedSearch, parseString} = require('./create');
-admin.initializeApp({}, "main");
+admin.initializeApp();
 const firestore = admin.firestore();
 const bulkWriter = firestore.bulkWriter();
 
@@ -25,7 +28,7 @@ exports.update = functions.region("europe-west2").https.onRequest(async (req, re
 });
 
 
-exports.create = functions.region("europe-west2").https.onRequest(async (req, res) => {
+exports.create = functions.region("europe-west2").https.onCall(async (req, res) => {
   let articlesAdded = 0;
   const { collection, author } = req.body;
   const {articles: ieeeArticles} = await ieeeXploreSearch(author);
@@ -52,4 +55,17 @@ exports.create = functions.region("europe-west2").https.onRequest(async (req, re
 
   await bulkWriter.close();
   res.json({articlesAdded, ieeeArticles, scholRes, pubMedRes})
+});
+
+exports.upload = functions.region("europe-west2").https.onCall(async (data, context) => {
+  const buff = Buffer.from(data.image, 'base64');
+
+  return tinify.fromBuffer(buff).store({
+    service: 'gcs',
+    gcp_access_token: process.env.GOOGLE_ACCESS_TOKEN,
+    headers: {
+      "Cache-Control": "public, max-age: 31536000"
+    },
+    path: `vampire-research.appspot.com/${data.path}`
+  });
 });

@@ -1,7 +1,7 @@
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Component } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { onAuthStateChanged, getAuth, signOut } from "../firebase";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
+import {Component} from "react";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {getAuth, onAuthStateChanged, signOut} from "../firebase";
 import ContactUs from "../pages/ContactUsPage";
 import ContentManagementSystem from "../pages/ContentManagementSystem";
 import Home from "../pages/HomePage";
@@ -62,8 +62,8 @@ class Main extends Component {
       }
     });
   }
-  
-  
+
+
   render() {
     return (
       <>
@@ -78,7 +78,6 @@ class Main extends Component {
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/cms" element={<ContentManagementSystem />} />
             </Routes>
-
             <Footer />
           </Router>
         </ThemeProvider>

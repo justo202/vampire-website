@@ -7,7 +7,6 @@ import {
   Grid,
   Typography
 } from "@mui/material";
-import {useTheme} from "@mui/styles";
 import {collection, getDocs, getFirestore} from "firebase/firestore";
 import {useEffect, useState} from "react";
 import Jumbotron from "../components/JumbotronComponent";
@@ -15,7 +14,6 @@ import Jumbotron from "../components/JumbotronComponent";
 const Team = () => {
   const [team, setTeam] = useState([]);
   const [loading, setLoading] = useState(true)
-  const theme = useTheme();
 
   useEffect(() => {
     async function getData() {
@@ -27,12 +25,6 @@ const Team = () => {
     }
     getData()
   }, [])
-
-  if (loading) {
-    return (
-      <h1>Loading...</h1>
-      )
-  }
 
   return (
     <>

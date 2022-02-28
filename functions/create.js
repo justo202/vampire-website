@@ -1,10 +1,5 @@
 const {default: axios} = require('axios');
 const getUuidByString = require('uuid-by-string');
-const admin = require('firebase-admin');
-const functions = require('firebase-functions');
-admin.initializeApp({}, "main");
-const firestore = admin.firestore();
-const bulkWriter = firestore.bulkWriter();
 
 const pubMedSearch = async (author) => {
   const firstname = author.name.split(" ")[0];
@@ -91,33 +86,33 @@ const googleScholarSearch = async (author) => {
 const parseString = (str) => str.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join("")
 
 
-exports.update = functions.https.onRequest(async (req, res) => {
-  let articlesAdded = 0;
-  const { collection, author } = JSON.parse(req.body);
-  const {articles: ieeeArticles} = await ieeeXploreSearch(author);
-  const scholRes = await googleScholarSearch(author);
-  const pubMedRes = await pubMedSearch(author);
+// exports.update = functions.https.onRequest(async (req, res) => {
+//   let articlesAdded = 0;
+//   const { collection, author } = JSON.parse(req.body);
+//   const {articles: ieeeArticles} = await ieeeXploreSearch(author);
+//   const scholRes = await googleScholarSearch(author);
+//   const pubMedRes = await pubMedSearch(author);
 
-  for (let item in pubMedRes) {
-    let ref = firestore.collection(collection).doc(getUuidByString(parseString(pubMedRes[item].title.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join(""))));
-    bulkWriter.set(ref, pubMedRes[item]);
-    articlesAdded++;
-  }
+//   for (let item in pubMedRes) {
+//     let ref = firestore.collection(collection).doc(getUuidByString(parseString(pubMedRes[item].title.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join(""))));
+//     bulkWriter.set(ref, pubMedRes[item]);
+//     articlesAdded++;
+//   }
 
-  scholRes.forEach(article => {
-    let ref = firestore.collection(collection).doc(getUuidByString(parseString(article.value.citation.title.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join(""))));
-    bulkWriter.set(ref, article.value.citation);
-    articlesAdded++;
-  });
+//   scholRes.forEach(article => {
+//     let ref = firestore.collection(collection).doc(getUuidByString(parseString(article.value.citation.title.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join(""))));
+//     bulkWriter.set(ref, article.value.citation);
+//     articlesAdded++;
+//   });
 
-  ieeeArticles.forEach(article => {
-    let ref = firestore.collection(collection).doc(getUuidByString(parseString(article.title.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join(""))));
-    bulkWriter.set(ref, article);
-    articlesAdded++;
-  });
+//   ieeeArticles.forEach(article => {
+//     let ref = firestore.collection(collection).doc(getUuidByString(parseString(article.title.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join(""))));
+//     bulkWriter.set(ref, article);
+//     articlesAdded++;
+//   });
 
-  await bulkWriter.close();
-  res.json({msg: "Woohoo!"})
-});
+//   await bulkWriter.close();
+//   res.json({msg: "Woohoo!"})
+// });
 
 module.exports = { pubMedSearch, ieeeXploreSearch, googleScholarSearch, parseString}
