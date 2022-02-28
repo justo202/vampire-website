@@ -6,4 +6,5 @@ const firebaseAdmin = admin.initializeApp({
   databaseURL: "https://vampire-project.firebaseio.co"
 });
 
-module.exports = firebaseAdmin;
+export {firebaseAdmin};
+
