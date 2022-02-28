@@ -1,64 +1,53 @@
-var nodemailer = require('nodemailer');
-var axios = require('axios')
+var axios = require("axios");
 
-var transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-      user: 'vampire.bot.donotreply@gmail.com',
-      pass: 'testbot85'
-    }
-  });
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY); //CHANGE API KEY LATER TO ENV aeshthg
 
-exports.handler =  async (event, context, callback)  => {
-  const {name, email, affiliation, description, reason, images, feedback, token  } = JSON.parse(event.body);
-  var success = 'fail'
+exports.handler = async (event, context, callback) => {
+  const {
+    name,
+    email,
+    affiliation,
+    description,
+    reason,
+    images,
+    feedback,
+    token,
+  } = JSON.parse(event.body);
+  var success = "fail";
 
-  const res = await axios.post(
-    `https://www.google.com/recaptcha/api/siteverify?secret=6LfguJseAAAAAK07hSjgWYeYZdATQ6GpEIawgM1x&response=${token}`  //change secret tokennnnn!!!
-  ).then((res) => {
-    
-    if(res.data.success) {
-
-      const message = `
-      <p>New contact request received</p>
-      <h5>Name</h5>
-      <p>${name}</p>
-      <h5>Email address</h5>
-      <p>${email}</p>
-      <h5>Please enter your Affiliation</h5>
-      <p>${affiliation}</p>
-      <h5>Describe your project</h5>
-      <p>${description}</p>
-      <h5>Why is VAMPIRE needed?</h5>
-      <p>${reason}</p>
-      <h5>How many images would you like to measure with VAMPIRE, and from how many patients?</h5>
-      <p>${images}</p>
-      <h5>How did you hear of VAMPIRE?</h5>
-      <p>${feedback}</p>
-    `
-  
-  
-      var mailOptions = {
-        from: 'vampire.bot.donotreply@gmail.com',
-        to: 'justaslabeikis23@gmail.com',
-        subject: 'New VAMPIRE contact request received!',
-        html: message
-      };
-      
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
+  const res = await axios
+    .post(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}` //change secret tokennnnn!!!
+    )
+    .then((res) => {
+      if (res.data.success) {
+        const msg = {
+          to: "justaslabeikis23@gmail.com", // Change to your recipient
+          from: "vampire.bot.donotreply@gmail.com", // Change to your verified sender
+          templateId: process.env.SENDGRID_TEMPLATE_ID,
+          dynamicTemplateData: {
+            name: name,
+            email: email,
+            affiliation: affiliation,
+            description: description,
+            reason: reason,
+            images: images,
+            feedback: feedback,
+          },
+        };
+        sgMail
+          .send(msg)
+          .then((response) => {})
+          .catch((error) => {
+            console.error(error);
+          });
+        success = "success";
       }
-    });  
-    success = 'success'
-    }
-    return callback(null, {
-      statusCode: 200,
-      body: success
-    })
-  });
 
-  }
-  
+      return callback(null, {
+        statusCode: 200,
+        body: success,
+      });
+    });
+};
