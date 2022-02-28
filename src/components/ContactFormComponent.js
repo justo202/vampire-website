@@ -145,6 +145,7 @@ class ContactForm extends Component {
     });
   };
   render() {
+    
     return (
       <>
         <Typography variant="h5" gutterBottom>
@@ -279,7 +280,7 @@ class ContactForm extends Component {
             </Grid>
             <Grid xs={12} item>
               <ReCaptchaV2 style={{ width: '100%',transform: 'scale(0.7)', transformOrigin: '0 0'}}
-                sitekey="6LfguJseAAAAAKWD94kvIrwRUFgzIx8uqKyIl5vd"
+                sitekey={"6LfguJseAAAAAKWD94kvIrwRUFgzIx8uqKyIl5vd"}
                 onChange={this.handleToken}
                 onExpired={this.handleExpire}
               />
