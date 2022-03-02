@@ -4,6 +4,7 @@ import Jumbotron from "../components/JumbotronComponent";
 import Logos from "../components/LogoSectionComponent";
 import NewsSection from "../components/NewsComponent";
 import Testimonials from "../components/TestimonialsComponent";
+import InteractiveMap from "../components/InteractiveMapComponent";
 
 const Home = () => {
   return (
@@ -24,6 +25,9 @@ const Home = () => {
       </Grid>
       <Grid item>
         <Logos />
+      </Grid>
+      <Grid item sx={{width: {xs: '100%', md: '70%'}}}>
+        <InteractiveMap />
       </Grid>
     </Grid>
   );
