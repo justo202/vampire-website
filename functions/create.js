@@ -1,5 +1,7 @@
 const {default: axios} = require('axios');
 const getUuidByString = require('uuid-by-string');
+const functions = require("firebase-functions");
+const {firestore, bulkWriter} = require(".");
 
 const pubMedSearch = async (author) => {
   const firstname = author.name.split(" ")[0];
@@ -28,7 +30,7 @@ const ieeeXploreSearch = (author) => {
       articles: articles.filter(({authors: { authors }}) => authors.some(included))
     })
   }).catch(err => {
-    // console.error(err);
+    console.error(err);
   });
 }
 
@@ -61,17 +63,10 @@ const googleScholarSearch = async (author) => {
   const articleIds = await axios.get(idQuery).then(res => {
     return res.data.articles.map(ar => ar.citation_id);
   }).catch(err => {
-    // console.error(err);
+    console.error(err);
   });
 
   const query = `${options.urls.base}engine=${options.urls.author_engine}&api_key=${process.env.SERP_API_KEY}&author_id=${id}&citation_id=${articleIds[0]}&view_op=${options.operation}`
-
-
-  // const citations = await axios.get(query).then(res => {
-  //   console.log(res.data.citation);
-  // }).catch(err => {
-  //   console.error(err);
-  // })
 
   const citations = await Promise.allSettled(articleIds.map(id =>
     axios.get(`${options.urls.base}engine=${options.urls.author_engine}&api_key=${process.env.SERP_API_KEY}&author_id=${id}&citation_id=${id}&view_op=${options.operation}`)
@@ -86,33 +81,31 @@ const googleScholarSearch = async (author) => {
 const parseString = (str) => str.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join("")
 
 
-// exports.update = functions.https.onRequest(async (req, res) => {
-//   let articlesAdded = 0;
-//   const { collection, author } = JSON.parse(req.body);
-//   const {articles: ieeeArticles} = await ieeeXploreSearch(author);
-//   const scholRes = await googleScholarSearch(author);
-//   const pubMedRes = await pubMedSearch(author);
+exports.create = functions.region("europe-west2").https.onCall(async (req, res) => {
+  let articlesAdded = 0;
+  const { collection, author } = req.body;
+  const {articles: ieeeArticles} = await ieeeXploreSearch(author);
+  const scholRes = await googleScholarSearch(author);
+  const pubMedRes = await pubMedSearch(author);
 
-//   for (let item in pubMedRes) {
-//     let ref = firestore.collection(collection).doc(getUuidByString(parseString(pubMedRes[item].title.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join(""))));
-//     bulkWriter.set(ref, pubMedRes[item]);
-//     articlesAdded++;
-//   }
+  for (let item in pubMedRes) {
+    let ref = firestore.collection(collection).doc(getUuidByString(parseString(pubMedRes[item].title.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join(""))));
+    bulkWriter.set(ref, pubMedRes[item]);
+    articlesAdded++;
+  }
 
-//   scholRes.forEach(article => {
-//     let ref = firestore.collection(collection).doc(getUuidByString(parseString(article.value.citation.title.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join(""))));
-//     bulkWriter.set(ref, article.value.citation);
-//     articlesAdded++;
-//   });
+  scholRes.forEach(article => {
+    let ref = firestore.collection(collection).doc(getUuidByString(parseString(article.value.citation.title.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join(""))));
+    bulkWriter.set(ref, article.value.citation);
+    articlesAdded++;
+  });
 
-//   ieeeArticles.forEach(article => {
-//     let ref = firestore.collection(collection).doc(getUuidByString(parseString(article.title.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join(""))));
-//     bulkWriter.set(ref, article);
-//     articlesAdded++;
-//   });
+  ieeeArticles.forEach(article => {
+    let ref = firestore.collection(collection).doc(getUuidByString(parseString(article.title.match(/[\p{Letter}\p{Mark}\s]+/gu)[0].split(" ").join(""))));
+    bulkWriter.set(ref, article);
+    articlesAdded++;
+  });
 
-//   await bulkWriter.close();
-//   res.json({msg: "Woohoo!"})
-// });
-
-module.exports = { pubMedSearch, ieeeXploreSearch, googleScholarSearch, parseString}
+  await bulkWriter.close();
+  res.json({articlesAdded, ieeeArticles, scholRes, pubMedRes})
+});
