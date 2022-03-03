@@ -1,7 +1,7 @@
 const functions = require("firebase-functions");
 
-exports.get_token = functions.region("europe-west2").https.onRequest(async (req, res) => {
-  const { name } = req.query;
+exports.get_token = functions.region("europe-west2").https.onCall((data, context) => {
+  const { name } = data;
 
-  res.send(process.env[name]);
+  return {result: process.env[name]};
 })

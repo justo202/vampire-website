@@ -13,7 +13,7 @@ const app = initializeApp({
 });
 
 export {
-  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, app
 };
 
 export default getFirestore();
