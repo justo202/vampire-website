@@ -13,8 +13,10 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-
-
+import {getFunctions, httpsCallable} from "firebase/functions";
+import {app} from "../firebase";
+const functions = getFunctions(app, "europe-west2");
+const get_token = httpsCallable(functions, "get_token")
 const LOCATION_INFO = [
   {
     latitude: 55.953252,
@@ -125,6 +127,9 @@ const RenderMobileBar = (props) => {
 };
 
 function InteractiveMap(props) {
+
+  const [key, setKey] = useState(null)
+  
   const [anchorEl, setAnchorEl] = useState(null);
   const [popoverText, setpopoverText] = useState(null);
 
@@ -146,8 +151,13 @@ function InteractiveMap(props) {
     attributionControl: false,
   });
   const [selected, setSelected] = useState(null);
+ 
+  useEffect(() => get_token({name: 'REACT_APP_MAPBOX_TOKEN'}).then(result =>  setKey(result.data.result)))
 
-  return (
+   if(key != null)
+   {
+return (
+    
     <Grid container columnSpacing={1}>
       <Grid item xs={12} sm={3}>
         <RenderButtonGrid
@@ -168,7 +178,7 @@ function InteractiveMap(props) {
           style={{ width: "100%", height: 600 }}
           mapStyle="mapbox://styles/mapbox/light-v10"
           onViewportChange={(move) => setViewPort(move)}
-          mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+          mapboxAccessToken={key}
         >
           {LOCATION_INFO.map((colaborator) => (
             <Marker
@@ -179,7 +189,6 @@ function InteractiveMap(props) {
             >
               <IconButton
                 onClick={() => {
-                  console.log(mapRef.current);
                   setSelected(colaborator);
                 }}
                 color="accent"
@@ -242,6 +251,11 @@ function InteractiveMap(props) {
       </Grid>
     </Grid>
   );
+          }
+          else {
+            return(<p>Loading map...</p>)
+          }
+
 }
 
 export default InteractiveMap;
