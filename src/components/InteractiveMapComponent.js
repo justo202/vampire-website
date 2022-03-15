@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import Map, { Marker, Popup } from "!react-map-gl";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -16,6 +14,10 @@ import {
 } from "@mui/material";
 import {getFunctions, httpsCallable} from "firebase/functions";
 import {app} from "../firebase";
+
+
+import Map, { Marker, Popup } from "react-map-gl";
+
 const functions = getFunctions(app, "europe-west2");
 const get_token = httpsCallable(functions, "get_token")
 const LOCATION_INFO = [
