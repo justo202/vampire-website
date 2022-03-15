@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Map, { Marker, Popup } from "react-map-gl";
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import Map, { Marker, Popup } from "!react-map-gl";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MenuIcon from "@mui/icons-material/Menu";
-import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+
 import {
   IconButton,
   Typography,
