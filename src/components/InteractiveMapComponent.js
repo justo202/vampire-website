@@ -16,9 +16,6 @@ import {
 } from "@mui/material";
 import {getFunctions, httpsCallable} from "firebase/functions";
 import {app} from "../firebase";
-import mapboxgl from 'mapbox-gl';
-// eslint-disable-next-line import/no-webpack-loader-syntax
-mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 const functions = getFunctions(app, "europe-west2");
 const get_token = httpsCallable(functions, "get_token")
 const LOCATION_INFO = [
