@@ -15,7 +15,7 @@ import {
 import {getFunctions, httpsCallable} from "firebase/functions";
 import {app} from "../firebase";
 
-
+import 'mapbox-gl/dist/mapbox-gl.css';
 import Map, { Marker, Popup } from "react-map-gl";
 
 const functions = getFunctions(app, "europe-west2");
@@ -182,6 +182,9 @@ return (
           mapStyle="mapbox://styles/mapbox/light-v10"
           onViewportChange={(move) => setViewPort(move)}
           mapboxAccessToken={key}
+         
+         
+          
         >
           {LOCATION_INFO.map((colaborator) => (
             <Marker

@@ -6,10 +6,9 @@
     "public": "build",
     "ignore": [
       "firebase.json",
-      "./node_modules/react-map-gl/dist/esm/index",
-      "./node_modules/mapbox-gl/dist/mapbox-gl.js",
       "**/.*",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "./node_modules/mapbox-gl/dist/mapbox-gl.js'"
     ],
     "rewrites": [
       {
