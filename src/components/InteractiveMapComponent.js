@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -15,8 +16,11 @@ import {
 import {getFunctions, httpsCallable} from "firebase/functions";
 import {app} from "../firebase";
 
-import 'mapbox-gl/dist/mapbox-gl.css';
-import Map, { Marker, Popup } from "react-map-gl";
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import mapboxgl from '!mapbox-gl';
+
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import Map, { Marker, Popup } from "!react-map-gl";
 
 const functions = getFunctions(app, "europe-west2");
 const get_token = httpsCallable(functions, "get_token")
