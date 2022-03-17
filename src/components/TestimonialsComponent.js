@@ -1,14 +1,13 @@
 import React from "react";
 import Carousel from "react-material-ui-carousel";
-import { Typography, Card, CardContent } from "@mui/material";
+import { Typography, Card, CardContent, Grid, CardMedia } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles(() => {
   return {
     slides: {
-      width: "350px",
-
-      height: "300px",
+      height: '100%',
+      width: '600px',
     },
     slide: {
       height: "300px",
@@ -35,7 +34,48 @@ const Testimonial = (props) => {
     </Card>
   );
 };
+const TestimonialContainer = (props) => {
 
+  return (
+    <Card sx={{height: '200px', position: 'relative'}}>
+    <Grid container spacing={0} sx={{height: '400px', position: 'relative'}}>
+        <Grid xs={4} item sx={{height: '100%', position: 'relative'}}>
+        <CardMedia
+                    sx={{width: '200px', height: '100%', overflow: 'hidden',position: 'relative'}}
+                    image={"https://picsum.photos/200"}
+                    title={'hello'}
+                >
+                    <Typography sx={{textOverflow: 'ellipsis', position: 'abosolute', bottom: 0, padding: '15px', width: '100%'}}>
+                        {'name'}
+                    </Typography>
+                </CardMedia>
+        </Grid>
+        <Grid xs={4} item sx={{height: '100%', position: 'relative'}}>
+        <CardMedia
+                    sx={{height: '100%', overflow: 'hidden',position: 'relative'}}
+                    image={"https://picsum.photos/200"}
+                    title={'hello'}
+                >
+                    <Typography sx={{textOverflow: 'ellipsis', position: 'abosolute', bottom: 0, padding: '15px', width: '100%'}}>
+                        {'name'}
+                    </Typography>
+                </CardMedia>
+</Grid>
+<Grid xs={4} item sx={{height: '100%', position: 'relative'}}>
+<CardMedia
+                   sx={{height: '100%', overflow: 'hidden',position: 'relative'}}
+                    image={"https://picsum.photos/200"}
+                    title={'hello'}
+                >
+                    <Typography sx={{textOverflow: 'ellipsis', position: 'abosolute', bottom: 0, padding: '15px', width: '100%'}}>
+                        {'name'}
+                    </Typography>
+                </CardMedia>
+</Grid>
+    </Grid>
+    </Card>
+  )
+}
 const Testimonials = () => {
   const styles = useStyles();
   const testimonialInfo = [
@@ -66,6 +106,15 @@ const Testimonials = () => {
 
   return (
     <Carousel className={styles.slides}>
+      <TestimonialContainer />
+      <TestimonialContainer />
+      <TestimonialContainer />
+      <TestimonialContainer />
+    </Carousel>
+  )
+/*
+  return (
+    <Carousel className={styles.slides}>
       {testimonialInfo.map((testimonial) => (
         <Testimonial
           key={testimonial.idd}
@@ -75,6 +124,7 @@ const Testimonials = () => {
       ))}
     </Carousel>
   );
+  */
 };
 
 export default Testimonials;
