@@ -9,7 +9,7 @@ import {
   MenuItem,
   Modal,
   Toolbar,
-  Typography
+  Typography,
 } from "@mui/material";
 import { makeStyles, useTheme } from "@mui/styles";
 import React, { useState } from "react";
@@ -26,64 +26,63 @@ const useStyles = makeStyles((theme) => {
       textDecoration: "none",
       textTransform: "none",
       color: "inherit",
-      '&:hover': {
-        color: theme.palette.accent.main
-    }
+      "&:hover": {
+        color: theme.palette.accent.main,
+      },
     },
   };
 });
 
-const AccountButton = ({isLogged, logout, openModal}) => {
-  if(!isLogged)
-  return (
-    <Button
-    type="outlined"
-    sx={{
-      color: "accent.contrastText",
-      backgroundColor: "accent.main",
-      "&:hover": {
-        backgroundColor: "lightBackground.main",
-        color: "accent.main",
-      },
-      my: 2,
-      display: "flex",
-    }}
-    endIcon={<ArrowRightOutlinedIcon />}
-    onClick={openModal}
-  >
-      <Typography textAlign={"center"} variant="h6">
-        Login
-      </Typography>
-  </Button>
-  )
+const AccountButton = ({ isLogged, logout, openModal }) => {
+  if (!isLogged)
+    return (
+      <Button
+        type="outlined"
+        sx={{
+          color: "accent.contrastText",
+          backgroundColor: "accent.main",
+          "&:hover": {
+            backgroundColor: "lightBlack.main",
+            color: "accent.main",
+          },
+          my: 2,
+          display: "flex",
+        }}
+        endIcon={<ArrowRightOutlinedIcon />}
+        onClick={openModal}
+      >
+        <Typography textAlign={"center"} variant="h6">
+          Login
+        </Typography>
+      </Button>
+    );
   else
-  return (
-    <Button
-    type="outlined"
-    sx={{
-      color: "accent.contrastText",
-      backgroundColor: "accent.main",
-      "&:hover": {
-        backgroundColor: "lightBackground.main",
-        color: "accent.main",
-      },
-      my: 2,
-      display: "flex",
-    }}
-    endIcon={<ArrowRightOutlinedIcon />}
-    onClick={logout}
-  >
-      <Typography textAlign={"center"} variant="h6">
-        Log out
-      </Typography>
-   
-  </Button>
-  )
-}
+    return (
+      <Button
+        type="outlined"
+        sx={{
+          color: "accent.contrastText",
+          backgroundColor: "accent.main",
+          "&:hover": {
+            backgroundColor: "lightBackground.main",
+            color: "accent.main",
+          },
+          my: 2,
+          display: "flex",
+        }}
+        endIcon={<ArrowRightOutlinedIcon />}
+        onClick={logout}
+      >
+        <Typography textAlign={"center"} variant="h6">
+          Log out
+        </Typography>
+      </Button>
+    );
+};
 
 const Navbar = (props) => {
   const { isLogged, signUserOut } = props;
-  const theme = useTheme()
+  const theme = useTheme();
   const styles = useStyles(theme);
 
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -93,7 +92,6 @@ const Navbar = (props) => {
   const handleClose = () => setOpen(false);
 
   const pages = [
-  
     {
       name: "Publications",
       url: "/publications",
@@ -130,10 +128,13 @@ const Navbar = (props) => {
               noWrap
               sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
             >
-              <Link to={'/'}>
-              LOGO
+              <Link to={"/"}>
+                <img
+                  alt="logo"
+                  width={"130px"}
+                  src="./images/vampire_logo.png"
+                />
               </Link>
-              
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
@@ -142,7 +143,7 @@ const Navbar = (props) => {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
-                color="inherit"
+                color="accent"
               >
                 <MenuIcon />
               </IconButton>
@@ -182,32 +183,46 @@ const Navbar = (props) => {
               noWrap
               sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
             >
-              <Link to={'/'}>
-              LOGO
+              <Link to={"/"}>
+                <img
+                  alt="logo"
+                  width={"130px"}
+                  src="./images/vampire_logo.png"
+                />
               </Link>
-              
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page, idx) => (
-             
-                    <Typography  sx={{ m: 1, display: "block" }} key={idx} color="white"variant="h6"> <Link className={styles.navLinks} to={page.url}>{page.name}</Link></Typography>
-             
+                <Typography
+                  sx={{ m: 1, display: "block" }}
+                  key={idx}
+                  color="white"
+                  variant="h6"
+                >
+                  {" "}
+                  <Link className={styles.navLinks} to={page.url}>
+                    {page.name}
+                  </Link>
+                </Typography>
               ))}
             </Box>
-           <AccountButton isLogged={isLogged} logout={signUserOut} openModal={handleOpen}/>
+            <AccountButton
+              isLogged={isLogged}
+              logout={signUserOut}
+              openModal={handleOpen}
+            />
           </Toolbar>
         </Container>
       </AppBar>
       <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="Login"
-      aria-describedby="Login form"
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="Login"
+        aria-describedby="Login form"
       >
-        <Box >
-        <LoginForm closeForm={handleClose}/>
+        <Box>
+          <LoginForm closeForm={handleClose} />
         </Box>
-        
       </Modal>
       <div className={styles.toolbarHeigh}></div>
     </>
