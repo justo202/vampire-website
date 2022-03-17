@@ -11,13 +11,13 @@ import {
   Toolbar,
   Typography
 } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { makeStyles, useTheme } from "@mui/styles";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ArrowRightOutlinedIcon from "@mui/icons-material/ArrowRightOutlined";
 import LoginForm from "./LoginForm";
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme) => {
   return {
     toolbarHeigh: {
       padding: "35px",
@@ -26,6 +26,9 @@ const useStyles = makeStyles(() => {
       textDecoration: "none",
       textTransform: "none",
       color: "inherit",
+      '&:hover': {
+        color: theme.palette.accent.main
+    }
     },
   };
 });
@@ -80,7 +83,8 @@ const AccountButton = ({isLogged, logout, openModal}) => {
 
 const Navbar = (props) => {
   const { isLogged, signUserOut } = props;
-  const styles = useStyles();
+  const theme = useTheme()
+  const styles = useStyles(theme);
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -89,10 +93,7 @@ const Navbar = (props) => {
   const handleClose = () => setOpen(false);
 
   const pages = [
-    {
-      name: "Home",
-      url: "/",
-    },
+  
     {
       name: "Publications",
       url: "/publications",
@@ -121,7 +122,7 @@ const Navbar = (props) => {
 
   return (
     <>
-      <AppBar color="lightBackground">
+      <AppBar color="lightBlack">
         <Container>
           <Toolbar disableGutters>
             <Typography
@@ -129,7 +130,10 @@ const Navbar = (props) => {
               noWrap
               sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
             >
+              <Link to={'/'}>
               LOGO
+              </Link>
+              
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
@@ -178,19 +182,16 @@ const Navbar = (props) => {
               noWrap
               sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
             >
+              <Link to={'/'}>
               LOGO
+              </Link>
+              
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page, idx) => (
-                <Button
-                  color="accent"
-                  key={idx}
-                  sx={{ my: 2, display: "block" }}
-                >
-                  <Link className={styles.navLinks} to={page.url}>
-                    <Typography variant="h6">{page.name}</Typography>
-                  </Link>
-                </Button>
+             
+                    <Typography  sx={{ m: 1, display: "block" }} key={idx} color="white"variant="h6"> <Link className={styles.navLinks} to={page.url}>{page.name}</Link></Typography>
+             
               ))}
             </Box>
            <AccountButton isLogged={isLogged} logout={signUserOut} openModal={handleOpen}/>

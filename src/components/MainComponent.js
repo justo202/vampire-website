@@ -13,6 +13,9 @@ import Navbar from "./NavbarComponent";
 
 const customTheme = createTheme({
   palette: {
+    background: {
+      default: "#FFFCF2"
+    },
     lightBackground: {
       main: "#FFFCF2",
     },
