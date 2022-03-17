@@ -98,7 +98,7 @@ const RenderMobileBar = (props) => {
   return (
     <Box
       sx={{
-        backgroundColor: "accent.main",
+        backgroundColor: "lightBlack.main",
         display: { xs: "block", sm: "none" },
       }}
     >
@@ -107,6 +107,7 @@ const RenderMobileBar = (props) => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        color="accent"
       >
         <MenuIcon />
       </IconButton>
