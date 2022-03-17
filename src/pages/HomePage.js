@@ -5,6 +5,7 @@ import Logos from "../components/LogoSectionComponent";
 import NewsSection from "../components/NewsComponent";
 import Testimonials from "../components/TestimonialsComponent";
 import InteractiveMap from "../components/InteractiveMapComponent";
+import YoutubeEmbed from "../components/youtubeVideoComponent";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
           subtitle='This is not a research group about vampires'
           button='Read More'
           buttonLink='/publications'
+          isHomePage
         />
       </Grid>
       <Grid item>
