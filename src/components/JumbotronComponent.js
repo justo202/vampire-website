@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => {
     jumbotron: {
       width: "100%",
       backgroundColor: theme.palette.darkBackground.main,
-      height: "300px",
+      height: "100%",
       display: "flex",
     },
     navLinks: {
@@ -56,25 +56,20 @@ const Jumbotron = ({
     );
   else
     return (
-      <div style={{ height: "400px" }} className={styles.jumbotron}>
+      <div  className={styles.jumbotron}>
         <Grid
-          xs={{ height: "100%" }}
+          sx={{ margin: {md: 'auto', xs: '20px auto'}, width: {xs: '100%', md: '70%'},height: "100%" }}
           container
-          direction={"column"}
           alignItems={"center"}
+          spacing={0}
         >
           <Grid
             item
-            sx={{
-              width: "60%",
-              height: "100%",
-              display: "inline-flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
+            xs={12}
+            md={6}
           >
             <Box
-              width={"55%"}
+              width={"100%"}
               sx={{
                 alignSelf: "center",
                 display: "flex",
@@ -100,17 +95,24 @@ const Jumbotron = ({
                   alt="logo"
                   style={{
                     maxHeight: "20%",
-                    width: "60%",
+                    width: "50%",
                     alignSelf: "center",
                   }}
                   src="./images/vampire_logo.png"
                 />
               </Box>
             </Box>
-            <Box width={"43%"} height={"95%"} xs={{ alignSelf: "center" }}>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={6}
+            
+          >
+          <Box sx={{ width: '100%', height: '350px', alignSelf: "center" }}>
               <YoutubeEmbed embedId={"Zm5WwuYcUwE"} />
             </Box>
-          </Grid>
+            </Grid>
         </Grid>
       </div>
     );

@@ -32,7 +32,7 @@ const customTheme = createTheme({
       main: "#FF8040",
       contrastText: "#fff",
     },
-  },
+  }
 });
 class Main extends Component {
   constructor(props) {

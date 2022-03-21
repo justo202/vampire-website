@@ -167,7 +167,7 @@ function InteractiveMap(props) {
 return (
     
     <Grid container columnSpacing={1}>
-      <Grid item xs={12} sm={3}>
+      <Grid item xs={12} sm={3} height="100%">
         <RenderButtonGrid
           organisations={LOCATION_INFO}
           mapRef={mapRef}
@@ -178,6 +178,9 @@ return (
           mapRef={mapRef}
           setViewPort={() => setViewPort()}
         />
+        <Typography  sx={{display: { xs: "none", sm: "block" } }} variant="p" margin={'auto'}>
+        Some information about the colaborator map.
+        </Typography>
       </Grid>
       <Grid item xs={12} sm={9}>
         <Map
@@ -187,9 +190,6 @@ return (
           mapStyle="mapbox://styles/mapbox/light-v10"
           onViewportChange={(move) => setViewPort(move)}
           mapboxAccessToken={key}
-         
-         
-          
         >
           {LOCATION_INFO.map((colaborator) => (
             <Marker
@@ -260,6 +260,9 @@ return (
           </Popover>
         </Map>
       </Grid>
+      <Typography  sx={{display: { xs: "block", sm: "none" } }} variant="p" margin={'auto'}>
+        Some information about the colaborator map.
+        </Typography>
     </Grid>
   );
           }
