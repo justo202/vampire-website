@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => {
       height: "100%",
       width: "100vw",
       [theme.breakpoints.up("md")]: {
-        width: "800px",
+        width: "100%",
       },
     },
     slide: {

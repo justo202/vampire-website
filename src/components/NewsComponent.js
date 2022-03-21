@@ -4,7 +4,7 @@ import { Card, CardMedia, CardContent, CardActions, Typography, Button, Grid } f
 const NewsItem = (props) => {
     return (
         <Grid item xs={12} sm={4}>
-            <Card sx={{ width: {xs: '100%', md: '300px'}}}>
+            <Card sx={{width: '100%'}}>
             <CardMedia
                 component="img"
                 height="140"

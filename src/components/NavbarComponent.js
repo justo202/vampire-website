@@ -42,7 +42,7 @@ const AccountButton = ({ isLogged, logout, openModal }) => {
           color: "accent.contrastText",
           backgroundColor: "accent.main",
           "&:hover": {
-            backgroundColor: "lightBlack.main",
+            backgroundColor: "lightBackground.main",
             color: "accent.main",
           },
           my: 2,
@@ -120,7 +120,7 @@ const Navbar = (props) => {
 
   return (
     <>
-      <AppBar color="lightBlack">
+      <AppBar color="lightBackground">
         <Container>
           <Toolbar disableGutters>
             <Typography
@@ -196,7 +196,7 @@ const Navbar = (props) => {
                 <Typography
                   sx={{ m: 1, display: "block" }}
                   key={idx}
-                  color="white"
+                  color="black.main"
                   variant="h6"
                 >
                   {" "}
