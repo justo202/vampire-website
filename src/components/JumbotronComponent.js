@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => {
       width: "100%",
       backgroundColor: theme.palette.darkBackground.main,
       height: "100%",
+      minHeight: '300px',
       display: "flex",
     },
     navLinks: {
