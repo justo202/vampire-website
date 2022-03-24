@@ -1,8 +1,10 @@
-import React from "react";
+import {Container} from "@mui/material";
 
 export const ProjectsEdit = () => {
   return (
-    <h1>ProjectsEdit</h1>
+    <Container>
+
+    </Container>
   )
 }
 
