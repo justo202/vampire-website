@@ -8,14 +8,22 @@ import {
   Typography
 } from "@mui/material";
 import {collection, getDocs, getFirestore} from "firebase/firestore";
+import {connectFunctionsEmulator, getFunctions, httpsCallable} from "firebase/functions";
 import {useEffect, useState} from "react";
 import Jumbotron from "../components/JumbotronComponent";
+import {app} from "../firebase";
 
 const Team = () => {
   const [team, setTeam] = useState([]);
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    const functions = getFunctions(app, "europe-west2");
+    connectFunctionsEmulator(functions, "localhost", 5000);
+    const get_token = httpsCallable(functions, "get_token");
+    get_token({name: "REACT_APP_MAPBOX_TOKEN"}).then(res => {
+      console.log(res);
+    })
     async function getData() {
       const snapshot = await getDocs(collection(getFirestore(), "team"))
       setTeam(snapshot.docs.map((doc, idx) => {
@@ -34,43 +42,39 @@ const Team = () => {
           {team &&
             team.map((member) => {
               return (
-                <Grid item xs={12} sm={6} key={member.id} md={4} >
+                <Grid item xs={12} sm={6} key={member.id} md={4} sx={{display:"flex"}}>
                   <Card
                     sx={{
                       display: "flex",
                       flexDirection: "row",
-                      alignItems: "center",
+                      alignItems: "flex-start",
                       justifyContent: "flex-start",
                       padding: "1rem",
+                      flexGrow: "1"
                     }}
                   >
                     <CardMedia
-                      height='100'
+                      height="70"
                       component='img'
-                      sx={{width: "auto", borderRadius: "50%"}}
+                      sx={{alignSelf: "center", objectFit: "cover", width: "auto", borderRadius: "1rem"}}
                       image={member.photoUrl ? member.photoUrl : 'https://picsum.photos/id/1005/200'}
                     />
-                    <CardContent sx={{flex: 1}}>
+                    <CardContent sx={{flex: 1, position: "relative", padding: "0 0 0 1rem", paddingBottom: "0 !important"}}>
                       <Typography
-                        variant='h6'
-                        sx={{display: "inline-block", marginRight: "1rem"}}
+                        variant='span'
+                        sx={{display: "inline-block",fontSize: "1.2rem", marginBottom: "1rem", marginTop: "0.2rem"}}
                       >
                         {member.name}
                       </Typography>
-                      <Typography
-                        variant='span'
-                      >
-                        {member.dateJoined.toDate().getFullYear()}
-                      </Typography>
-                      <Grid container spacing={1}>
-                        <Grid item>
-                          <Link></Link>
+                      <Grid container spacing={0} sx={{fontSize: "1.2rem"}}>
+                        <Grid item  sx={{ padding: "5px"}}>
+                          <Link sx={{fontSize: "inherit"}}></Link>
                         </Grid>
-                        <Grid item>
-                          <Book></Book>
+                        <Grid item sx={{ padding: "5px"}}>
+                          <Book sx={{fontSize: "inherit"}}></Book>
                         </Grid>
-                        <Grid item>
-                          <School></School>
+                        <Grid item  sx={{padding: "5px"}}>
+                          <School sx={{fontSize: "inherit "}}></School>
                         </Grid>
                       </Grid>
                     </CardContent>

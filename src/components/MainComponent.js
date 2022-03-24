@@ -8,8 +8,10 @@ import Home from "../pages/HomePage";
 import Publications from "../pages/PublicationsPage";
 import Research from "../pages/Research";
 import Team from "../pages/TeamPage";
+import EditList from "./EditList";
 import Footer from "./Footer";
 import Navbar from "./NavbarComponent";
+import NavigationList from "./NavigationList";
 
 const customTheme = createTheme({
   palette: {
@@ -79,6 +81,8 @@ class Main extends Component {
               <Route path="/team" element={<Team />} />
               <Route path="/research" element={<Research />} />
               <Route path="/contact" element={<ContactUs />} />
+              <Route path="/cms/:type/:id" element={<EditList />} />
+              <Route path="/cms/:type" element={<NavigationList />} />
               <Route path="/cms" element={<ContentManagementSystem />} />
             </Routes>
             <Footer />
