@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => {
       textDecoration: "none",
       textTransform: "none",
       color: "inherit",
+      fontSize: '1.2rem'
     },
   };
 });
@@ -59,7 +60,7 @@ const Jumbotron = ({
     return (
       <div  className={styles.jumbotron}>
         <Grid
-          sx={{ margin: {md: 'auto', xs: '20px auto'}, width: {xs: '100%', md: '70%'},height: "100%" }}
+          sx={{ margin: {md: 'auto', xs: '20px auto'}, maxWidth: '1100px', width: {xs: '100%', md: '70%'},height: "100%" }}
           container
           alignItems={"center"}
           spacing={0}
@@ -78,19 +79,6 @@ const Jumbotron = ({
                 alignItems: "center",
               }}
             >
-              <Typography variant="h4" align="left">
-                {title}
-              </Typography>
-              <Typography variant="h6" align="justify">
-                {subtitle}
-              </Typography>
-              {button && (
-                <Button variant="contained" color="accent">
-                  <Link className={styles.navLinks} to={buttonLink}>
-                    {button}
-                  </Link>
-                </Button>
-              )}
               <Box justifyContent={"center"} display={"flex"}>
                 <img
                   alt="logo"
@@ -102,6 +90,17 @@ const Jumbotron = ({
                   src="./images/vampire_logo.png"
                 />
               </Box>
+              <Typography my={2}variant="h6" align="justify">
+                {subtitle}
+              </Typography>
+              {button && (
+                <Button variant="outlined" color="accent">
+                  <Link className={styles.navLinks} to={buttonLink}>
+                    {button}
+                  </Link>
+                </Button>
+              )}
+
             </Box>
           </Grid>
           <Grid
