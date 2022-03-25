@@ -17,7 +17,7 @@ const Home = () => {
         isHomePage
       />
       <Grid
-        sx={{ margin: "auto", width: { xs: "100%", md: "70%" } }}
+        sx={{ margin: "auto", maxWidth: '1100px', width: { xs: "100%", md: "70%" } }}
         container
         direction={"column"}
         alignItems={"center"}
