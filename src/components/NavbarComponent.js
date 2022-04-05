@@ -23,9 +23,11 @@ const useStyles = makeStyles((theme) => {
       padding: "35px",
     },
     navLinks: {
+      fontSize: '1.25rem',
+      fontFamily: 'Segoe UI',
       textDecoration: "none",
       textTransform: "none",
-      color: "inherit",
+      color: theme.palette.grayText.main,
       "&:hover": {
         color: theme.palette.accent.main,
       },
@@ -42,7 +44,7 @@ const AccountButton = ({ isLogged, logout, openModal }) => {
           color: "accent.contrastText",
           backgroundColor: "accent.main",
           "&:hover": {
-            backgroundColor: "lightBackground.main",
+            backgroundColor: "lightBlack.main",
             color: "accent.main",
           },
           my: 2,
@@ -120,9 +122,9 @@ const Navbar = (props) => {
 
   return (
     <>
-      <AppBar color="lightBackground">
+      <AppBar sx={{backgroundColor: '#ffff'}}>
         <Container>
-          <Toolbar disableGutters>
+          <Toolbar disableGutters sx={{maxWidth: '1100px'}}>
             <Typography
               variant="h6"
               noWrap
@@ -191,12 +193,12 @@ const Navbar = (props) => {
                 />
               </Link>
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Box sx={{ marginLeft: 'auto', flexGrow: 0, display: { xs: "none", md: "flex" }, justifyContent: 'space-between', width: '50%' }}>
               {pages.map((page, idx) => (
                 <Typography
                   sx={{ m: 1, display: "block" }}
                   key={idx}
-                  color="black.main"
+                  color="white"
                   variant="h6"
                 >
                   {" "}
@@ -206,24 +208,11 @@ const Navbar = (props) => {
                 </Typography>
               ))}
             </Box>
-            <AccountButton
-              isLogged={isLogged}
-              logout={signUserOut}
-              openModal={handleOpen}
-            />
+
           </Toolbar>
         </Container>
       </AppBar>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="Login"
-        aria-describedby="Login form"
-      >
-        <Box>
-          <LoginForm closeForm={handleClose} />
-        </Box>
-      </Modal>
+
       <div className={styles.toolbarHeigh}></div>
     </>
   );
