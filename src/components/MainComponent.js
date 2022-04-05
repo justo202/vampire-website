@@ -34,6 +34,9 @@ const customTheme = createTheme({
       main: "#FF8040",
       contrastText: "#fff",
     },
+    grayText: {
+      main: '#707070'
+    }
   }
 });
 class Main extends Component {
