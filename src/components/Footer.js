@@ -1,7 +1,8 @@
-import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import React, {useState} from "react";
+import { Box, Button, Grid, Typography, Modal } from "@mui/material";
 import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from "@mui/styles";
+import LoginForm from "./LoginForm";
 
 const styles = makeStyles((theme) => {
   return {
@@ -9,170 +10,167 @@ const styles = makeStyles((theme) => {
       textDecoration: "none",
       textTransform: "none",
       color: "inherit",
-      '&:hover': {
-          color: theme.palette.accent.main
-      }
+      padding: 0,
+      "&:hover": {
+        color: theme.palette.accent.main,
+      },
     },
     footerPos: {
-      position: 'relative',
+      position: "relative",
       bottom: 0,
       left: 0,
-      right: 0
-    }
+      right: 0,
+    },
   };
 });
 
 const Footer = () => {
+
+  
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const theme = useTheme();
   const useStyle = styles(theme);
 
   return (
     <footer className={useStyle.footerPos}>
-      <Box boxShadow={12} bgcolor="lightBlack.main" p={2} mt={2}>
-        <Grid container m={'auto'}width={'85%'}spacing={0} >
-            <Grid item sx={{ flexDirection: 'column',display: { xs: "inherit", md: "none" }}} p={6} pb={0}>
-            <Typography width={'100%'}color={"accent.main"} variant="h5" gutterBottom>
-                Navigation
-              </Typography>
-              <Box>
-
-              <Typography  p={1} pt={0}variant="h6" color={'white'} >
-              <Link className={useStyle.navLinks} to={"/research"}>
-                About
-             </Link>
-
-              </Typography>
-              <Typography  p={1} pt={0}variant="h6" color={'white'} >
-              <Link className={useStyle.navLinks} to={"/team"}>
-              Team
-             </Link>
-
-              </Typography>
-              <Typography  p={1} pt={0}variant="h6" color={'white'} >
-              <Link className={useStyle.navLinks} to={"/publications"}>
-              Publications
-             </Link>
-             </Typography>
-             <Typography  p={1} pt={0}variant="h6" color={'white'} >
-              <Link className={useStyle.navLinks} to={"/news"}>
-                News
-             </Link>
-
-              </Typography>
-              <Typography  p={1} pt={0}variant="h6" color={'white'} >
-              <Link className={useStyle.navLinks} to={"/contact"}>
-              Contact
-             </Link>
-
-              </Typography>
-
-            
-              </Box>
-      
-
-
-            </Grid>
-            <Grid item xs={12} md={6} p={6}>
-              <Box width={'80%'}>
-              <Typography color={"accent.main"} variant="h5" gutterBottom>
-                Vampire research group
-              </Typography>
-              <Typography variant="body1" color={'white'}>
-                This is just sample text about what the vampire team can be. just one or two sentences is fine but this gives an idea how it can looks.
-              </Typography>
-
-              </Box>
-
-            </Grid>
-            <Grid item sx={{ display: { xs: "none", md: "inherit" }}}xs={12} md={6} p={6}>
-              <Box sx={{display: 'inline-flex'}}>
-              <Typography  p={1} pt={0}variant="h6" color={'white'} >
-              <Link className={useStyle.navLinks} to={"/research"}>
-                About
-             </Link>
-
-              </Typography>
-              <Typography p={1} pt={0}variant="h6" color={'white'} >
-              <Link className={useStyle.navLinks} to={"/team"}>
-                Team
-             </Link>
-
-              </Typography>
-              <Typography  p={1} pt={0}variant="h6" color={'white'} >
-              <Link className={useStyle.navLinks} to={"/publications"}>
-              Publications
-             </Link>
-
-              </Typography>
-              <Typography  p={1} pt={0}variant="h6" color={'white'} >
-              <Link className={useStyle.navLinks} to={"/news"}>
-                News
-             </Link>
-
-              </Typography>
-              <Typography  p={1} pt={0}variant="h6" color={'white'} >
-              <Link className={useStyle.navLinks} to={"/contact"}>
-                Contact
-             </Link>
-
-              </Typography>
-
-              </Box>
-             
-              
-             
-
-            </Grid>
-
-        </Grid>
-        {/* <Grid container columnSpacing={2}>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="subtitle2" borderBottom={1}>
-              Research Links
+      <Box boxShadow={12} bgcolor="lightBlack.main" p={2}>
+        <Grid container m={"auto"} width={"85%"} spacing={0}>
+          <Grid
+            item
+            sx={{
+              flexDirection: "column",
+              display: { xs: "inherit", md: "none" },
+            }}
+            p={6}
+            pb={0}
+          >
+            <Typography
+              width={"100%"}
+              color={"accent.main"}
+              variant="h5"
+              gutterBottom
+            >
+              Navigation
             </Typography>
             <Box>
-              <Typography variant="caption" color={"accent.main"}>
+              <Typography p={1} pt={0} variant="h6" color={"white"}>
                 <Link className={useStyle.navLinks} to={"/research"}>
-                  Research
+                  About
                 </Link>
               </Typography>
-            </Box>
-            <Box>
-              <Typography variant="caption" color={"accent.main"}>
-                <Link className={useStyle.navLinks} to={"/publications"}>
-                  Publications
-                </Link>
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="caption" color={"accent.main"}>
+              <Typography p={1} pt={0} variant="h6" color={"white"}>
                 <Link className={useStyle.navLinks} to={"/team"}>
                   Team
                 </Link>
               </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="subtitle2" borderBottom={1}>
-              Contact
-            </Typography>
-            <Box>
-              <Typography variant="caption" color={"accent.main"}>
+              <Typography p={1} pt={0} variant="h6" color={"white"}>
+                <Link className={useStyle.navLinks} to={"/publications"}>
+                  Publications
+                </Link>
+              </Typography>
+              <Typography p={1} pt={0} variant="h6" color={"white"}>
+                <Link className={useStyle.navLinks} to={"/news"}>
+                  News
+                </Link>
+              </Typography>
+              <Typography p={1} pt={0} variant="h6" color={"white"}>
                 <Link className={useStyle.navLinks} to={"/contact"}>
-                  Contact us
+                  Contact
                 </Link>
               </Typography>
+              <Button
+                sx={{ height: "fit-content", padding: "0" }}
+                color="inherit"
+                variant="text"
+                onClick={handleOpen}
+              >
+                <Typography
+                  variant="h6"
+                  color={"white"}
+                  className={useStyle.navLinks}
+                >
+                  Login
+                </Typography>
+              </Button>
             </Box>
-            <Box>
-              <Typography variant="caption" color={"accent.main"}>
-                <Link className={useStyle.navLinks} to={"/"}>
-                  Home
-                </Link>
+          </Grid>
+          <Grid item xs={12} md={6} p={6}>
+            <Box width={"80%"}>
+              <Typography color={"accent.main"} variant="h5" gutterBottom>
+                Vampire research group
+              </Typography>
+              <Typography variant="body1" color={"white"}>
+                This is just sample text about what the vampire team can be.
+                just one or two sentences is fine but this gives an idea how it
+                can looks.
               </Typography>
             </Box>
           </Grid>
-  </Grid> */}
+          <Grid
+            item
+            sx={{ display: { xs: "none", md: "inherit" } }}
+            xs={12}
+            md={6}
+            p={6}
+          >
+            <Box sx={{ display: "inline-flex" }}>
+              <Typography p={1} pt={0} variant="h6" color={"white"}>
+                <Link className={useStyle.navLinks} to={"/research"}>
+                  About
+                </Link>
+              </Typography>
+              <Typography p={1} pt={0} variant="h6" color={"white"}>
+                <Link className={useStyle.navLinks} to={"/team"}>
+                  Team
+                </Link>
+              </Typography>
+              <Typography p={1} pt={0} variant="h6" color={"white"}>
+                <Link className={useStyle.navLinks} to={"/publications"}>
+                  Publications
+                </Link>
+              </Typography>
+              <Typography p={1} pt={0} variant="h6" color={"white"}>
+                <Link className={useStyle.navLinks} to={"/news"}>
+                  News
+                </Link>
+              </Typography>
+              <Typography p={1} pt={0} variant="h6" color={"white"}>
+                <Link className={useStyle.navLinks} to={"/contact"}>
+                  Contact
+                </Link>
+              </Typography>
+              <Button
+                sx={{ height: "fit-content", padding: "0" }}
+                color="inherit"
+                variant="text"
+              >
+                <Typography
+                  variant="h6"
+                  color={"white"}
+                  className={useStyle.navLinks}
+                  onClick={handleOpen}
+                >
+                  Login
+                </Typography>
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
+    
       </Box>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="Login"
+        aria-describedby="Login form"
+      >
+        <Box>
+          <LoginForm closeForm={handleClose} />
+        </Box>
+      </Modal>
     </footer>
   );
 };

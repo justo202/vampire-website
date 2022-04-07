@@ -4,13 +4,7 @@ import { Card, CardMedia, CardContent, CardActions, Typography, Button, Grid } f
 const NewsItem = (props) => {
     return (
         <Grid item xs={12} sm={4}>
-            <Card sx={{width: '100%'}}>
-            <CardMedia
-                component="img"
-                height="140"
-                image={props.image}
-                alt="green iguana"
-            />
+            <Card sx={{width: '100%', borderBottom: '2px #FF7700  solid'}}>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                 {props.title}
@@ -19,9 +13,6 @@ const NewsItem = (props) => {
                 {props.description}
                 </Typography>
             </CardContent>
-            <CardActions>
-                <Button color={'accent'}size="small">Learn More</Button>
-            </CardActions>
             </Card>
         </Grid>
       );

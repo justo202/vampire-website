@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
-import { Typography, Grid, CardMedia, Box } from "@mui/material";
+import { Typography, Grid, Card, Box } from "@mui/material";
 import { makeStyles, useTheme } from "@mui/styles";
 
 const testimonialInfo = [
@@ -39,11 +39,11 @@ const useStyles = makeStyles((theme) => {
       },
     },
     slide: {
-      height: "300px",
+      height: "200px",
       width: "100%",
     },
     card: {
-      height: "300px",
+      height: "200px",
       position: "relative",
     },
     cardContainer: {
@@ -103,18 +103,15 @@ const Testimonials = () => {
   testimonialInfo.forEach((element) => {
     testimonialCards.push(
       <Grid xs={12} sm={4} item className={styles.cardContainer}>
-        <CardMedia
-          className={styles.cardMedia}
-          image={"https://picsum.photos/200"}
-          title={"hello"}
-        >
+        <Card className={styles.cardMedia} title={"hello"} sx={{width: '100%', borderBottom: '2px #FF7700  solid'}}>
+        
           <Box
             sx={{
               textOverflow: "ellipsis",
               position: "absolute",
               width: "100%",
               height: "100%",
-              color: "white",
+              backgroundColor: '#ffff',
               textAlign: "center",
               zIndex: 99,
               padding: "0.1rem",
@@ -127,7 +124,7 @@ const Testimonials = () => {
               sx={{
                 textOverflow: "ellipsis",
                 width: "100%",
-                color: "white",
+
                 textAlign: "center",
                 zIndex: 99,
               }}
@@ -138,10 +135,10 @@ const Testimonials = () => {
               sx={{
                 textOverflow: "ellipsis",
                 width: "100%",
-                color: "white",
                 textAlign: "center",
                 zIndex: 99,
                 fontStyle: "italic",
+                fontWeight: 'bolder'
               }}
               align="center"
             >
@@ -149,17 +146,8 @@ const Testimonials = () => {
             </Typography>
           </Box>
 
-          <div
-            style={{
-              opacity: "0.6",
-              backgroundColor: "black",
-              height: "100%",
-              width: "100%",
-              position: "absolute",
-              zIndex: 9,
-            }}
-          ></div>
-        </CardMedia>
+  
+        </Card>
       </Grid>
     );
   });

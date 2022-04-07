@@ -1,6 +1,6 @@
-import { Button, Typography, Box, Grid } from "@mui/material";
+import { Button, Typography, Box, Grid, Modal } from "@mui/material";
 import { makeStyles, useTheme } from "@mui/styles";
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import YoutubeEmbed from "./youtubeVideoComponent";
 
@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => {
   return {
     jumbotron: {
       width: "100%",
-      backgroundColor: theme.palette.darkBackground.main,
+      backgroundColor: theme.palette.lightBlack.main,
       height: "100%",
       minHeight: '300px',
       display: "flex",
@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => {
       color: "inherit",
       fontSize: '1.2rem'
     },
+
   };
 });
 
@@ -29,34 +30,50 @@ const Jumbotron = ({
   buttonLink,
   isHomePage = false,
 }) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const theme = useTheme();
   const styles = useStyles(theme);
-  if (!isHomePage)
+
     return (
+      <>
       <div
         className={styles.jumbotron}
         style={{
           alignItems: "center",
           justifyContent: "center",
           flexFlow: "column wrap",
+          color: 'white'
         }}
       >
-        <Typography variant="h3" align="center">
+        <Typography sx={{font: 'normal normal bold 63px/83px Roboto'}} color='#fff' align="center">
           {title}
         </Typography>
         <Typography variant="h6" align="center">
           {subtitle}
         </Typography>
         {button && (
-          <Button variant="contained" color="accent">
-            <Link className={styles.navLinks} to={buttonLink}>
-              {button}
-            </Link>
+          <Button onClick={handleOpen} sx={{font: 'normal normal normal 24px/32px Roboto'}}variant="outlined" color="accent">
+            <Typography>{button} </Typography>
           </Button>
         )}
       </div>
+            <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="Youtube video"
+            aria-describedby="Youtube video"
+            className={styles.modal}
+          >
+          <Box sx={{ margin: 'auto', width: '100%', maxWidth: '1100px', height: '500px', alignSelf: "center" }}>
+              <YoutubeEmbed embedId={"Zm5WwuYcUwE"} />
+            </Box>
+          </Modal>
+          </>
     );
-  else
+ 
     return (
       <div  className={styles.jumbotron}>
         <Grid
