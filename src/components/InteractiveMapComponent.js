@@ -68,9 +68,8 @@ const RenderButtonGrid = (props) => {
       <Button
         key={org.id}
         color="accent"
-        sx={{ mb: 1, display: { xs: "none", sm: "block" } }}
-        fullWidth
-        variant="outlined"
+        sx={{ mb: 1, display: { xs: "none", sm: "block" } }} 
+        variant="text"
         onClick={() =>
           mapRef.current.flyTo({
             center: [org.longitude, org.latitude],
@@ -82,7 +81,11 @@ const RenderButtonGrid = (props) => {
       </Button>
     );
   });
-  return buttonGrid;
+  return  (
+    <Box sx={{ width: '100%', justifyContent: 'center', display: 'inline-flex'}}>
+      {buttonGrid}
+    </Box>
+  )
 };
 const RenderMobileBar = (props) => {
   const { organisations, mapRef } = props;
@@ -167,7 +170,7 @@ function InteractiveMap(props) {
 return (
     
     <Grid container columnSpacing={1}>
-      <Grid item xs={12} sm={3} height="100%">
+      <Grid item xs={12} height="100%">
         <RenderButtonGrid
           organisations={LOCATION_INFO}
           mapRef={mapRef}
@@ -178,15 +181,12 @@ return (
           mapRef={mapRef}
           setViewPort={() => setViewPort()}
         />
-        <Typography  sx={{display: { xs: "none", sm: "block" } }} variant="p" margin={'auto'}>
-        Some information about the colaborator map.
-        </Typography>
       </Grid>
-      <Grid item xs={12} sm={9}>
+      <Grid item xs={12}>
         <Map
           ref={mapRef}
           initialViewState={viewport}
-          style={{ width: "100%", height: 600 }}
+          style={{ width: "100%", height: 500 }}
           mapStyle="mapbox://styles/mapbox/light-v10"
           onViewportChange={(move) => setViewPort(move)}
           mapboxAccessToken={key}
@@ -260,9 +260,6 @@ return (
           </Popover>
         </Map>
       </Grid>
-      <Typography  sx={{display: { xs: "block", sm: "none" } }} variant="p" margin={'auto'}>
-        Some information about the colaborator map.
-        </Typography>
     </Grid>
   );
           }

@@ -38,6 +38,7 @@ const customTheme = createTheme({
       main: '#707070'
     }
   }
+
 });
 class Main extends Component {
   constructor(props) {

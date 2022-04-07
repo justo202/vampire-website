@@ -20,7 +20,7 @@ import LoginForm from "./LoginForm";
 const useStyles = makeStyles((theme) => {
   return {
     toolbarHeigh: {
-      padding: "35px",
+      padding: "30px",
     },
     navLinks: {
       fontSize: '1.25rem',
