@@ -37,8 +37,7 @@ const Logos = () => {
   });
 
   return (
-    <Grid container spacing={1}>
-      <Grid item xs={12}></Grid>
+    <Grid container spacing={1} mb={3}>
       {logoMap}
     </Grid>
   );

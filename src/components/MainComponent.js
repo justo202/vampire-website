@@ -1,4 +1,5 @@
 import {createTheme, ThemeProvider} from "@mui/material/styles";
+import { Box } from "@mui/material";
 import {Component} from "react";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import {getAuth, onAuthStateChanged, signOut} from "../firebase";
@@ -71,12 +72,14 @@ class Main extends Component {
       }
     });
   }
-
-
   render() {
     return (
       <>
         <ThemeProvider theme={customTheme}>
+          <Box sx={{width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
+
+
+         
           <Router>
             <Navbar isLogged={this.state.loggedIn}  signUserOut={this.signUserOut} />
             <Routes>
@@ -91,6 +94,7 @@ class Main extends Component {
             </Routes>
             <Footer />
           </Router>
+          </Box>
         </ThemeProvider>
       </>
     );

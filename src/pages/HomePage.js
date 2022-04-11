@@ -27,8 +27,8 @@ const Home = () => {
       <Jumbotron
         title="VAMPIRE RESEARCH"
         button="Watch our video"
-        buttonLink="/publications"
-        isHomePage
+        image="https://picsum.photos/1100"
+
       />
       <Grid
         sx={{ margin: "auto", maxWidth: '1100px', width: '100%' }}
