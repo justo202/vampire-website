@@ -16,11 +16,20 @@ const styles = makeStyles((theme) => {
       },
     },
     footerPos: {
-      position: "relative",
       bottom: 0,
       left: 0,
-      right: 0,
+      width: '100%',
+      marginTop: 'auto',
+      color: 'white',
+      position: 'relative'
     },
+    decoration: {
+      position: 'absolute',
+      bottom: 0,
+      width: '100%',
+      zIndex: 1
+      
+    }
   };
 });
 
@@ -37,7 +46,7 @@ const Footer = () => {
   return (
     <footer className={useStyle.footerPos}>
       <Box boxShadow={12} bgcolor="lightBlack.main" p={2}>
-        <Grid container m={"auto"} width={"85%"} spacing={0}>
+        <Grid container m={"auto"} width={"100%"} sx={{maxWidth: '1100px'}} spacing={0}>
           <Grid
             item
             sx={{
@@ -97,8 +106,8 @@ const Footer = () => {
               </Button>
             </Box>
           </Grid>
-          <Grid item xs={12} md={6} p={6}>
-            <Box width={"80%"}>
+          <Grid item xs={12} md={5} p={6}>
+            <Box sx={{position: 'relative', zIndex: 99}} width={"80%"}>
               <Typography color={"accent.main"} variant="h5" gutterBottom>
                 Vampire research group
               </Typography>
@@ -113,7 +122,7 @@ const Footer = () => {
             item
             sx={{ display: { xs: "none", md: "inherit" } }}
             xs={12}
-            md={6}
+            md={7}
             p={6}
           >
             <Box sx={{ display: "inline-flex" }}>
@@ -171,6 +180,7 @@ const Footer = () => {
           <LoginForm closeForm={handleClose} />
         </Box>
       </Modal>
+      <img src="./images/footer_decoration.svg" alt="decoration" className={useStyle.decoration}/>
     </footer>
   );
 };

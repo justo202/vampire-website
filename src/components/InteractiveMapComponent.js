@@ -186,7 +186,7 @@ return (
         <Map
           ref={mapRef}
           initialViewState={viewport}
-          style={{ width: "100%", height: 500 }}
+          style={{ width: "100%", height: 350 }}
           mapStyle="mapbox://styles/mapbox/light-v10"
           onViewportChange={(move) => setViewPort(move)}
           mapboxAccessToken={key}
