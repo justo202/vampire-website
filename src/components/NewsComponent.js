@@ -10,32 +10,21 @@ import {
 } from "@mui/material";
 
 const NewsItem = (props) => {
-  return (
-    <Grid item xs={12} sm={4}>
-      <Card sx={{ width: "100%" }}>
-        <CardMedia
-          component="img"
-          height="140"
-          image={props.image}
-          alt="green iguana"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {props.title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {props.description}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button color={"accent"} size="small">
-            Learn More
-          </Button>
-        </CardActions>
-      </Card>
-    </Grid>
-  );
-};
+    return (
+        <Grid item xs={12} sm={4}>
+            <Card sx={{width: '100%', borderBottom: '2px #FF7700  solid'}}>
+            <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                {props.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                {props.description}
+                </Typography>
+            </CardContent>
+            </Card>
+        </Grid>
+      );
+}
 
 const NewsSection = () => {
   const newsItems = [

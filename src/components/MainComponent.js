@@ -1,7 +1,9 @@
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Component } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { getAuth, onAuthStateChanged, signOut } from "../firebase";
+
+import {createTheme, ThemeProvider} from "@mui/material/styles";
+import { Box } from "@mui/material";
+import {Component} from "react";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {getAuth, onAuthStateChanged, signOut} from "../firebase";
 import ContactUs from "../pages/ContactUsPage";
 import ContentManagementSystem from "../pages/ContentManagementSystem";
 import Home from "../pages/HomePage";
@@ -34,7 +36,10 @@ const customTheme = createTheme({
       main: "#FF8040",
       contrastText: "#fff",
     },
-  },
+    grayText: {
+      main: '#707070'
+    }
+  }
 });
 class Main extends Component {
   constructor(props) {
@@ -71,6 +76,10 @@ class Main extends Component {
     return (
       <>
         <ThemeProvider theme={customTheme}>
+          <Box sx={{width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
+
+
+         
           <Router>
             <Navbar
               isLogged={this.state.loggedIn}
@@ -88,6 +97,7 @@ class Main extends Component {
             </Routes>
             <Footer />
           </Router>
+          </Box>
         </ThemeProvider>
       </>
     );

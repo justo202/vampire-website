@@ -1,6 +1,6 @@
-import { Button, Typography, Box, Grid } from "@mui/material";
+import { Button, Typography, Box, Grid, Modal } from "@mui/material";
 import { makeStyles, useTheme } from "@mui/styles";
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import YoutubeEmbed from "./youtubeVideoComponent";
 
@@ -8,16 +8,35 @@ const useStyles = makeStyles((theme) => {
   return {
     jumbotron: {
       width: "100%",
-      backgroundColor: theme.palette.darkBackground.main,
+      backgroundColor: theme.palette.lightBlack.main,
       height: "100%",
       minHeight: "300px",
       display: "flex",
+      overflow: 'hidden',
+      position: 'relative'
     },
     navLinks: {
       textDecoration: "none",
       textTransform: "none",
       color: "inherit",
+      fontSize: '1.2rem'
     },
+    backgroundImage: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      top: 0,
+      right: 0,
+      left: 0,
+      opacity: 0.25,
+      objectFit: 'cover',
+      zIndex: 1
+    },
+    decoration: {
+      position: 'absolute',
+      bottom: 0
+    }
+
   };
 });
 
@@ -25,93 +44,60 @@ const Jumbotron = ({
   title,
   subtitle,
   button,
-  buttonLink,
-  isHomePage = false,
+  image = ""
 }) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const theme = useTheme();
   const styles = useStyles(theme);
-  if (!isHomePage)
+
     return (
+      <>
       <div
         className={styles.jumbotron}
         style={{
           alignItems: "center",
           justifyContent: "center",
           flexFlow: "column wrap",
+          color: 'white',
         }}
       >
-        <Typography variant="h3" align="center">
+       <Box sx={{zIndex: 99, display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+       <Typography sx={{font: 'normal normal bold 63px/83px Roboto'}} color='#fff' align="center">
           {title}
         </Typography>
         <Typography variant="h6" align="center">
           {subtitle}
         </Typography>
         {button && (
-          <Button variant="contained" color="accent">
-            <Link className={styles.navLinks} to={buttonLink}>
-              {button}
-            </Link>
+          <Button onClick={handleOpen} sx={{ alignSelf: 'center', font: 'normal normal normal 24px/32px Roboto'}}variant="outlined" color="accent">
+            <Typography>{button} </Typography>
           </Button>
         )}
+         
+       </Box>
+
+         {image !== "" && (
+            <img className={styles.backgroundImage}src={image} alt="background"/>
+         )}
+         <img className={styles.decoration} alt="decoration" src="./images/jumbotron_decoration.svg"/>
       </div>
-    );
-  else
-    return (
-      <div className={styles.jumbotron}>
-        <Grid
-          sx={{
-            margin: { md: "auto", xs: "20px auto" },
-            width: { xs: "100%", md: "70%" },
-            height: "100%",
-          }}
-          container
-          alignItems={"center"}
-          spacing={0}
-        >
-          <Grid item xs={12} md={6}>
-            <Box
-              width={"100%"}
-              sx={{
-                alignSelf: "center",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Typography variant="h4" align="left">
-                {title}
-              </Typography>
-              <Typography variant="h6" align="justify">
-                {subtitle}
-              </Typography>
-              {button && (
-                <Button variant="contained" color="accent">
-                  <Link className={styles.navLinks} to={buttonLink}>
-                    {button}
-                  </Link>
-                </Button>
-              )}
-              <Box justifyContent={"center"} display={"flex"}>
-                <img
-                  alt="logo"
-                  style={{
-                    maxHeight: "20%",
-                    width: "50%",
-                    alignSelf: "center",
-                  }}
-                  src="./images/vampire_logo.png"
-                />
-              </Box>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Box sx={{ width: "100%", height: "350px", alignSelf: "center" }}>
+            <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="Youtube video"
+            aria-describedby="Youtube video"
+            className={styles.modal}
+          >
+          <Box sx={{ position: 'absolute', transform: 'translate(-50%, -50%)', top: '50%', left: '50%', margin: 'auto', width: '100%', maxWidth: '1100px', height: '500px', alignSelf: "center" }}>
               <YoutubeEmbed embedId={"Zm5WwuYcUwE"} />
             </Box>
-          </Grid>
-        </Grid>
-      </div>
+          </Modal>
+          </>
     );
+ 
 };
 
 export default Jumbotron;

@@ -67,9 +67,8 @@ const RenderButtonGrid = (props) => {
       <Button
         key={org.id}
         color="accent"
-        sx={{ mb: 1, display: { xs: "none", sm: "block" } }}
-        fullWidth
-        variant="outlined"
+        sx={{ mb: 1, display: { xs: "none", sm: "block" } }} 
+        variant="text"
         onClick={() =>
           mapRef.current.flyTo({
             center: [org.longitude, org.latitude],
@@ -81,7 +80,11 @@ const RenderButtonGrid = (props) => {
       </Button>
     );
   });
-  return buttonGrid;
+  return  (
+    <Box sx={{ width: '100%', justifyContent: 'center', display: 'inline-flex'}}>
+      {buttonGrid}
+    </Box>
+  )
 };
 const RenderMobileBar = (props) => {
   const { organisations, mapRef } = props;
@@ -157,50 +160,50 @@ function InteractiveMap(props) {
     attributionControl: false,
   });
   const [selected, setSelected] = useState(null);
-
-  useEffect(() =>
-    get_token({ name: "REACT_APP_MAPBOX_TOKEN" }).then((result) =>
-      setKey(result.data.result)
-    )
-  );
-
-  if (key != null) {
-    return (
-      <Grid container columnSpacing={1}>
-        <Grid item xs={12} sm={3} height="100%">
-          <RenderButtonGrid
-            organisations={LOCATION_INFO}
-            mapRef={mapRef}
-            setViewPort={() => setViewPort()}
-          />
-          <RenderMobileBar
-            organisations={LOCATION_INFO}
-            mapRef={mapRef}
-            setViewPort={() => setViewPort()}
-          />
-          <Typography
-            sx={{ display: { xs: "none", sm: "block" } }}
-            variant="p"
-            margin={"auto"}
-          >
-            Some information about the colaborator map.
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={9}>
-          <Map
-            ref={mapRef}
-            initialViewState={viewport}
-            style={{ width: "100%", height: 600 }}
-            mapStyle="mapbox://styles/mapbox/light-v10"
-            onViewportChange={(move) => setViewPort(move)}
-            mapboxAccessToken={key}
-          >
-            {LOCATION_INFO.map((colaborator) => (
-              <Marker
-                color="#FF8040"
-                key={colaborator.id}
-                latitude={colaborator.latitude}
-                longitude={colaborator.longitude}
+   if(key != null)
+   {
+return (
+    
+    <Grid container columnSpacing={1}>
+      <Grid item xs={12} height="100%">
+        <RenderButtonGrid
+          organisations={LOCATION_INFO}
+          mapRef={mapRef}
+          setViewPort={() => setViewPort()}
+        />
+        <RenderMobileBar
+          organisations={LOCATION_INFO}
+          mapRef={mapRef}
+          setViewPort={() => setViewPort()}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <Map
+          ref={mapRef}
+          initialViewState={viewport}
+          style={{ width: "100%", height: 350 }}
+          mapStyle="mapbox://styles/mapbox/light-v10"
+          onViewportChange={(move) => setViewPort(move)}
+          mapboxAccessToken={key}
+        >
+          {LOCATION_INFO.map((colaborator) => (
+            <Marker
+              color="#FF8040"
+              key={colaborator.id}
+              latitude={colaborator.latitude}
+              longitude={colaborator.longitude}
+            >
+              <IconButton
+                onClick={() => {
+                  setSelected(colaborator);
+                }}
+                color="accent"
+                size="large"
+                aria-haspopup="true"
+                onMouseEnter={(e) =>
+                  handlePopoverOpen(e, colaborator.organisation)
+                }
+                onMouseLeave={handlePopoverClose}
               >
                 <IconButton
                   onClick={() => {
@@ -247,39 +250,33 @@ function InteractiveMap(props) {
               </Popup>
             ) : null}
 
-            <Popover
-              sx={{
-                pointerEvents: "none",
-              }}
-              open={open}
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              onClose={handlePopoverClose}
-              disableRestoreFocus
-            >
-              <Typography sx={{ p: 1 }}>{popoverText}</Typography>
-            </Popover>
-          </Map>
-        </Grid>
-        <Typography
-          sx={{ display: { xs: "block", sm: "none" } }}
-          variant="p"
-          margin={"auto"}
-        >
-          Some information about the colaborator map.
-        </Typography>
+          <Popover
+            sx={{
+              pointerEvents: "none",
+            }}
+            open={open}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+            onClose={handlePopoverClose}
+            disableRestoreFocus
+          >
+            <Typography sx={{ p: 1 }}>{popoverText}</Typography>
+          </Popover>
+        </Map>
       </Grid>
-    );
-  } else {
-    return <p>Loading map...</p>;
-  }
+    </Grid>
+  );
+          }
+          else {
+            return(<p>Loading map...</p>)
+          }
 }
 
 export default InteractiveMap;
