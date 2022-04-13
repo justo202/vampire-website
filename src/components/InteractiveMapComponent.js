@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MenuIcon from "@mui/icons-material/Menu";
+import React, {useState} from "react";
 
 import {
-  IconButton,
-  Typography,
-  Popover,
-  Grid,
-  Button,
   Box,
+  Button,
+  Grid,
+  IconButton,
   Menu,
   MenuItem,
+  Popover,
+  Typography,
 } from "@mui/material";
-import { getFunctions, httpsCallable } from "firebase/functions";
-import { app } from "../firebase";
+import {getFunctions, httpsCallable} from "firebase/functions";
+import {app} from "../firebase";
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import mapboxgl from "!mapbox-gl";
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import Map, { Marker, Popup } from "!react-map-gl";
+import Map, {Marker, Popup} from "!react-map-gl";
 
 const functions = getFunctions(app, "europe-west2");
 const get_token = httpsCallable(functions, "get_token");
@@ -60,15 +59,15 @@ const LOCATION_INFO = [
 ];
 
 const RenderButtonGrid = (props) => {
-  const { organisations, mapRef } = props;
+  const {organisations, mapRef} = props;
 
   const buttonGrid = organisations.map((org) => {
     return (
       <Button
         key={org.id}
-        color="accent"
-        sx={{ mb: 1, display: { xs: "none", sm: "block" } }} 
-        variant="text"
+        color='accent'
+        sx={{mb: 1, display: {xs: "none", sm: "block"}}}
+        variant='text'
         onClick={() =>
           mapRef.current.flyTo({
             center: [org.longitude, org.latitude],
@@ -80,14 +79,14 @@ const RenderButtonGrid = (props) => {
       </Button>
     );
   });
-  return  (
-    <Box sx={{ width: '100%', justifyContent: 'center', display: 'inline-flex'}}>
+  return (
+    <Box sx={{width: "100%", justifyContent: "center", display: "inline-flex"}}>
       {buttonGrid}
     </Box>
-  )
+  );
 };
 const RenderMobileBar = (props) => {
-  const { organisations, mapRef } = props;
+  const {organisations, mapRef} = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -101,15 +100,15 @@ const RenderMobileBar = (props) => {
     <Box
       sx={{
         backgroundColor: "lightBlack.main",
-        display: { xs: "block", sm: "none" },
+        display: {xs: "block", sm: "none"},
       }}
     >
       <IconButton
         aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
+        aria-haspopup='true'
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        color="accent"
+        color='accent'
       >
         <MenuIcon />
       </IconButton>
@@ -118,7 +117,7 @@ const RenderMobileBar = (props) => {
           return (
             <MenuItem
               key={org.id}
-              color="accent"
+              color='accent'
               onClick={() => {
                 mapRef.current.flyTo({
                   center: [org.longitude, org.latitude],
@@ -160,64 +159,50 @@ function InteractiveMap(props) {
     attributionControl: false,
   });
   const [selected, setSelected] = useState(null);
-   if(key != null)
-   {
-return (
-    
-    <Grid container columnSpacing={1}>
-      <Grid item xs={12} height="100%">
-        <RenderButtonGrid
-          organisations={LOCATION_INFO}
-          mapRef={mapRef}
-          setViewPort={() => setViewPort()}
-        />
-        <RenderMobileBar
-          organisations={LOCATION_INFO}
-          mapRef={mapRef}
-          setViewPort={() => setViewPort()}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <Map
-          ref={mapRef}
-          initialViewState={viewport}
-          style={{ width: "100%", height: 350 }}
-          mapStyle="mapbox://styles/mapbox/light-v10"
-          onViewportChange={(move) => setViewPort(move)}
-          mapboxAccessToken={key}
-        >
-          {LOCATION_INFO.map((colaborator) => (
-            <Marker
-              color="#FF8040"
-              key={colaborator.id}
-              latitude={colaborator.latitude}
-              longitude={colaborator.longitude}
-            >
-              <IconButton
-                onClick={() => {
-                  setSelected(colaborator);
-                }}
-                color="accent"
-                size="large"
-                aria-haspopup="true"
-                onMouseEnter={(e) =>
-                  handlePopoverOpen(e, colaborator.organisation)
-                }
-                onMouseLeave={handlePopoverClose}
+  if (key != null) {
+    return (
+      <Grid container columnSpacing={1}>
+        <Grid item xs={12} height='100%'>
+          <RenderButtonGrid
+            organisations={LOCATION_INFO}
+            mapRef={mapRef}
+            setViewPort={() => setViewPort()}
+          />
+          <RenderMobileBar
+            organisations={LOCATION_INFO}
+            mapRef={mapRef}
+            setViewPort={() => setViewPort()}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Map
+            ref={mapRef}
+            initialViewState={viewport}
+            style={{width: "100%", height: 350}}
+            mapStyle='mapbox://styles/mapbox/light-v10'
+            onViewportChange={(move) => setViewPort(move)}
+            mapboxAccessToken={key}
+          >
+            {LOCATION_INFO.map((colaborator) => (
+              <Marker
+                color='#FF8040'
+                key={colaborator.id}
+                latitude={colaborator.latitude}
+                longitude={colaborator.longitude}
               >
                 <IconButton
                   onClick={() => {
                     setSelected(colaborator);
                   }}
-                  color="accent"
-                  size="large"
-                  aria-haspopup="true"
+                  color='accent'
+                  size='large'
+                  aria-haspopup='true'
                   onMouseEnter={(e) =>
                     handlePopoverOpen(e, colaborator.organisation)
                   }
                   onMouseLeave={handlePopoverClose}
                 >
-                  <LocationOnIcon fontSize="inerit" />
+                  <LocationOnIcon fontSize='inerit' />
                 </IconButton>
               </Marker>
             ))}
@@ -228,55 +213,54 @@ return (
                 latitude={selected.latitude}
                 longitude={selected.longitude}
               >
-                <Typography variant="h4" align="center">
+                <Typography variant='h4' align='center'>
                   {selected.organisation}
                 </Typography>
                 <Typography
-                  sx={{ fontStyle: "italic" }}
-                  color="text.secondary"
-                  align="center"
-                  variant="caption"
+                  sx={{fontStyle: "italic"}}
+                  color='text.secondary'
+                  align='center'
+                  variant='caption'
                   gutterBottom
                 >
                   Organisation located in {selected.city}
                 </Typography>
                 <Typography
-                  variant="body2"
-                  color="text.primary"
-                  align="justify"
+                  variant='body2'
+                  color='text.primary'
+                  align='justify'
                 >
                   {selected.description}
                 </Typography>
               </Popup>
             ) : null}
 
-          <Popover
-            sx={{
-              pointerEvents: "none",
-            }}
-            open={open}
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-            onClose={handlePopoverClose}
-            disableRestoreFocus
-          >
-            <Typography sx={{ p: 1 }}>{popoverText}</Typography>
-          </Popover>
-        </Map>
+            <Popover
+              sx={{
+                pointerEvents: "none",
+              }}
+              open={open}
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              onClose={handlePopoverClose}
+              disableRestoreFocus
+            >
+              <Typography sx={{p: 1}}>{popoverText}</Typography>
+            </Popover>
+          </Map>
+        </Grid>
       </Grid>
-    </Grid>
-  );
-          }
-          else {
-            return(<p>Loading map...</p>)
-          }
+    );
+  } else {
+    return <p>Loading map...</p>;
+  }
 }
 
 export default InteractiveMap;
