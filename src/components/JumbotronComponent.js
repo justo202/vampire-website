@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => {
       width: "100%",
       backgroundColor: theme.palette.lightBlack.main,
       height: "100%",
-      minHeight: '300px',
+      minHeight: "300px",
       display: "flex",
       overflow: 'hidden',
       position: 'relative'

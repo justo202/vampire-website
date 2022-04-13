@@ -102,7 +102,6 @@ const ResearchSection = ({
   pointers = [],
   imageLeft = false,
 }) => {
- 
   const styles = useStyles();
   return (
     <Grid container spacing={2}>

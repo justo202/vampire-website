@@ -20,7 +20,12 @@ const Research = () => {
           link: "https://www.google.com/",
         },
       ],
-      collaborators: ['Person', 'Another person', 'Third person', 'Fourth person'],
+      collaborators: [
+        "Person",
+        "Another person",
+        "Third person",
+        "Fourth person",
+      ],
       timeframe: ["2021", "2022"],
       funding: "Colaborator",
       key: 1,

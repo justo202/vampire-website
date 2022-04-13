@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -13,17 +12,17 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import {getFunctions, httpsCallable} from "firebase/functions";
-import {app} from "../firebase";
+import { getFunctions, httpsCallable } from "firebase/functions";
+import { app } from "../firebase";
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import mapboxgl from '!mapbox-gl';
+import mapboxgl from "!mapbox-gl";
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import Map, { Marker, Popup } from "!react-map-gl";
 
 const functions = getFunctions(app, "europe-west2");
-const get_token = httpsCallable(functions, "get_token")
+const get_token = httpsCallable(functions, "get_token");
 const LOCATION_INFO = [
   {
     latitude: 55.953252,
@@ -138,9 +137,8 @@ const RenderMobileBar = (props) => {
 };
 
 function InteractiveMap(props) {
+  const [key, setKey] = useState(null);
 
-  const [key, setKey] = useState(null)
-  
   const [anchorEl, setAnchorEl] = useState(null);
   const [popoverText, setpopoverText] = useState(null);
 
@@ -162,9 +160,6 @@ function InteractiveMap(props) {
     attributionControl: false,
   });
   const [selected, setSelected] = useState(null);
- 
-  useEffect(() => get_token({name: 'REACT_APP_MAPBOX_TOKEN'}).then(result =>  setKey(result.data.result)))
-
    if(key != null)
    {
 return (
@@ -210,34 +205,50 @@ return (
                 }
                 onMouseLeave={handlePopoverClose}
               >
-                <LocationOnIcon fontSize="inerit" />
-              </IconButton>
-            </Marker>
-          ))}
-          {selected ? (
-            <Popup
-              closeOnClick={false}
-              onClose={() => setSelected(null)}
-              latitude={selected.latitude}
-              longitude={selected.longitude}
-            >
-              <Typography variant="h4" align="center">
-                {selected.organisation}
-              </Typography>
-              <Typography
-                sx={{ fontStyle: "italic" }}
-                color="text.secondary"
-                align="center"
-                variant="caption"
-                gutterBottom
+                <IconButton
+                  onClick={() => {
+                    setSelected(colaborator);
+                  }}
+                  color="accent"
+                  size="large"
+                  aria-haspopup="true"
+                  onMouseEnter={(e) =>
+                    handlePopoverOpen(e, colaborator.organisation)
+                  }
+                  onMouseLeave={handlePopoverClose}
+                >
+                  <LocationOnIcon fontSize="inerit" />
+                </IconButton>
+              </Marker>
+            ))}
+            {selected ? (
+              <Popup
+                closeOnClick={false}
+                onClose={() => setSelected(null)}
+                latitude={selected.latitude}
+                longitude={selected.longitude}
               >
-                Organisation located in {selected.city}
-              </Typography>
-              <Typography variant="body2" color="text.primary" align="justify">
-                {selected.description}
-              </Typography>
-            </Popup>
-          ) : null}
+                <Typography variant="h4" align="center">
+                  {selected.organisation}
+                </Typography>
+                <Typography
+                  sx={{ fontStyle: "italic" }}
+                  color="text.secondary"
+                  align="center"
+                  variant="caption"
+                  gutterBottom
+                >
+                  Organisation located in {selected.city}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.primary"
+                  align="justify"
+                >
+                  {selected.description}
+                </Typography>
+              </Popup>
+            ) : null}
 
           <Popover
             sx={{
@@ -266,7 +277,6 @@ return (
           else {
             return(<p>Loading map...</p>)
           }
-
 }
 
 export default InteractiveMap;
