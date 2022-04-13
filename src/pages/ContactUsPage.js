@@ -1,5 +1,5 @@
-import {Grid, Typography} from "@mui/material";
-import {Box} from "@mui/system";
+import { Grid, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import React from "react";
 import ContactForm from "../components/ContactFormComponent";
 import Jumbotron from "../components/JumbotronComponent";
@@ -17,12 +17,18 @@ const ContactUs = () => {
         <Typography variant="h5">Interested in VAMPIRE?</Typography>
         <hr />
         <Box p={3}>
-          <Typography variant="p">Please fill in this form to help us understand your project and needs.</Typography>
+          <Typography variant="p">
+            Please fill in this form to help us understand your project and
+            needs.
+          </Typography>
           <br></br>
-          <Typography variant="p">We shall contact you as soon as feasible to discuss possible collaborations.</Typography>
+          <Typography variant="p">
+            We shall contact you as soon as feasible to discuss possible
+            collaborations.
+          </Typography>
           <br />
           <Typography variant="p">
-          Thank you for your interest in VAMPIRE.
+            Thank you for your interest in VAMPIRE.
           </Typography>
         </Box>
 

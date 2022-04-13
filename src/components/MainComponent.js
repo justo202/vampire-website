@@ -1,7 +1,7 @@
-import {createTheme, ThemeProvider} from "@mui/material/styles";
-import {Component} from "react";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import {getAuth, onAuthStateChanged, signOut} from "../firebase";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Component } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { getAuth, onAuthStateChanged, signOut } from "../firebase";
 import ContactUs from "../pages/ContactUsPage";
 import ContentManagementSystem from "../pages/ContentManagementSystem";
 import Home from "../pages/HomePage";
@@ -16,7 +16,7 @@ import NavigationList from "./NavigationList";
 const customTheme = createTheme({
   palette: {
     background: {
-      default: "#FFFCF2"
+      default: "#FFFCF2",
     },
     lightBackground: {
       main: "#FFFCF2",
@@ -34,7 +34,7 @@ const customTheme = createTheme({
       main: "#FF8040",
       contrastText: "#fff",
     },
-  }
+  },
 });
 class Main extends Component {
   constructor(props) {
@@ -44,16 +44,15 @@ class Main extends Component {
     };
   }
 
-
   signUserOut = async () => {
     const auth = getAuth();
-     await signOut(auth);
-  }
+    await signOut(auth);
+  };
 
-   componentDidMount() {
+  componentDidMount() {
     const auth = getAuth();
 
-     onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
@@ -68,13 +67,15 @@ class Main extends Component {
     });
   }
 
-
   render() {
     return (
       <>
         <ThemeProvider theme={customTheme}>
           <Router>
-            <Navbar isLogged={this.state.loggedIn}  signUserOut={this.signUserOut} />
+            <Navbar
+              isLogged={this.state.loggedIn}
+              signUserOut={this.signUserOut}
+            />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/publications" element={<Publications />} />

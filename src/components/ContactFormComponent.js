@@ -78,7 +78,7 @@ class ContactForm extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    if(this.state.token !== null) {
+    if (this.state.token !== null) {
       const data = {
         name: this.state.name,
         email: this.state.email,
@@ -87,7 +87,7 @@ class ContactForm extends Component {
         reason: this.state.need,
         images: this.state.images,
         feedback: this.state.feedback,
-        token: this.state.token
+        token: this.state.token,
       };
       axios({
         method: "POST",
@@ -102,9 +102,9 @@ class ContactForm extends Component {
       });
       this.resetForm();
     } else {
-      alert('Please fill out the captcha')
-    } 
-  }
+      alert("Please fill out the captcha");
+    }
+  };
   resetForm = () => {
     this.setState({
       email: "",
@@ -145,7 +145,6 @@ class ContactForm extends Component {
     });
   };
   render() {
-    
     return (
       <>
         <Typography variant="h5" gutterBottom>
@@ -279,7 +278,12 @@ class ContactForm extends Component {
               ></TextField>
             </Grid>
             <Grid xs={12} item>
-              <ReCaptchaV2 style={{ width: '100%',transform: 'scale(0.7)', transformOrigin: '0 0'}}
+              <ReCaptchaV2
+                style={{
+                  width: "100%",
+                  transform: "scale(0.7)",
+                  transformOrigin: "0 0",
+                }}
                 sitekey={"6LfguJseAAAAAKWD94kvIrwRUFgzIx8uqKyIl5vd"}
                 onChange={this.handleToken}
                 onExpired={this.handleExpire}

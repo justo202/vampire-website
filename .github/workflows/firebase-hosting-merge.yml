@@ -5,7 +5,7 @@ name: Deploy to Firebase Hosting on merge
 env:
   CI: false
 
-'on':
+"on":
   push:
     branches:
       - main
@@ -17,7 +17,7 @@ jobs:
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VAMPIRE_RESEARCH }}'
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_VAMPIRE_RESEARCH }}"
           channelId: live
           projectId: vampire-research

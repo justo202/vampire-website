@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => {
       width: "100%",
       backgroundColor: theme.palette.darkBackground.main,
       height: "100%",
-      minHeight: '300px',
+      minHeight: "300px",
       display: "flex",
     },
     navLinks: {
@@ -57,18 +57,18 @@ const Jumbotron = ({
     );
   else
     return (
-      <div  className={styles.jumbotron}>
+      <div className={styles.jumbotron}>
         <Grid
-          sx={{ margin: {md: 'auto', xs: '20px auto'}, width: {xs: '100%', md: '70%'},height: "100%" }}
+          sx={{
+            margin: { md: "auto", xs: "20px auto" },
+            width: { xs: "100%", md: "70%" },
+            height: "100%",
+          }}
           container
           alignItems={"center"}
           spacing={0}
         >
-          <Grid
-            item
-            xs={12}
-            md={6}
-          >
+          <Grid item xs={12} md={6}>
             <Box
               width={"100%"}
               sx={{
@@ -104,16 +104,11 @@ const Jumbotron = ({
               </Box>
             </Box>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            md={6}
-            
-          >
-          <Box sx={{ width: '100%', height: '350px', alignSelf: "center" }}>
+          <Grid item xs={12} md={6}>
+            <Box sx={{ width: "100%", height: "350px", alignSelf: "center" }}>
               <YoutubeEmbed embedId={"Zm5WwuYcUwE"} />
             </Box>
-            </Grid>
+          </Grid>
         </Grid>
       </div>
     );
