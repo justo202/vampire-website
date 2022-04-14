@@ -2,7 +2,7 @@ import {makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    margin: "24px 0",
+    margin: "24px auto",
   },
   list: {
     display: "flex",

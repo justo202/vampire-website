@@ -1,3 +1,4 @@
+import ArrowRightOutlinedIcon from "@mui/icons-material/ArrowRightOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
@@ -7,15 +8,12 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Modal,
   Toolbar,
   Typography,
 } from "@mui/material";
-import { makeStyles, useTheme } from "@mui/styles";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import ArrowRightOutlinedIcon from "@mui/icons-material/ArrowRightOutlined";
-import LoginForm from "./LoginForm";
+import {makeStyles, useTheme} from "@mui/styles";
+import {useState} from "react";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -23,8 +21,8 @@ const useStyles = makeStyles((theme) => {
       padding: "30px",
     },
     navLinks: {
-      fontSize: '1.25rem',
-      fontFamily: 'Segoe UI',
+      fontSize: "1.25rem",
+      fontFamily: "Segoe UI",
       textDecoration: "none",
       textTransform: "none",
       color: theme.palette.grayText.main,
@@ -35,11 +33,11 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const AccountButton = ({ isLogged, logout, openModal }) => {
+const AccountButton = ({isLogged, logout, openModal}) => {
   if (!isLogged)
     return (
       <Button
-        type="outlined"
+        type='outlined'
         sx={{
           color: "accent.contrastText",
           backgroundColor: "accent.main",
@@ -53,7 +51,7 @@ const AccountButton = ({ isLogged, logout, openModal }) => {
         endIcon={<ArrowRightOutlinedIcon />}
         onClick={openModal}
       >
-        <Typography textAlign={"center"} variant="h6">
+        <Typography textAlign={"center"} variant='h6'>
           Login
         </Typography>
       </Button>
@@ -61,7 +59,7 @@ const AccountButton = ({ isLogged, logout, openModal }) => {
   else
     return (
       <Button
-        type="outlined"
+        type='outlined'
         sx={{
           color: "accent.contrastText",
           backgroundColor: "accent.main",
@@ -75,7 +73,7 @@ const AccountButton = ({ isLogged, logout, openModal }) => {
         endIcon={<ArrowRightOutlinedIcon />}
         onClick={logout}
       >
-        <Typography textAlign={"center"} variant="h6">
+        <Typography textAlign={"center"} variant='h6'>
           Log out
         </Typography>
       </Button>
@@ -83,7 +81,7 @@ const AccountButton = ({ isLogged, logout, openModal }) => {
 };
 
 const Navbar = (props) => {
-  const { isLogged, signUserOut } = props;
+  const {isLogged, signUserOut} = props;
   const theme = useTheme();
   const styles = useStyles(theme);
 
@@ -122,35 +120,35 @@ const Navbar = (props) => {
 
   return (
     <>
-      <AppBar sx={{backgroundColor: '#ffff'}}>
+      <AppBar sx={{backgroundColor: "#ffff"}}>
         <Container>
-          <Toolbar disableGutters sx={{maxWidth: '1100px'}}>
+          <Toolbar disableGutters sx={{maxWidth: "1100px"}}>
             <Typography
-              variant="h6"
+              variant='h6'
               noWrap
-              sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}
+              sx={{flexGrow: 0, display: {xs: "none", md: "flex"}}}
             >
               <Link to={"/"}>
                 <img
-                  alt="logo"
+                  alt='logo'
                   width={"130px"}
-                  src="./images/vampire_logo.png"
+                  src='/images/vampire_logo.png'
                 />
               </Link>
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <Box sx={{flexGrow: 1, display: {xs: "flex", md: "none"}}}>
               <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
+                size='large'
+                aria-label='account of current user'
+                aria-controls='menu-appbar'
+                aria-haspopup='true'
                 onClick={handleOpenNavMenu}
-                color="accent"
+                color='accent'
               >
                 <MenuIcon />
               </IconButton>
               <Menu
-                id="menu-appbar"
+                id='menu-appbar'
                 anchorEl={anchorElNav}
                 anchorOrigin={{
                   vertical: "bottom",
@@ -164,13 +162,13 @@ const Navbar = (props) => {
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
                 sx={{
-                  display: { xs: "block", md: "none" },
+                  display: {xs: "block", md: "none"},
                 }}
               >
                 {pages.map((page, idx) => {
                   return (
                     <MenuItem key={idx} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">
+                      <Typography textAlign='center'>
                         <Link className={styles.navLinks} to={page.url}>
                           {page.name}
                         </Link>
@@ -181,25 +179,33 @@ const Navbar = (props) => {
               </Menu>
             </Box>
             <Typography
-              variant="h6"
+              variant='h6'
               noWrap
-              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+              sx={{flexGrow: 1, display: {xs: "flex", md: "none"}}}
             >
               <Link to={"/"}>
                 <img
-                  alt="logo"
+                  alt='logo'
                   width={"130px"}
-                  src="./images/vampire_logo.png"
+                  src='./images/vampire_logo.png'
                 />
               </Link>
             </Typography>
-            <Box sx={{ marginLeft: 'auto', flexGrow: 0, display: { xs: "none", md: "flex" }, justifyContent: 'space-between', width: '50%' }}>
+            <Box
+              sx={{
+                marginLeft: "auto",
+                flexGrow: 0,
+                display: {xs: "none", md: "flex"},
+                justifyContent: "space-between",
+                width: "50%",
+              }}
+            >
               {pages.map((page, idx) => (
                 <Typography
-                  sx={{ m: 1, display: "block" }}
+                  sx={{m: 1, display: "block"}}
                   key={idx}
-                  color="white"
-                  variant="h6"
+                  color='white'
+                  variant='h6'
                 >
                   {" "}
                   <Link className={styles.navLinks} to={page.url}>
@@ -208,7 +214,6 @@ const Navbar = (props) => {
                 </Typography>
               ))}
             </Box>
-
           </Toolbar>
         </Container>
       </AppBar>

@@ -1,8 +1,8 @@
-import {Close} from "@mui/icons-material";
 import {
   Alert,
   Breadcrumbs,
   Button,
+  Collapse,
   Container,
   Dialog,
   DialogActions,
@@ -10,10 +10,8 @@ import {
   DialogContentText,
   DialogTitle,
   Grid,
-  IconButton,
   Link,
   Skeleton,
-  Snackbar,
   TextField,
   Typography,
 } from "@mui/material";
@@ -188,18 +186,12 @@ const EditList = () => {
     setOpen(false);
   };
 
-  const action = (
-    <IconButton onClick={handleClose}>
-      <Close size='small' />
-    </IconButton>
-  );
-
   const handleConfirm = (answer) => {
     if (answer) {
       deleteFirebase(type, id).then((res) => {
         const {code, message} = res;
         setStatus({code, message});
-        setOpen((curr) => true);
+        setDeleteOpen((curr) => true);
         navigate(-1, {replace: true});
       });
     } else {
@@ -228,17 +220,18 @@ const EditList = () => {
             </Typography>
           </Breadcrumbs>
         )}
-        <Snackbar
-          open={open}
-          aria-label='close'
-          color={status.code}
-          onClose={handleClose}
-          message={status.message}
-          action={action}
-        >
-          <Alert severity={status.code}>{status.message}</Alert>
-        </Snackbar>
         <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Collapse in={open}>
+              <Alert
+                severity={status.code}
+                onClose={() => handleClose(false)}
+                sx={{alignItems: "center"}}
+              >
+                {status.message}
+              </Alert>
+            </Collapse>
+          </Grid>
           <Dialog open={deleteOpen} onClose={() => handleConfirm(false)}>
             <DialogTitle>
               Are you sure you would like to delete this item?
