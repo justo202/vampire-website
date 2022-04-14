@@ -1,9 +1,13 @@
-import React from "react";
+import {Grid} from "@mui/material";
+import {collection, getDocs} from "firebase/firestore";
+import {useEffect, useState} from "react";
 import Jumbotron from "../components/JumbotronComponent";
-import { Grid } from "@mui/material";
 import ResearchSection from "../components/researchComponent";
-
+import db from "../firebase";
+import {createInstance} from "../utils";
 const Research = () => {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
   const researchList = [
     {
       photo: "https://picsum.photos/400",
@@ -66,21 +70,31 @@ const Research = () => {
       key: 6,
     },
   ];
+
+  useEffect(() => {
+    async function getData() {
+      const snapshot = await getDocs(collection(db, "projects"));
+      setProjects(
+        snapshot.docs.map((doc, idx) => {
+          const temp = createInstance("projects", doc.data());
+          temp.id = doc.id;
+          let values = {};
+          temp.getAttributes().forEach((item) => {
+            values[item.name] = item.value;
+          });
+          return {...doc.data(), id: doc.id};
+        })
+      );
+      setLoading(false);
+    }
+    getData();
+  }, []);
+
   var left = true;
-  const researchListMap = researchList.map((item) => {
+
+  const researchListMap = projects.map((item) => {
     left = !left;
-    return (
-      <ResearchSection
-        imageLeft={left}
-        description={item.description}
-        title={item.title}
-        photo={item.photo}
-        pointers={item.pointers}
-        collaborators={item.collaborators}
-        timeframe={item.timeframe}
-        funding={item.funding}
-      />
-    );
+    return <ResearchSection key={item.id} imageLeft={left} {...item} />;
   });
 
   return (
@@ -94,9 +108,10 @@ const Research = () => {
         alignItems={"center"}
         mr={"auto"}
         ml={"auto"}
-        mt={1}
+        mt={4}
+        mb={4}
         direction={"column"}
-        rowGap={1}
+        rowGap={4}
         maxWidth={"1100px"}
       >
         {researchListMap}

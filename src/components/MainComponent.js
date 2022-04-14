@@ -1,6 +1,5 @@
-
+import {Box} from "@mui/material";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-import { Box } from "@mui/material";
 import {Component} from "react";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import {getAuth, onAuthStateChanged, signOut} from "../firebase";
@@ -37,9 +36,19 @@ const customTheme = createTheme({
       contrastText: "#fff",
     },
     grayText: {
-      main: '#707070'
-    }
-  }
+      main: "#707070",
+    },
+  },
+  components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow: "0 3px 6px rgba(0,0,0,0.16)",
+          border: "1px solid rgba(0,0,0,0.08)",
+        },
+      },
+    },
+  },
 });
 class Main extends Component {
   constructor(props) {
@@ -76,27 +85,31 @@ class Main extends Component {
     return (
       <>
         <ThemeProvider theme={customTheme}>
-          <Box sx={{width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
-
-
-         
-          <Router>
-            <Navbar
-              isLogged={this.state.loggedIn}
-              signUserOut={this.signUserOut}
-            />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/publications" element={<Publications />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/research" element={<Research />} />
-              <Route path="/contact" element={<ContactUs />} />
-              <Route path="/cms/:type/:id" element={<EditList />} />
-              <Route path="/cms/:type" element={<NavigationList />} />
-              <Route path="/cms" element={<ContentManagementSystem />} />
-            </Routes>
-            <Footer />
-          </Router>
+          <Box
+            sx={{
+              width: "100%",
+              minHeight: "100vh",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Router>
+              <Navbar
+                isLogged={this.state.loggedIn}
+                signUserOut={this.signUserOut}
+              />
+              <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/publications' element={<Publications />} />
+                <Route path='/team' element={<Team />} />
+                <Route path='/research' element={<Research />} />
+                <Route path='/contact' element={<ContactUs />} />
+                <Route path='/cms/:type/:id' element={<EditList />} />
+                <Route path='/cms/:type' element={<NavigationList />} />
+                <Route path='/cms' element={<ContentManagementSystem />} />
+              </Routes>
+              <Footer />
+            </Router>
           </Box>
         </ThemeProvider>
       </>

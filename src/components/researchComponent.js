@@ -1,6 +1,5 @@
-import React from "react";
-import { Box, Grid, Link, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import {Box, Grid, Link, Typography} from "@mui/material";
+import {makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles(() => {
   return {
@@ -11,40 +10,44 @@ const useStyles = makeStyles(() => {
     },
     imageContainer: {
       width: "100%",
-      height: "60%",
+      height: "300px",
     },
   };
 });
 
-const CaptionSection = ({ funding, timeframe }) => {
+const CaptionSection = ({grants, timeframe}) => {
   return (
     <Box mb={1}>
       <Typography
         pr={2}
-        sx={{ fontWeight: "bolder" }}
-        variant="caption"
+        sx={{fontWeight: "bolder"}}
+        variant='caption'
         gutterBottom
       >
         Time Frame:{" "}
-        <span style={{ fontWeight: "normal" }}>
-          {timeframe[0]}-{timeframe[1]}
+        <span style={{fontWeight: "normal"}}>
+          {`${new Date(timeframe[0]).getFullYear()} - ${new Date(
+            timeframe[1]
+          ).getFullYear()}`}
         </span>
       </Typography>
-      <Typography sx={{ fontWeight: "bolder" }} variant="caption" gutterBottom>
-        Supporting grants:{" "}
-        <span style={{ fontWeight: "normal" }}>{funding}</span>
-      </Typography>
+      {grants && (
+        <Typography sx={{fontWeight: "bolder"}} variant='caption' gutterBottom>
+          Supporting grants:{" "}
+          <span style={{fontWeight: "normal"}}>{grants}</span>
+        </Typography>
+      )}
     </Box>
   );
 };
-const SectionPointers = ({ pointers }) => {
+const SectionPointers = ({pointers}) => {
   const mapPointers = pointers.map((pointer) => (
     <Link
       display={"block"}
       href={pointer.link}
-      variant="body1"
+      variant='body1'
       gutterBottom
-      underline="hover"
+      underline='hover'
       color={"accent.main"}
     >
       {pointer.title}
@@ -55,36 +58,50 @@ const SectionPointers = ({ pointers }) => {
 };
 
 const TextSection = ({
-  title,
-  funding,
-  timeframe,
   description,
+  title,
+  grants,
+  startDate,
+  endDate,
   collaborators,
 }) => {
   return (
     <Grid xs={7} item>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant='h5' gutterBottom>
         {title}
       </Typography>
-      <CaptionSection funding={funding} timeframe={timeframe} />
-      <Typography mb={2} variant="body1">
-        <span style={{ fontWeight: "bold" }}>Description: </span>
-        {description}
-      </Typography>
-      <Typography variant="body2">
-        <span style={{ fontWeight: "bold" }}>Collaborators: </span>
-        {collaborators.join(", ")}
-      </Typography>
+      <CaptionSection grants={grants} timeframe={[startDate, endDate]} />
+      {description.length > 0 && (
+        <Typography mb={2} variant='body1'>
+          <span style={{fontWeight: "bold"}}>Description: </span>
+          {description}
+        </Typography>
+      )}
+      {collaborators.length > 0 && (
+        <Typography variant='body2'>
+          <span style={{fontWeight: "bold"}}>Collaborators: </span>
+          {collaborators.map(
+            (col, idx) =>
+              `${col.name} (${col.institution})${
+                idx === collaborators.length - 2 ? " and " : ""
+              }${idx < collaborators.length - 2 ? ", " : ""}`
+          )}
+        </Typography>
+      )}
     </Grid>
   );
 };
-const ImageSection = ({ styles, photo, pointers }) => {
+const ImageSection = ({styles, photo, pointers}) => {
   return (
     <Grid xs={5} item alignItems={"center"}>
-      <Box className={styles.imageContainer} mb={1} sx={{ boxShadow: 3 }}>
-        <img className={styles.researchImage} alt="research" src={photo} />
+      <Box className={styles.imageContainer} mb={1} sx={{boxShadow: 3}}>
+        <img
+          className={styles.researchImage}
+          alt='research'
+          src={photo || "https://picsum.photos/200"}
+        />
       </Box>
-      <Typography variant="body1" textAlign={"center"}>
+      <Typography variant='body1' textAlign={"center"}>
         Publication pointers
       </Typography>
       <SectionPointers pointers={pointers} />
@@ -95,8 +112,9 @@ const ImageSection = ({ styles, photo, pointers }) => {
 const ResearchSection = ({
   title,
   description,
-  funding = "",
-  timeframe = ["", ""],
+  grants = "",
+  endDate,
+  startDate,
   photo,
   collaborators = [],
   pointers = [],
@@ -111,8 +129,9 @@ const ResearchSection = ({
         <TextSection
           title={title}
           description={description}
-          funding={funding}
-          timeframe={timeframe}
+          grants={grants}
+          endDate={endDate}
+          startDate={startDate}
           collaborators={collaborators}
         />
       )}
@@ -120,8 +139,9 @@ const ResearchSection = ({
         <TextSection
           title={title}
           description={description}
-          funding={funding}
-          timeframe={timeframe}
+          grants={grants}
+          endDate={endDate}
+          startDate={startDate}
           collaborators={collaborators}
         />
       ) : (

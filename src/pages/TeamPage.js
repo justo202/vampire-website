@@ -1,4 +1,3 @@
-import { Book, Link, School } from "@mui/icons-material";
 import {
   Card,
   CardContent,
@@ -7,21 +6,23 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { collection, getDocs } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import {collection, getDocs} from "firebase/firestore";
+import {useEffect, useState} from "react";
 import Jumbotron from "../components/JumbotronComponent";
 import db from "../firebase";
+import useStyles from "../styles/Team";
 
 const Team = () => {
   const [team, setTeam] = useState([]);
   const [loading, setLoading] = useState(true);
+  const classes = useStyles();
 
   useEffect(() => {
     async function getData() {
       const snapshot = await getDocs(collection(db, "team"));
       setTeam(
         snapshot.docs.map((doc, idx) => {
-          return { ...doc.data(), id: doc.id };
+          return {...doc.data(), id: doc.id};
         })
       );
       setLoading(false);
@@ -31,9 +32,9 @@ const Team = () => {
 
   return (
     <>
-      <Jumbotron title="Team" />
-      <Container sx={{ maxWidth: 1200, margin: "2rem auto" }}>
-        <Grid container spacing={2}>
+      <Jumbotron title='Team' />
+      <Container sx={{maxWidth: 1200, margin: "2rem auto"}}>
+        <Grid container spacing={3}>
           {team &&
             team.map((member) => {
               return (
@@ -43,63 +44,56 @@ const Team = () => {
                   sm={6}
                   key={member.id}
                   md={4}
-                  sx={{ display: "flex" }}
+                  sx={{display: "flex"}}
                 >
                   <Card
                     sx={{
                       display: "flex",
-                      flexDirection: "row",
+                      flexDirection: "column",
                       alignItems: "flex-start",
                       justifyContent: "flex-start",
-                      padding: "1rem",
+                      padding: "20px",
                       flexGrow: "1",
+                      gap: "6px",
                     }}
                   >
                     <CardMedia
-                      height="70"
-                      component="img"
-                      sx={{
-                        alignSelf: "center",
-                        objectFit: "cover",
-                        width: "auto",
-                        borderRadius: "1rem",
-                      }}
+                      height='56'
+                      component='img'
+                      className={classes.image}
+                      width='56'
                       image={
                         member.photoUrl
                           ? member.photoUrl
                           : "https://picsum.photos/id/1005/200"
                       }
                     />
-                    <CardContent
-                      sx={{
-                        flex: 1,
-                        position: "relative",
-                        padding: "0 0 0 1rem",
-                        paddingBottom: "0 !important",
-                      }}
-                    >
-                      <Typography
-                        variant="span"
+                    <CardContent className={classes.content}>
+                      <Container
                         sx={{
-                          display: "inline-block",
-                          fontSize: "1.2rem",
-                          marginBottom: "1rem",
-                          marginTop: "0.2rem",
+                          display: "flex",
+                          flexDirection: "column",
+                          padding: "0 !important",
                         }}
                       >
-                        {member.name}
+                        <Typography
+                          variant='h5'
+                          className={classes.name}
+                          sx={{
+                            display: "inline-block",
+                            marginBottom: "1rem",
+                            marginTop: "0.2rem",
+                          }}
+                        >
+                          {member.name}
+                        </Typography>
+                        <Typography className={classes.institution} variant='p'>
+                          {member.institute}
+                        </Typography>
+                      </Container>
+                      <Typography className={classes.description} variant='p'>
+                        {member.description}
                       </Typography>
-                      <Grid container spacing={0} sx={{ fontSize: "1.2rem" }}>
-                        <Grid item sx={{ padding: "5px" }}>
-                          <Link sx={{ fontSize: "inherit" }}></Link>
-                        </Grid>
-                        <Grid item sx={{ padding: "5px" }}>
-                          <Book sx={{ fontSize: "inherit" }}></Book>
-                        </Grid>
-                        <Grid item sx={{ padding: "5px" }}>
-                          <School sx={{ fontSize: "inherit " }}></School>
-                        </Grid>
-                      </Grid>
                     </CardContent>
                   </Card>
                 </Grid>
