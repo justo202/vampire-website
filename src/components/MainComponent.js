@@ -7,6 +7,7 @@ import ContactUs from "../pages/ContactUsPage";
 import ContentManagementSystem from "../pages/ContentManagementSystem";
 import Home from "../pages/HomePage";
 import Publications from "../pages/PublicationsPage";
+import {PublicationsSearch} from "../pages/PublicationsSearch";
 import Research from "../pages/Research";
 import Team from "../pages/TeamPage";
 import EditList from "./EditList";
@@ -104,6 +105,10 @@ class Main extends Component {
                 <Route path='/team' element={<Team />} />
                 <Route path='/research' element={<Research />} />
                 <Route path='/contact' element={<ContactUs />} />
+                <Route
+                  path='/cms/publications/search'
+                  element={<PublicationsSearch />}
+                />
                 <Route path='/cms/:type/:id' element={<EditList />} />
                 <Route path='/cms/:type' element={<NavigationList />} />
                 <Route path='/cms' element={<ContentManagementSystem />} />

@@ -21,9 +21,17 @@ const Team = () => {
     async function getData() {
       const snapshot = await getDocs(collection(db, "team"));
       setTeam(
-        snapshot.docs.map((doc, idx) => {
-          return {...doc.data(), id: doc.id};
-        })
+        snapshot.docs
+          .sort((a, b) => {
+            const x = a.data().name.split(" ")[1];
+            const y = b.data().name.split(" ")[1];
+            if (x < y) return -1;
+            if (y < x) return 1;
+            return 0;
+          })
+          .map((doc, idx) => {
+            return {...doc.data(), id: doc.id};
+          })
       );
       setLoading(false);
     }

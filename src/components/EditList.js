@@ -72,7 +72,6 @@ const EditList = () => {
       fieldId === "endDate"
     ) {
       if (index) {
-        console.log(index);
         setValues((curr) => ({...curr, [index]: e}));
       } else {
         setValues((curr) => ({...curr, [fieldId]: e}));

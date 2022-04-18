@@ -23,7 +23,7 @@ export class Publication extends ContentModel {
     this.booktitle = booktitle || fulljournalname || "";
     this.date = date || new Date().valueOf();
     this.publisher = publisher || publishername || "";
-    this.authors = authors || [];
+    this.authors = this.parseAuthors(authors) || [];
     this.number = number || "";
     this.volume = volume || "";
     this.pages = pages || "";
@@ -121,6 +121,22 @@ export class Publication extends ContentModel {
     return this.citation;
   }
 
+  parseAuthors(authors) {
+    let type;
+    if (authors.length > 0) {
+      if (typeof authors[0] === "object") {
+        type = "nested";
+      } else {
+        type = "flat";
+      }
+    }
+    if (type === "nested") {
+      return authors.map((author) => author.name);
+    } else {
+      return authors;
+    }
+  }
+
   generateCitation() {
     let authorsText = "";
     if (this._authors.length === 0) {
@@ -135,13 +151,14 @@ export class Publication extends ContentModel {
         this._authors[this._authors.length - 1]
       } `;
     }
+
     return `${authorsText}(${new Date(this._date).getFullYear()}), "${
       this._title
     }"${this._booktitle ? `, ${this._booktitle}` : ""}${
-      this._volume ? `, ${this._volume}` : ""
-    }${this._pages ? `, pp. ${this._pages}` : ""}${
-      this._publisher ? `, ${this._publisher}` : ""
-    }`;
+      this._volume ? `, Vol. ${this._volume}` : ""
+    }${this._number ? `, No. ${this._number}` : ""}${
+      this._pages ? `, pp. ${this._pages}` : ""
+    }${this._publisher ? `, ${this._publisher}` : ""}`;
   }
 
   getDate(data) {
@@ -205,6 +222,7 @@ export class Publication extends ContentModel {
             fullWidth: true,
             value: this._date,
             label: "Publish Date",
+            views: ["month", "year"],
           },
         },
       },
@@ -230,7 +248,7 @@ export class Publication extends ContentModel {
           props: {
             fullWidth: true,
             value: this._booktitle,
-            label: "Book Title or Journal Name",
+            label: "Book Title or Journal Name or Conference",
             multiline: true,
           },
         },

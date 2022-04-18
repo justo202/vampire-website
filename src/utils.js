@@ -63,33 +63,32 @@ const verifyDate = (data) => {
 };
 
 export const updateFirebase = async (type, id, data) => {
-  data = verifyDate(data);
-  if (typeof data.startDate === "object") {
-    try {
-      data.startDate = data.startDate.toMillis();
-    } catch (e) {
-      data.startDate = data.startDate.valueOf();
-    }
-  }
-  if (typeof data.endDate === "object") {
-    try {
-      data.endDate = data.endDate.toMillis();
-    } catch (e) {
-      data.endDate = data.endDate.valueOf();
-    }
-  }
+  // data = verifyDate(data);
+  // if (typeof data.startDate === "object") {
+  //   try {
+  //     data.startDate = data.startDate.toMillis();
+  //   } catch (e) {
+  //     data.startDate = data.startDate.valueOf();
+  //   }
+  // }
+  // if (typeof data.endDate === "object") {
+  //   try {
+  //     data.endDate = data.endDate.toMillis();
+  //   } catch (e) {
+  //     data.endDate = data.endDate.valueOf();
+  //   }
+  // }
 
-  if (data.name === "" || data.title === "") {
-    return error(
-      "Please ensure that there is a valid name or title to your item before saving."
-    );
-  }
+  // if (data.name === "" || data.title === "") {
+  //   return error(
+  //     "Please ensure that there is a valid name or title to your item before saving."
+  //   );
+  // }
 
   const tempId = data.id;
 
   delete data.id;
 
-  console.log(data);
   return await setDoc(doc(db, type, id), data)
     .then(() => {
       data.id = tempId;
