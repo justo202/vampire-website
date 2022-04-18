@@ -1,11 +1,8 @@
 import React from "react";
 import {
   Card,
-  CardMedia,
   CardContent,
-  CardActions,
   Typography,
-  Button,
   Grid,
 } from "@mui/material";
 

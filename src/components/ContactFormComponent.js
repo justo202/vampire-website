@@ -48,32 +48,32 @@ class ContactForm extends Component {
         : "Please enter your affiliation";
     if ("description" in values)
       error.description = required(values.description)
-        ? maxLength(100, values.description)
+        ? maxLength(200, values.description)
           ? ""
-          : "Message cannot exceed 100 words"
+          : "Message cannot exceed 200 words"
         : "This field is required";
     if ("need" in values)
       error.need = required(values.need)
-        ? maxLength(50, values.need)
+        ? maxLength(100, values.need)
           ? ""
-          : "Message cannot exceed 50 words"
+          : "Message cannot exceed 100 words"
         : "This field is required";
     if ("images" in values)
       error.images = required(values.images)
-        ? maxLength(50, values.images)
+        ? maxLength(100, values.images)
           ? ""
-          : "Message cannot exceed 50 words"
+          : "Message cannot exceed 100 words"
         : "This field is required";
     if ("feedback" in values)
       error.feedback = required(values.feedback)
-        ? maxLength(30, values.feedback)
+        ? maxLength(100, values.feedback)
           ? ""
-          : "Message cannot exceed 30 words"
+          : "Message cannot exceed 100 words"
         : "This field is required";
     this.setState({
       errors: error,
     });
-    if (values == this.state)
+    if (values === this.state)
       return Object.values(error).every((item) => item === "");
   };
   handleSubmit = (e) => {
@@ -174,7 +174,7 @@ class ContactForm extends Component {
                 required
                 onBlur={this.handleInputChange}
                 onChange={this.handleInputChange}
-                error={this.state.errors.name != ""}
+                error={this.state.errors.name !== ""}
                 helperText={this.state.errors.name}
               ></TextField>
             </Grid>
@@ -189,7 +189,7 @@ class ContactForm extends Component {
                 fullWidth
                 required
                 onBlur={this.handleInputChange}
-                error={this.state.errors.email != ""}
+                error={this.state.errors.email !== ""}
                 helperText={this.state.errors.email}
                 onChange={this.handleInputChange}
               ></TextField>
@@ -204,7 +204,7 @@ class ContactForm extends Component {
                 fullWidth
                 required
                 onBlur={this.handleInputChange}
-                error={this.state.errors.affiliation != ""}
+                error={this.state.errors.affiliation !== ""}
                 helperText={this.state.errors.affiliation}
                 onChange={this.handleInputChange}
               ></TextField>
@@ -216,12 +216,12 @@ class ContactForm extends Component {
                 multiline
                 rows={3}
                 value={this.state.description}
-                placeholder="Please describe your research project (max 100 words)"
+                placeholder="Please describe your research project (max 200 words)"
                 variant="outlined"
                 fullWidth
                 required
                 onBlur={this.handleInputChange}
-                error={this.state.errors.description != ""}
+                error={this.state.errors.description !== ""}
                 helperText={this.state.errors.description}
                 onChange={this.handleInputChange}
               ></TextField>
@@ -233,12 +233,12 @@ class ContactForm extends Component {
                 multiline
                 rows={3}
                 value={this.state.need}
-                placeholder="Why is VAMPIRE needed? (max 50 words)"
+                placeholder="Why is VAMPIRE needed? (max 100 words)"
                 variant="outlined"
                 fullWidth
                 required
                 onBlur={this.handleInputChange}
-                error={this.state.errors.need != ""}
+                error={this.state.errors.need !== ""}
                 helperText={this.state.errors.need}
                 onChange={this.handleInputChange}
               ></TextField>
@@ -250,12 +250,12 @@ class ContactForm extends Component {
                 multiline
                 rows={3}
                 value={this.state.images}
-                placeholder="How many images would you like to measure with VAMPIRE, and from how many patients? (max 50 words)"
+                placeholder="How many images would you like to measure with VAMPIRE, and from how many patients? (max 100 words)"
                 variant="outlined"
                 fullWidth
                 required
                 onBlur={this.handleInputChange}
-                error={this.state.errors.images != ""}
+                error={this.state.errors.images !== ""}
                 helperText={this.state.errors.images}
                 onChange={this.handleInputChange}
               ></TextField>
@@ -267,12 +267,12 @@ class ContactForm extends Component {
                 multiline
                 rows={5}
                 value={this.state.feedback}
-                placeholder="How did you hear of VAMPIRE? (max 30 words)"
+                placeholder="How did you hear of VAMPIRE? (max 100 words)"
                 variant="outlined"
                 fullWidth
                 required
                 onBlur={this.handleInputChange}
-                error={this.state.errors.feedback != ""}
+                error={this.state.errors.feedback !== ""}
                 helperText={this.state.errors.feedback}
                 onChange={this.handleInputChange}
               ></TextField>

@@ -29,6 +29,15 @@ const styles = makeStyles((theme) => {
       width: "100%",
       zIndex: 1,
     },
+    loginButton: {
+      height: "fit-content", 
+      padding: "0.2rem",
+      color: 'white',
+      borderColor: 'white',
+      "&:hover": {
+        color: theme.palette.accent.main,
+      }
+    }
   };
 });
 
@@ -94,17 +103,16 @@ const Footer = () => {
                 </Link>
               </Typography>
               <Button
-                sx={{height: "fit-content", padding: "0"}}
-                color='inherit'
-                variant='text'
+                className={useStyle.loginButton}
+                color='accent'
+                variant='outlined'
                 onClick={handleOpen}
               >
                 <Typography
                   variant='h6'
-                  color={"white"}
-                  className={useStyle.navLinks}
+                  sx={{padding: '0', textTransform: "none"}}
                 >
-                  Login
+                  Editor Login
                 </Typography>
               </Button>
             </Box>
@@ -155,17 +163,16 @@ const Footer = () => {
                 </Link>
               </Typography>
               <Button
-                sx={{height: "fit-content", padding: "0"}}
-                color='inherit'
-                variant='text'
+                className={useStyle.loginButton}
+                color='accent'
+                variant='outlined'
+                onClick={handleOpen}
               >
                 <Typography
                   variant='h6'
-                  color={"white"}
-                  className={useStyle.navLinks}
-                  onClick={handleOpen}
+                  sx={{padding: '0', textTransform: "none"}}
                 >
-                  Login
+                  Editor Login
                 </Typography>
               </Button>
             </Box>

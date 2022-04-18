@@ -25,7 +25,7 @@ const Home = () => {
   return (
     <>
       <Jumbotron
-        title="VAMPIRE RESEARCH"
+        title="VAMPIRE"
         button="Watch our video"
         image="https://picsum.photos/1100"
 

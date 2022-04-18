@@ -37,6 +37,10 @@ const useStyles = makeStyles((theme) => {
       width: "100%",
       objectFit: "cover",
     },
+    logo: {
+
+      height: '130px'
+    }
   };
 });
 
@@ -59,6 +63,11 @@ const Jumbotron = ({title, subtitle, button, image = ""}) => {
           color: "white",
         }}
       >
+                <img
+          alt='logo'
+          className={styles.logo}
+          src='./images/vampire_logo.png'
+          />
         <Box
           sx={{
             zIndex: 99,
@@ -105,6 +114,7 @@ const Jumbotron = ({title, subtitle, button, image = ""}) => {
             src='/images/jumbotron_decoration.svg'
           />
         )}
+ 
       </div>
       <Modal
         open={open}

@@ -24,7 +24,7 @@ exports.handler = async (event, context, callback) => {
       if (res.data.success) {
         const msg = {
           to: "justaslabeikis23@gmail.com", // Change to your recipient
-          from: "vampire.bot.donotreply@gmail.com", // Change to your verified sender
+          from: "vampire_enquiries@dundee.ac.uk", // Change to your verified sender
           templateId: process.env.SENDGRID_TEMPLATE_ID,
           dynamicTemplateData: {
             name: name,
