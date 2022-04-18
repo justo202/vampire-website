@@ -3,6 +3,7 @@ import {
   Breadcrumbs,
   Button,
   Container,
+  Grid,
   Link,
   List,
   Typography,
@@ -41,7 +42,7 @@ const NavigationList = () => {
   return (
     <>
       <Jumbotron title={`Edit ${type[0].toUpperCase()}${type.slice(1)}`} />
-      <Container className={classes.container}>
+      <Container className={classes.container} spacing={2}>
         {type && values && (
           <Breadcrumbs aria-label='breadcrumb' sx={{marginBottom: "1.5rem"}}>
             <Link component={RouterLink} to='/cms'>
@@ -52,14 +53,30 @@ const NavigationList = () => {
             </Typography>
           </Breadcrumbs>
         )}
-        <Button
-          variant='contained'
-          color='primary'
-          onClick={(e) => addNew()}
-          sx={{marginBottom: "1rem"}}
-        >
-          Create New <Add />
-        </Button>
+        <Grid container columnSpacing={2}>
+          <Grid item>
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={(e) => addNew()}
+              sx={{marginBottom: "1rem"}}
+            >
+              Create New <Add />
+            </Button>
+          </Grid>
+          {type === "publications" && (
+            <Grid item>
+              <Button
+                variant='contained'
+                color='warning'
+                onClick={(e) => navigate("/cms/publications/search")}
+                sx={{marginBottom: "1rem"}}
+              >
+                Search Publications <Add />
+              </Button>
+            </Grid>
+          )}
+        </Grid>
         <List className={classes.list}>
           {values &&
             Object.values(values).map((item) => {

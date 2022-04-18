@@ -5,7 +5,7 @@ import {TextField} from "@mui/material";
 
 // import useStyles from "../styles/Collaborators";
 
-const CustomDatePicker = ({value, handleFieldChange, ...props}) => {
+const CustomDatePicker = ({value, handleFieldChange, index, ...props}) => {
   // const classes = useStyles();
 
   return (
@@ -13,11 +13,7 @@ const CustomDatePicker = ({value, handleFieldChange, ...props}) => {
       <DatePicker
         {...props}
         onChange={(e) => {
-          handleFieldChange(
-            "date",
-            new Date(e),
-            props.label.split(" ")[0].toLowerCase() + "Date"
-          );
+          handleFieldChange("date", new Date(e), index);
         }}
         value={value || new Date().valueOf()}
         renderInput={(params) => <TextField fullWidth {...params} />}
@@ -27,7 +23,18 @@ const CustomDatePicker = ({value, handleFieldChange, ...props}) => {
 };
 
 export const CustomDatePickerWrapper = (props) => {
-  return <CustomDatePicker {...props} />;
+  const getIndex = (label) => {
+    switch (label) {
+      case "End Date":
+        return "endDate";
+      case "Start Date":
+        return "startDate";
+      default:
+        return "date";
+    }
+  };
+
+  return <CustomDatePicker index={getIndex(props.label)} {...props} />;
 };
 
 export default CustomDatePickerWrapper;
