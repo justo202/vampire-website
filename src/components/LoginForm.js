@@ -29,6 +29,7 @@ const handleSubmit = (e, close) => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.log(errorCode)
     });
 };
 
@@ -52,8 +53,7 @@ const LoginForm = ({ closeForm }) => {
         p={3}
       >
         <Avatar>
-          {" "}
-          <LockOutlined />{" "}
+          <LockOutlined />
         </Avatar>
         <Typography variant="h4" mb={2}>
           Sign in

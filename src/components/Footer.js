@@ -31,20 +31,45 @@ const styles = makeStyles((theme) => {
     },
     loginButton: {
       height: "fit-content", 
-      padding: "0.2rem",
+      padding: "0",
       color: 'white',
-      borderColor: 'white',
+      border: 'none',
       "&:hover": {
         color: theme.palette.accent.main,
       }
+    },
+    navContainer: {
+      height: 'auto',
+      width: '20%',
+      textAlign: 'center'
+
     }
   };
 });
 
-const Footer = () => {
+const AccountButton = ({isLogged, logout, openModal, useStyle}) => {
+   return (
+    <Button
+    className={useStyle.loginButton}
+    color='accent'
+    variant='outlined'
+    onClick={isLogged ? () => logout() : () => openModal()}
+  >
+    <Typography
+      variant='h6'
+      sx={{padding: '0', textTransform: "none"}}
+    >
+      {isLogged ? "Logout" : "Editor Login"} 
+    </Typography>
+  </Button>
+   )
+
+};
+const Footer = (props) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const {isLogged, signUserOut} = props;
 
   const theme = useTheme();
   const useStyle = styles(theme);
@@ -77,27 +102,27 @@ const Footer = () => {
               Navigation
             </Typography>
             <Box>
-              <Typography p={1} pt={0} variant='h6' color={"white"}>
+              <Typography pb={1} pt={0} variant='h6' color={"white"}>
                 <Link className={useStyle.navLinks} to={"/research"}>
-                  About
+                  Research
                 </Link>
               </Typography>
-              <Typography p={1} pt={0} variant='h6' color={"white"}>
+              <Typography pb={1} pt={0} variant='h6' color={"white"}>
                 <Link className={useStyle.navLinks} to={"/team"}>
                   Team
                 </Link>
               </Typography>
-              <Typography p={1} pt={0} variant='h6' color={"white"}>
+              <Typography pb={1} pt={0} variant='h6' color={"white"}>
                 <Link className={useStyle.navLinks} to={"/publications"}>
                   Publications
                 </Link>
               </Typography>
-              <Typography p={1} pt={0} variant='h6' color={"white"}>
+              <Typography pb={1} pt={0} variant='h6' color={"white"}>
                 <Link className={useStyle.navLinks} to={"/news"}>
                   News
                 </Link>
               </Typography>
-              <Typography p={1} pt={0} variant='h6' color={"white"}>
+              <Typography pb={1} pt={0} variant='h6' color={"white"}>
                 <Link className={useStyle.navLinks} to={"/contact"}>
                   Contact
                 </Link>
@@ -134,47 +159,36 @@ const Footer = () => {
             sx={{display: {xs: "none", md: "inherit"}}}
             xs={12}
             md={7}
-            p={6}
+            p={3}
+            pt={6}
           >
-            <Box sx={{display: "inline-flex"}}>
-              <Typography p={1} pt={0} variant='h6' color={"white"}>
+            <Box sx={{display: "flex", flexWrap: 'wrap', justifyContent: 'flex-end', width: '100%'}}>
+              <Typography className={useStyle.navContainer} pt={0} variant='h6' color={"white"}>
                 <Link className={useStyle.navLinks} to={"/research"}>
-                  About
+                Research
                 </Link>
               </Typography>
-              <Typography p={1} pt={0} variant='h6' color={"white"}>
+              <Typography className={useStyle.navContainer} pt={0} variant='h6' color={"white"}>
                 <Link className={useStyle.navLinks} to={"/team"}>
                   Team
                 </Link>
               </Typography>
-              <Typography p={1} pt={0} variant='h6' color={"white"}>
+              <Typography  className={useStyle.navContainer} pt={0} variant='h6' color={"white"}>
                 <Link className={useStyle.navLinks} to={"/publications"}>
                   Publications
                 </Link>
               </Typography>
-              <Typography p={1} pt={0} variant='h6' color={"white"}>
+              <Typography className={useStyle.navContainer} pt={0} variant='h6' color={"white"}>
                 <Link className={useStyle.navLinks} to={"/news"}>
                   News
                 </Link>
               </Typography>
-              <Typography p={1} pt={0} variant='h6' color={"white"}>
+              <Typography className={useStyle.navContainer} pt={0} variant='h6' color={"white"}>
                 <Link className={useStyle.navLinks} to={"/contact"}>
                   Contact
                 </Link>
               </Typography>
-              <Button
-                className={useStyle.loginButton}
-                color='accent'
-                variant='outlined'
-                onClick={handleOpen}
-              >
-                <Typography
-                  variant='h6'
-                  sx={{padding: '0', textTransform: "none"}}
-                >
-                  Editor Login
-                </Typography>
-              </Button>
+              <AccountButton  isLogged={isLogged} logout={signUserOut} openModal={handleOpen} useStyle={useStyle}/>
             </Box>
           </Grid>
         </Grid>
