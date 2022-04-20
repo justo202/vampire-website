@@ -1,5 +1,6 @@
 import {Box, Card, Grid, Typography} from "@mui/material";
 import {makeStyles, useTheme} from "@mui/styles";
+import { padding } from "@mui/system";
 import {collection, getDocs} from "firebase/firestore";
 import {useEffect, useState} from "react";
 import Carousel from "react-material-ui-carousel";
@@ -15,21 +16,22 @@ const useStyles = makeStyles((theme) => {
       },
     },
     slide: {
-      height: "200px",
+      height: "300px",
       width: "100%",
     },
     card: {
-      height: "200px",
+      height: "300px",
       position: "relative",
     },
     cardContainer: {
       height: "100%",
       position: "relative",
+      width: '100%',
+      
     },
     cardMedia: {
-      width: "100%",
       height: "100%",
-      overflow: "hidden",
+      width: '100%',
       position: "relative",
     },
   };
@@ -39,7 +41,7 @@ const TestimonialContainer = (props) => {
   const {style, cards, group = false} = props;
   return (
     <Box className={style.card}>
-      <Grid container columnSpacing={2} className={style.cardContainer}>
+      <Grid container spacing={1} className={style.cardContainer}>
         {group ? cards.map((item, index) => item) : cards}
       </Grid>
     </Box>
@@ -97,38 +99,22 @@ const Testimonials = () => {
           <Card
             className={styles.cardMedia}
             title={"hello"}
-            sx={{width: "100%", borderBottom: "2px #FF7700  solid"}}
+            sx={{ borderBottom: "2px #FF7700  solid", display:'flex', justifyContent:'center', flexDirection: 'column'}}
+           
           >
-            <Box
-              sx={{
-                textOverflow: "ellipsis",
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                backgroundColor: "#ffff",
-                textAlign: "center",
-                zIndex: 99,
-                padding: "0.1rem",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-evenly",
-              }}
-            >
               <Typography
                 sx={{
-                  textOverflow: "ellipsis",
-                  width: "100%",
-
-                  textAlign: "center",
+                  textAlign: "justify",
                   zIndex: 99,
+                  margin: '0.8rem'
                 }}
+                variant='body2'
+                color='text.secondary'
               >
                 {element.text}
               </Typography>
               <Typography
                 sx={{
-                  textOverflow: "ellipsis",
-                  width: "100%",
                   textAlign: "center",
                   zIndex: 99,
                   fontStyle: "italic",
@@ -138,7 +124,6 @@ const Testimonials = () => {
               >
                 {element.name}
               </Typography>
-            </Box>
           </Card>
         </Grid>
       );
