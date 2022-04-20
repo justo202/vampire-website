@@ -1,13 +1,13 @@
-import { ContentModel } from "./ContentModel";
+import {ContentModel} from "./ContentModel";
 
 export class TeamMember extends ContentModel {
   constructor(data) {
     super();
-    const { name, institute, description, photo } = data || {};
+    const {name, institute, description, hasImage} = data || {};
     this.name = name || "";
     this.institute = institute || "";
     this.description = description || "";
-    this.photo = photo || "";
+    this.hasImage = hasImage || "";
   }
 
   set name(newName) {
@@ -34,12 +34,12 @@ export class TeamMember extends ContentModel {
     return this._description;
   }
 
-  set photo(newPhoto) {
-    this._photo = newPhoto;
+  set hasImage(newPhoto) {
+    this._hasImage = newPhoto;
   }
 
-  get photo() {
-    return this._photo;
+  get hasImage() {
+    return this._hasImage;
   }
 
   getAttributes() {
@@ -47,7 +47,10 @@ export class TeamMember extends ContentModel {
       {
         name: "id",
         value: this._id,
-        size: 2,
+        size: {
+          mobile: 12,
+          desktop: 2,
+        },
         tag: {
           name: "text",
           props: {
@@ -61,7 +64,10 @@ export class TeamMember extends ContentModel {
       {
         name: "name",
         value: this._name,
-        size: 5,
+        size: {
+          mobile: 12,
+          desktop: 5,
+        },
         tag: {
           name: "text",
           props: {
@@ -74,7 +80,10 @@ export class TeamMember extends ContentModel {
       {
         name: "institute",
         value: this._institute,
-        size: 5,
+        size: {
+          mobile: 12,
+          desktop: 5,
+        },
         tag: {
           name: "text",
           props: {
@@ -87,7 +96,10 @@ export class TeamMember extends ContentModel {
       {
         name: "description",
         value: this._description,
-        size: 12,
+        size: {
+          mobile: 12,
+          desktop: 12,
+        },
         tag: {
           name: "text",
           props: {
@@ -99,14 +111,17 @@ export class TeamMember extends ContentModel {
         },
       },
       {
-        name: "photo",
-        value: this._photo,
-        size: 12,
+        name: "hasImage",
+        value: this._hasImage,
+        size: {
+          mobile: 12,
+          desktop: 12,
+        },
         tag: {
           name: "img",
           props: {
             alt: this._name,
-            src: this._photo,
+            src: this._hasImage,
             label: "Image",
           },
         },

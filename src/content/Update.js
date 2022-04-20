@@ -4,11 +4,11 @@ import {ContentModel} from "./ContentModel";
 export class Update extends ContentModel {
   constructor(data) {
     super();
-    const {title, text, date, photos} = data || {};
+    const {title, text, date, hasImage} = data || {};
     this.title = title || "";
     this.text = text || "";
     this.date = (date && date.toMillis()) || new Timestamp().nanoseconds;
-    this.photos = photos || [];
+    this.hasImage = hasImage || "";
   }
 
   set title(newTitle) {
@@ -35,12 +35,12 @@ export class Update extends ContentModel {
     return this._date;
   }
 
-  set photos(newPhotos) {
-    this._photos = newPhotos;
+  set hasImage(newPhotos) {
+    this._hasImage = newPhotos;
   }
 
-  get photos() {
-    return this._photos;
+  get hasImage() {
+    return this._hasImage;
   }
 
   getState() {
@@ -49,7 +49,7 @@ export class Update extends ContentModel {
       title: this._title,
       date: this._date,
       text: this._text,
-      photos: this._photos,
+      hasImage: this._hasImage,
     };
   }
 
@@ -58,7 +58,10 @@ export class Update extends ContentModel {
       {
         name: "id",
         value: this._id,
-        size: 2,
+        size: {
+          mobile: 12,
+          desktop: 2,
+        },
         tag: {
           name: "text",
           props: {
@@ -72,7 +75,10 @@ export class Update extends ContentModel {
       {
         name: "title",
         value: this._title,
-        size: 7,
+        size: {
+          mobile: 12,
+          desktop: 7,
+        },
         tag: {
           name: "text",
           props: {
@@ -85,7 +91,10 @@ export class Update extends ContentModel {
       {
         name: "date",
         value: this._date,
-        size: 3,
+        size: {
+          mobile: 12,
+          desktop: 3,
+        },
         tag: {
           name: "date",
           props: {
@@ -98,7 +107,10 @@ export class Update extends ContentModel {
       {
         name: "text",
         value: this._text,
-        size: 12,
+        size: {
+          mobile: 12,
+          desktop: 12,
+        },
         tag: {
           name: "text",
           props: {
@@ -110,14 +122,17 @@ export class Update extends ContentModel {
         },
       },
       {
-        name: "photos",
-        value: this._photos,
-        size: 12,
+        name: "hasImage",
+        value: this._hasImage,
+        size: {
+          mobile: 12,
+          desktop: 12,
+        },
         tag: {
           name: "img",
           props: {
-            value: this._photos,
-            label: "Image(s)",
+            value: this._hasImage,
+            label: "Image",
           },
         },
       },

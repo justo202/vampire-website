@@ -64,6 +64,7 @@ export const PublicationsSearch = () => {
 
     create({author: searchTerm}).then((res) => {
       if (res.data) {
+        console.log(res.data);
         let returnedData = [];
         let filteredData = [];
         let articlesFound = 0;

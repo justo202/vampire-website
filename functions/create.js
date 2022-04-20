@@ -72,9 +72,7 @@ const googleScholarSearch = async (author) => {
   // API Request to confirm Google Scholar Author ID
   const authorQuery = `${options.urls.base}engine=${
     options.urls.profiles_engine
-  }&mauthors=${encodeURIComponent(author.name)}&api_key=${
-    process.env.SERP_API_KEY
-  }`;
+  }&mauthors=${encodeURIComponent(author)}&api_key=${process.env.SERP_API_KEY}`;
   const id = await axios
     .get(authorQuery)
     .then((res) => {
@@ -121,59 +119,10 @@ const googleScholarSearch = async (author) => {
 exports.create = functions
   .region("europe-west2")
   .https.onCall(async (data, context) => {
-    let articlesAdded = 0;
     const {author} = data;
     // const {articles: ieeeArticles} = await ieeeXploreSearch(author);
     // const scholRes = await googleScholarSearch(author);
     const pubMedRes = await pubMedSearch(author);
 
     return pubMedRes;
-
-    // for (let item in pubMedRes) {
-    //   let ref = firestore.collection(collection).doc(
-    //     getUuidByString(
-    //       parseString(
-    //         pubMedRes[item].title
-    //           .match(/[\p{Letter}\p{Mark}\s]+/gu)[0]
-    //           .split(" ")
-    //           .join("")
-    //       )
-    //     )
-    //   );
-    //   bulkWriter.set(ref, pubMedRes[item]);
-    //   articlesAdded++;
-    // }
-
-    // scholRes.forEach((article) => {
-    //   let ref = firestore.collection(collection).doc(
-    //     getUuidByString(
-    //       parseString(
-    //         article.value.citation.title
-    //           .match(/[\p{Letter}\p{Mark}\s]+/gu)[0]
-    //           .split(" ")
-    //           .join("")
-    //       )
-    //     )
-    //   );
-    //   bulkWriter.set(ref, article.value.citation);
-    //   articlesAdded++;
-    // });
-
-    // ieeeArticles.forEach((article) => {
-    //   let ref = firestore.collection(collection).doc(
-    //     getUuidByString(
-    //       parseString(
-    //         article.title
-    //           .match(/[\p{Letter}\p{Mark}\s]+/gu)[0]
-    //           .split(" ")
-    //           .join("")
-    //       )
-    //     )
-    //   );
-    //   bulkWriter.set(ref, article);
-    //   articlesAdded++;
-    // });
-
-    // await bulkWriter.close();
-    // return {articlesAdded, ieeeArticles, scholRes, pubMedRes};
   });

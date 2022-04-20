@@ -68,7 +68,7 @@ const Jumbotron = ({title, subtitle, button, image = ""}) => {
           }}
         >
           <Typography
-            sx={{font: "normal normal bold 63px/83px Roboto"}}
+            sx={{font: "normal normal bold 4rem Roboto"}}
             color='#fff'
             align='center'
           >

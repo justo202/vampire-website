@@ -10,7 +10,7 @@ export class Project extends ContentModel {
       description,
       grants,
       collaborators,
-      photo,
+      hasImage,
     } = data || {};
     this.title = title || "";
     this.startDate = startDate || new Date().valueOf();
@@ -18,7 +18,7 @@ export class Project extends ContentModel {
     this.description = description || "";
     this.grants = grants || "";
     this.collaborators = collaborators || [];
-    this.photo = photo || "";
+    this.hasImage = hasImage || "";
   }
 
   set title(newTitle) {
@@ -61,12 +61,12 @@ export class Project extends ContentModel {
     return this._grants;
   }
 
-  set photo(newPhoto) {
-    this._photo = newPhoto;
+  set hasImage(newPhoto) {
+    this._hasImage = newPhoto;
   }
 
-  get photo() {
-    return this._photo;
+  get hasImage() {
+    return this._hasImage;
   }
 
   set collaborators(newCollaborators) {
@@ -82,7 +82,10 @@ export class Project extends ContentModel {
       {
         name: "id",
         value: this._id,
-        size: 2,
+        size: {
+          mobile: 12,
+          desktop: 2,
+        },
         tag: {
           name: "text",
           props: {
@@ -96,7 +99,10 @@ export class Project extends ContentModel {
       {
         name: "title",
         value: this._title,
-        size: 6,
+        size: {
+          mobile: 12,
+          desktop: 6,
+        },
         tag: {
           name: "text",
           props: {
@@ -109,7 +115,10 @@ export class Project extends ContentModel {
       {
         name: "startDate",
         value: this._startDate,
-        size: 2,
+        size: {
+          mobile: 6,
+          desktop: 2,
+        },
         tag: {
           name: "date",
           props: {
@@ -125,7 +134,10 @@ export class Project extends ContentModel {
       {
         name: "endDate",
         value: this._endDate,
-        size: 2,
+        size: {
+          mobile: 6,
+          desktop: 2,
+        },
         tag: {
           name: "date",
           props: {
@@ -141,7 +153,10 @@ export class Project extends ContentModel {
       {
         name: "description",
         value: this._description,
-        size: 12,
+        size: {
+          mobile: 12,
+          desktop: 12,
+        },
         tag: {
           name: "text",
           props: {
@@ -155,7 +170,10 @@ export class Project extends ContentModel {
       {
         name: "grants",
         value: this._grants,
-        size: 12,
+        size: {
+          mobile: 12,
+          desktop: 12,
+        },
         tag: {
           name: "text",
           props: {
@@ -169,7 +187,10 @@ export class Project extends ContentModel {
       {
         name: "collaborators",
         value: this._collaborators,
-        size: 12,
+        size: {
+          mobile: 12,
+          desktop: 12,
+        },
         tag: {
           name: "collaborators",
           props: {
@@ -179,13 +200,16 @@ export class Project extends ContentModel {
         },
       },
       {
-        name: "image",
-        value: this._photo,
-        size: 6,
+        name: "hasImage",
+        value: this._image,
+        size: {
+          mobile: 12,
+          desktop: 6,
+        },
         tag: {
           name: "img",
           props: {
-            value: this._photo,
+            value: this._image,
             label: "Image",
           },
         },
