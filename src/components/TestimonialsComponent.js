@@ -64,7 +64,7 @@ const TestimonialContainer = (props) => {
   return (
     <Box className={style.card}>
       <Grid container columnSpacing={2} className={style.cardContainer}>
-        {group ? cards.map((item) => item) : cards}
+        {group ? cards.map((item, index) => item) : cards}
       </Grid>
     </Box>
   );
@@ -102,9 +102,8 @@ const Testimonials = () => {
   var testimonialCards = [];
   testimonialInfo.forEach((element) => {
     testimonialCards.push(
-      <Grid xs={12} sm={4} item className={styles.cardContainer}>
-        <Card className={styles.cardMedia} title={"hello"} sx={{width: '100%', borderBottom: '2px #FF7700  solid'}}>
-        
+      <Grid xs={12} sm={4} item key={element.idd}className={styles.cardContainer}>
+        <Card className={styles.cardMedia} title={"Testimonia"} sx={{width: '100%', borderBottom: '2px #FF7700  solid'}}>
           <Box
             sx={{
               textOverflow: "ellipsis",
