@@ -37,6 +37,12 @@ const useStyles = makeStyles((theme) => {
       width: "100%",
       objectFit: "cover",
     },
+    logo: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      height: '130px'
+    }
   };
 });
 
@@ -59,14 +65,17 @@ const Jumbotron = ({title, subtitle, button, image = ""}) => {
           color: "white",
         }}
       >
+
         <Box
           sx={{
             zIndex: 99,
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
+            maxWidth: '1100px'
           }}
         >
+
           <Typography
             sx={{font: "normal normal bold 4rem Roboto"}}
             color='#fff'
@@ -105,6 +114,7 @@ const Jumbotron = ({title, subtitle, button, image = ""}) => {
             src='/images/jumbotron_decoration.svg'
           />
         )}
+ 
       </div>
       <Modal
         open={open}

@@ -2,6 +2,7 @@ import {Card, CardContent, Grid, Skeleton, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import db from "../firebase";
 
+
 const NewsItem = ({date, text, title}) => {
   return (
     <Grid item xs={12} sm={4}>

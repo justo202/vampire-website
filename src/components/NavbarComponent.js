@@ -33,81 +33,65 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-const AccountButton = ({isLogged, logout, openModal}) => {
-  if (!isLogged)
+const LoginBar = ({email}) => {
+  if(email !== "")
     return (
-      <Button
-        type='outlined'
-        sx={{
-          color: "accent.contrastText",
-          backgroundColor: "accent.main",
-          "&:hover": {
-            backgroundColor: "lightBlack.main",
-            color: "accent.main",
-          },
-          my: 2,
-          display: "flex",
-        }}
-        endIcon={<ArrowRightOutlinedIcon />}
-        onClick={openModal}
-      >
-        <Typography textAlign={"center"} variant='h6'>
-          Login
+      <Box sx={{display: 'flex', backgroundColor: "darkBackground.main", justifyContent: 'center'}}>
+      <Box sx={{width: '100%', maxWidth: '1100px'}} >
+        <Box sx={{float: 'right'}} display={'inline-flex'}>
+        <Typography
+          variant="body1"
+          color={'grayText.main'}
+          mr={1}>
+          Hello,
         </Typography>
-      </Button>
-    );
-  else
-    return (
-      <Button
-        type='outlined'
-        sx={{
-          color: "accent.contrastText",
-          backgroundColor: "accent.main",
-          "&:hover": {
-            backgroundColor: "lightBackground.main",
-            color: "accent.main",
-          },
-          my: 2,
-          display: "flex",
-        }}
-        endIcon={<ArrowRightOutlinedIcon />}
-        onClick={logout}
-      >
-        <Typography textAlign={"center"} variant='h6'>
-          Log out
-        </Typography>
-      </Button>
-    );
-};
+          <Typography
+          variant="body1"
+          color={'grayText.main'}
+          sx={{fontWeight: 'bolder'}}>
+          {email}
+          </Typography>
+        </Box>
 
+      </Box>
+
+    </Box>
+    )
+  return null
+}
 const Navbar = (props) => {
-  const {isLogged, signUserOut} = props;
+  const {isLogged, email } = props;
   const theme = useTheme();
   const styles = useStyles(theme);
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   const pages = [
     {
       name: "Publications",
       url: "/publications",
+      show: true
     },
     {
       name: "Team",
       url: "/team",
+      show: true
     },
     {
       name: "Research",
       url: "/research",
+      show: true
     },
     {
       name: "Contact us",
       url: "/contact",
+      show: true
     },
+    {
+      name: "CMS",
+      url: "/cms",
+      show: isLogged
+    }
   ];
 
   const handleOpenNavMenu = (event) => {
@@ -166,15 +150,17 @@ const Navbar = (props) => {
                 }}
               >
                 {pages.map((page, idx) => {
-                  return (
-                    <MenuItem key={idx} onClick={handleCloseNavMenu}>
-                      <Typography textAlign='center'>
-                        <Link className={styles.navLinks} to={page.url}>
-                          {page.name}
-                        </Link>
-                      </Typography>
-                    </MenuItem>
-                  );
+                  if(page.show)
+                    return (
+                      <MenuItem key={idx} onClick={handleCloseNavMenu}>
+                        <Typography textAlign='center'>
+                          <Link className={styles.navLinks} to={page.url}>
+                            {page.name}
+                          </Link>
+                        </Typography>
+                      </MenuItem>
+                    );
+                  return null
                 })}
               </Menu>
             </Box>
@@ -200,25 +186,33 @@ const Navbar = (props) => {
                 width: "50%",
               }}
             >
-              {pages.map((page, idx) => (
-                <Typography
-                  sx={{m: 1, display: "block"}}
-                  key={idx}
-                  color='white'
-                  variant='h6'
-                >
-                  {" "}
-                  <Link className={styles.navLinks} to={page.url}>
-                    {page.name}
-                  </Link>
-                </Typography>
-              ))}
+              {pages.map((page, idx) => {
+                if(page.show)
+                  return (
+               
+                    <Typography
+                      sx={{m: 1, display: "block"}}
+                      key={idx}
+                      color='white'
+                      variant='h6'
+                    >
+                      <Link className={styles.navLinks} to={page.url}>
+                        {page.name}
+                      </Link>
+                    </Typography>
+                  )
+                return null
+
+
+              })}
             </Box>
           </Toolbar>
         </Container>
+        <LoginBar email={email}/>
       </AppBar>
 
       <div className={styles.toolbarHeigh}></div>
+      
     </>
   );
 };
