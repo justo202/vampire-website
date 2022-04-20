@@ -187,7 +187,7 @@ const Navbar = (props) => {
                 <img
                   alt='logo'
                   width={"130px"}
-                  src='./images/vampire_logo.png'
+                  src='/images/vampire_logo.png'
                 />
               </Link>
             </Typography>
