@@ -54,8 +54,9 @@ const NavigationList = () => {
           </Breadcrumbs>
         )}
         <Grid container columnSpacing={2}>
-          <Grid item>
+          <Grid item xs={12} sm={6} md={2}>
             <Button
+              fullWidth
               variant='contained'
               color='primary'
               onClick={(e) => addNew()}
@@ -65,8 +66,9 @@ const NavigationList = () => {
             </Button>
           </Grid>
           {type === "publications" && (
-            <Grid item>
+            <Grid item xs={12} sm={6} md={3}>
               <Button
+                fullWidth
                 variant='contained'
                 color='warning'
                 onClick={(e) => navigate("/cms/publications/search")}

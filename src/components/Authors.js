@@ -7,13 +7,13 @@ export const Authors = ({handleFieldChange, ...props}) => {
 
   return (
     <Grid container spacing={1}>
-      <Grid item md={12}>
+      <Grid item md={12} sm={12} xs={12}>
         <InputLabel className={classes.label}>Authors</InputLabel>
       </Grid>
       {props.value &&
         props.value.map((author, idx) => {
           return (
-            <Grid item xs={2} key={idx}>
+            <Grid item xs={12} md={2} sm={6} key={idx}>
               <TextField
                 fullWidth
                 value={author}
@@ -36,7 +36,7 @@ export const Authors = ({handleFieldChange, ...props}) => {
             </Grid>
           );
         })}
-      <Grid item xs={2}>
+      <Grid item xs={12} sm={6} md={2}>
         <Button
           onClick={(e) => handleFieldChange("authors", "New Person", -1, true)}
         >

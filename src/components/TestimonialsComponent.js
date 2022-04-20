@@ -1,33 +1,9 @@
-import React, { useState, useEffect } from "react";
+import {Box, Card, Grid, Typography} from "@mui/material";
+import {makeStyles, useTheme} from "@mui/styles";
+import {collection, getDocs} from "firebase/firestore";
+import {useEffect, useState} from "react";
 import Carousel from "react-material-ui-carousel";
-import { Typography, Grid, Card, Box } from "@mui/material";
-import { makeStyles, useTheme } from "@mui/styles";
-
-const testimonialInfo = [
-  {
-    description: "great website, i like it a lot",
-    name: "its me",
-    idd: 1,
-  },
-  {
-    description:
-      "tfytguhuwjaetissraweopawoeijtawoejaowegnaiuh awej oawnfklgs jfng ;aweork awoen ialeri jaweoijawnligahuwoeij",
-    name: "someone",
-    idd: 2,
-  },
-  {
-    description:
-      "i cant believe this workser awera weraw erawe rawer awer awer awerawe rawer awerawerawer awera werwae rawer",
-    name: "who",
-    idd: 3,
-  },
-  {
-    description:
-      "they were really good to work with and im happy that everything went well, cant wait to work with them again in the futur",
-    name: "person",
-    idd: 4,
-  },
-];
+import db from "../firebase";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -60,7 +36,7 @@ const useStyles = makeStyles((theme) => {
 });
 
 const TestimonialContainer = (props) => {
-  const { style, cards, group = false } = props;
+  const {style, cards, group = false} = props;
   return (
     <Box className={style.card}>
       <Grid container columnSpacing={2} className={style.cardContainer}>
@@ -84,7 +60,20 @@ const Testimonials = () => {
     height: window.innerHeight,
     width: window.innerWidth,
   });
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    async function getData() {
+      const snapshot = await getDocs(collection(db, "testimonials"));
+      setItems(
+        snapshot.docs.map((doc, idx) => {
+          return {...doc.data(), id: doc.id};
+        })
+      );
+      setLoading(false);
+    }
+    getData();
     const debouncedHandleResize = debounce(function handleResize() {
       setDimensions({
         height: window.innerHeight,
@@ -99,57 +88,61 @@ const Testimonials = () => {
     };
   });
   const styles = useStyles(useTheme());
+
   var testimonialCards = [];
-  testimonialInfo.forEach((element) => {
-    testimonialCards.push(
-      <Grid xs={12} sm={4} item key={element.idd}className={styles.cardContainer}>
-        <Card className={styles.cardMedia} title={"Testimonia"} sx={{width: '100%', borderBottom: '2px #FF7700  solid'}}>
-          <Box
-            sx={{
-              textOverflow: "ellipsis",
-              position: "absolute",
-              width: "100%",
-              height: "100%",
-              backgroundColor: '#ffff',
-              textAlign: "center",
-              zIndex: 99,
-              padding: "0.1rem",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-evenly",
-            }}
+  items &&
+    items.forEach((element) => {
+      testimonialCards.push(
+        <Grid xs={12} sm={4} item className={styles.cardContainer}>
+          <Card
+            className={styles.cardMedia}
+            title={"hello"}
+            sx={{width: "100%", borderBottom: "2px #FF7700  solid"}}
           >
-            <Typography
+            <Box
               sx={{
                 textOverflow: "ellipsis",
+                position: "absolute",
                 width: "100%",
-
+                height: "100%",
+                backgroundColor: "#ffff",
                 textAlign: "center",
                 zIndex: 99,
+                padding: "0.1rem",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-evenly",
               }}
             >
-              {element.description}
-            </Typography>
-            <Typography
-              sx={{
-                textOverflow: "ellipsis",
-                width: "100%",
-                textAlign: "center",
-                zIndex: 99,
-                fontStyle: "italic",
-                fontWeight: 'bolder'
-              }}
-              align="center"
-            >
-              {element.name}
-            </Typography>
-          </Box>
+              <Typography
+                sx={{
+                  textOverflow: "ellipsis",
+                  width: "100%",
 
-  
-        </Card>
-      </Grid>
-    );
-  });
+                  textAlign: "center",
+                  zIndex: 99,
+                }}
+              >
+                {element.text}
+              </Typography>
+              <Typography
+                sx={{
+                  textOverflow: "ellipsis",
+                  width: "100%",
+                  textAlign: "center",
+                  zIndex: 99,
+                  fontStyle: "italic",
+                  fontWeight: "bolder",
+                }}
+                align='center'
+              >
+                {element.name}
+              </Typography>
+            </Box>
+          </Card>
+        </Grid>
+      );
+    });
   if (dimensions.width > 601) {
     let groupedTestimonials = [];
     let temp = [];

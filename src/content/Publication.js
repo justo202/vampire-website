@@ -188,7 +188,10 @@ export class Publication extends ContentModel {
       {
         name: "id",
         value: this._id,
-        size: 2,
+        size: {
+          mobile: 4,
+          desktop: 2,
+        },
         tag: {
           name: "text",
           props: {
@@ -202,7 +205,10 @@ export class Publication extends ContentModel {
       {
         name: "doi",
         value: this._doi,
-        size: 2,
+        size: {
+          mobile: 8,
+          desktop: 2,
+        },
         tag: {
           name: "text",
           props: {
@@ -215,7 +221,10 @@ export class Publication extends ContentModel {
       {
         name: "date",
         value: this._date,
-        size: 3,
+        size: {
+          mobile: 12,
+          desktop: 3,
+        },
         tag: {
           name: "date",
           props: {
@@ -229,7 +238,10 @@ export class Publication extends ContentModel {
       {
         name: "publisher",
         value: this._publisher,
-        size: 5,
+        size: {
+          mobile: 12,
+          desktop: 5,
+        },
         tag: {
           name: "text",
           props: {
@@ -242,7 +254,10 @@ export class Publication extends ContentModel {
       {
         name: "booktitle",
         value: this._booktitle,
-        size: 12,
+        size: {
+          mobile: 12,
+          desktop: 12,
+        },
         tag: {
           name: "text",
           props: {
@@ -256,7 +271,10 @@ export class Publication extends ContentModel {
       {
         name: "title",
         value: this._title,
-        size: 12,
+        size: {
+          mobile: 12,
+          desktop: 12,
+        },
         tag: {
           name: "text",
           props: {
@@ -270,7 +288,10 @@ export class Publication extends ContentModel {
       {
         name: "category",
         value: this._category,
-        size: 3,
+        size: {
+          mobile: 12,
+          desktop: 3,
+        },
         tag: {
           name: "text",
           props: {
@@ -284,7 +305,10 @@ export class Publication extends ContentModel {
       {
         name: "volume",
         value: this._volume,
-        size: 3,
+        size: {
+          mobile: 12,
+          desktop: 3,
+        },
         tag: {
           name: "text",
           props: {
@@ -298,7 +322,10 @@ export class Publication extends ContentModel {
       {
         name: "number",
         value: this._number,
-        size: 3,
+        size: {
+          mobile: 12,
+          desktop: 3,
+        },
         tag: {
           name: "text",
           props: {
@@ -312,7 +339,10 @@ export class Publication extends ContentModel {
       {
         name: "pages",
         value: this._pages,
-        size: 3,
+        size: {
+          mobile: 12,
+          desktop: 3,
+        },
         tag: {
           name: "text",
           props: {
@@ -326,7 +356,10 @@ export class Publication extends ContentModel {
       {
         name: "authors",
         value: this._authors,
-        size: 12,
+        size: {
+          mobile: 12,
+          desktop: 12,
+        },
         tag: {
           name: "authors",
           props: {
@@ -339,7 +372,10 @@ export class Publication extends ContentModel {
       {
         name: "citation",
         value: this._citation ? this._citation : this.generateCitation(),
-        size: 12,
+        size: {
+          mobile: 12,
+          desktop: 12,
+        },
         tag: {
           name: "text",
           props: {
