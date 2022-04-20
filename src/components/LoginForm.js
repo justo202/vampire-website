@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   Avatar,
   Grid,
@@ -7,12 +7,13 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+import { useTheme } from "@mui/styles";
 import { LockOutlined } from "@mui/icons-material";
 import { getAuth, signInWithEmailAndPassword } from "../firebase";
 
 const auth = getAuth();
 
-const handleSubmit = (e, close) => {
+const handleSubmit = (e, close, setError) => {
   const email = e.target[0].value;
   const password = e.target[1].value;
 
@@ -29,11 +30,14 @@ const handleSubmit = (e, close) => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode)
+      setError(errorMessage)
     });
 };
 
 const LoginForm = ({ closeForm }) => {
+  const theme = useTheme()
+  const [error, setError] = useState(null)
+
   return (
     <Paper
       elevation={10}
@@ -58,7 +62,17 @@ const LoginForm = ({ closeForm }) => {
         <Typography variant="h4" mb={2}>
           Sign in
         </Typography>
-        <form onSubmit={(e) => handleSubmit(e, closeForm)}>
+        <Typography
+        hidden={!error}
+        sx={{
+          padding: "1rem",
+          backgroundColor: `${theme.palette.error.main}22`,
+          width: '80%'
+        }}
+      >
+        {error}
+      </Typography>
+        <form onSubmit={(e) => handleSubmit(e, closeForm, setError)}>
           <TextField
             label="Email"
             name="email"

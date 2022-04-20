@@ -1,9 +1,7 @@
-import ArrowRightOutlinedIcon from "@mui/icons-material/ArrowRightOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
   Box,
-  Button,
   Container,
   IconButton,
   Menu,
@@ -18,7 +16,7 @@ import {Link} from "react-router-dom";
 const useStyles = makeStyles((theme) => {
   return {
     toolbarHeigh: {
-      padding: "30px",
+      padding: "55px",
     },
     navLinks: {
       fontSize: "1.25rem",
@@ -115,7 +113,7 @@ const Navbar = (props) => {
               <Link to={"/"}>
                 <img
                   alt='logo'
-                  width={"130px"}
+                  width={"250px"}
                   src='/images/vampire_logo.png'
                 />
               </Link>
@@ -172,8 +170,8 @@ const Navbar = (props) => {
               <Link to={"/"}>
                 <img
                   alt='logo'
-                  width={"130px"}
-                  src='/images/vampire_logo.png'
+                  width={"250px"}
+                  src='./images/vampire_logo.png'
                 />
               </Link>
             </Typography>
