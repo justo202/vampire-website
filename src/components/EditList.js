@@ -160,14 +160,23 @@ const EditList = () => {
           item.tag.props.handleFieldChange = fieldChangeFunction;
         }
 
+        if (item.tag.name === "img") {
+          item.tag.props.hasImage = instance._hasImage;
+        }
+
+        if (item.tag.name === "hasImage") return <></>;
+
         return (
           <Grid
             item
-            xs={item.size ? item.size : true}
+            xs={item.size ? item.size.mobile : true}
+            md={item.size ? item.size.desktop : true}
             key={item.tag.props.label}
           >
             <TagName
               {...item.tag.props}
+              id={id}
+              type={type}
               value={values[item.name]}
               onChange={(e) => fieldChangeFunction(item.name, e)}
             />
@@ -200,7 +209,7 @@ const EditList = () => {
 
   return (
     <>
-      <Jumbotron title={`Edit ${type[0].toUpperCase()}${type.slice(1)} Item`} />
+      <Jumbotron title={`Edit Item`} />
       <Container sx={{margin: "1rem auto 2rem"}}>
         {type && values && (
           <Breadcrumbs aria-label='breadcrumb' sx={{marginBottom: "1.5rem"}}>

@@ -8,12 +8,8 @@ const ContentManagementArea = () => {
   const classes = useStyles();
   const areas = [
     {
-      label: "Site Meta",
-      link: "meta",
-    },
-    {
-      label: "Team",
-      link: "team",
+      label: "Partners",
+      link: "partners",
     },
     {
       label: "Publications",
@@ -24,12 +20,16 @@ const ContentManagementArea = () => {
       link: "projects",
     },
     {
-      label: "Updates",
-      link: "updates",
+      label: "Team",
+      link: "team",
     },
     {
       label: "Testimonials",
       link: "testimonials",
+    },
+    {
+      label: "Updates",
+      link: "updates",
     },
   ];
 

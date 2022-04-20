@@ -7,14 +7,14 @@ export const Collaborators = ({handleFieldChange, ...props}) => {
   const classes = useStyles();
   return (
     <Grid container spacing={3} rowSpacing={1} alignItems='center'>
-      <Grid item md={12}>
+      <Grid item md={12} xs={12}>
         <InputLabel className={classes.label}>Collaborators</InputLabel>
       </Grid>
       {props.value &&
         props.value.map((collaborator, idx) => {
           return (
             <React.Fragment key={idx}>
-              <Grid item xs={6}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   value={collaborator.name}
@@ -28,7 +28,7 @@ export const Collaborators = ({handleFieldChange, ...props}) => {
                   }}
                 />
               </Grid>
-              <Grid item xs={5}>
+              <Grid item md={5} xs={9}>
                 <TextField
                   fullWidth
                   value={collaborator.institution}
@@ -42,7 +42,7 @@ export const Collaborators = ({handleFieldChange, ...props}) => {
                   }}
                 />
               </Grid>
-              <Grid item xs={1}>
+              <Grid item xs={2} md={1} alignItems='center' display='flex'>
                 <Button
                   variant='contained'
                   color='error'
@@ -57,7 +57,7 @@ export const Collaborators = ({handleFieldChange, ...props}) => {
             </React.Fragment>
           );
         })}
-      <Grid item xs={5}>
+      <Grid item xs={12} md={6}>
         <Button
           onClick={(e) =>
             handleFieldChange(

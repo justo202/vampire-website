@@ -91,16 +91,21 @@ const TextSection = ({
     </Grid>
   );
 };
-const ImageSection = ({styles, photo, pointers}) => {
+const ImageSection = ({styles, id, hasImage, pointers}) => {
   return (
     <Grid xs={5} item alignItems={"center"}>
-      <Box className={styles.imageContainer} mb={1} sx={{boxShadow: 3}}>
-        <img
-          className={styles.researchImage}
-          alt='research'
-          src={photo || "https://picsum.photos/200"}
-        />
-      </Box>
+      {hasImage && (
+        <Box className={styles.imageContainer} mb={1} sx={{boxShadow: 3}}>
+          <img
+            className={styles.researchImage}
+            alt='research'
+            src={
+              `https://storage.googleapis.com/vampire-research.appspot.com/projects/${id}` ||
+              "https://picsum.photos/200"
+            }
+          />
+        </Box>
+      )}
       <Typography variant='body1' textAlign={"center"}>
         Publication pointers
       </Typography>
@@ -115,7 +120,8 @@ const ResearchSection = ({
   grants = "",
   endDate,
   startDate,
-  photo,
+  id,
+  hasImage,
   collaborators = [],
   pointers = [],
   imageLeft = false,
@@ -124,7 +130,12 @@ const ResearchSection = ({
   return (
     <Grid container spacing={2}>
       {imageLeft ? (
-        <ImageSection styles={styles} photo={photo} pointers={pointers} />
+        <ImageSection
+          styles={styles}
+          id={id}
+          hasImage={hasImage}
+          pointers={pointers}
+        />
       ) : (
         <TextSection
           title={title}
@@ -145,7 +156,12 @@ const ResearchSection = ({
           collaborators={collaborators}
         />
       ) : (
-        <ImageSection styles={styles} photo={photo} pointers={pointers} />
+        <ImageSection
+          styles={styles}
+          id={id}
+          hasImage={hasImage}
+          pointers={pointers}
+        />
       )}
     </Grid>
   );

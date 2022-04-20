@@ -29,7 +29,10 @@ export class Testimonial extends ContentModel {
       {
         name: "id",
         value: this._id,
-        size: 2,
+        size: {
+          mobile: 12,
+          desktop: 2,
+        },
         tag: {
           name: "text",
           props: {
@@ -43,7 +46,10 @@ export class Testimonial extends ContentModel {
       {
         name: "name",
         value: this._name,
-        size: 10,
+        size: {
+          mobile: 12,
+          desktop: 10,
+        },
         tag: {
           name: "text",
           props: {
@@ -56,7 +62,10 @@ export class Testimonial extends ContentModel {
       {
         name: "text",
         value: this._text,
-        size: 12,
+        size: {
+          mobile: 12,
+          desktop: 12,
+        },
         tag: {
           name: "text",
           props: {
