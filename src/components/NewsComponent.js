@@ -1,7 +1,7 @@
 import {Card, CardContent, Grid, Skeleton, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import db from "../firebase";
-
+import { getDocs,collection } from "firebase/firestore";
 
 const NewsItem = ({date, text, title}) => {
   return (
