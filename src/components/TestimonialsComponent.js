@@ -40,7 +40,7 @@ const TestimonialContainer = (props) => {
   return (
     <Box className={style.card}>
       <Grid container columnSpacing={2} className={style.cardContainer}>
-        {group ? cards.map((item) => item) : cards}
+        {group ? cards.map((item, index) => item) : cards}
       </Grid>
     </Box>
   );

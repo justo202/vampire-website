@@ -1,6 +1,6 @@
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MenuIcon from "@mui/icons-material/Menu";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
 import {
   Box,
@@ -20,8 +20,10 @@ import {app} from "../firebase";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import Map, {Marker, Popup} from "!react-map-gl";
 
+
 const functions = getFunctions(app, "europe-west2");
 const get_token = httpsCallable(functions, "get_token");
+
 const LOCATION_INFO = [
   {
     latitude: 55.953252,
@@ -138,6 +140,9 @@ const RenderMobileBar = (props) => {
 function InteractiveMap(props) {
   const [key, setKey] = useState(null);
 
+  useEffect(() => {
+    get_token({name: 'REACT_APP_MAPBOX_TOKEN'}).then(result => setKey(result.data.result))
+  });
   const [anchorEl, setAnchorEl] = useState(null);
   const [popoverText, setpopoverText] = useState(null);
 
@@ -149,6 +154,7 @@ function InteractiveMap(props) {
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
+  
 
   const open = Boolean(anchorEl);
   const mapRef = React.createRef();
