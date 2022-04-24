@@ -1,19 +1,19 @@
 const {default: axios} = require("axios");
-const getUuidByString = require("uuid-by-string");
 const functions = require("firebase-functions");
-const {firestore, bulkWriter} = require(".");
 
 const pubMedSearch = async (author) => {
+  const generalFields =
+    "&tool=VAMPIRE_PUBLICATION_SEARCH&email=vampire_enquires@dundee.ac.uk";
   const firstname = author.split(" ")[0];
   const lastname = author.split(" ")[1];
   const result = await axios.get(
     `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?retmode=json&term=${encodeURIComponent(
       `${lastname}, ${firstname}`
-    )}[Full%20Author%20Name]&usehistory=y`
+    )}[Full%20Author%20Name]&usehistory=y${generalFields}`
   );
   const publications = await axios
     .get(
-      `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?retmode=json&WebEnv=${result.data.esearchresult.webenv}&query_key=1&db=pubmed`
+      `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?retmode=json&WebEnv=${result.data.esearchresult.webenv}&query_key=1&db=pubmed${generalFields}`
     )
     .then((res) => {
       if (res.data && res.data.result) {
@@ -76,7 +76,12 @@ const googleScholarSearch = async (author) => {
   const id = await axios
     .get(authorQuery)
     .then((res) => {
-      return res.data.profiles[0].author_id;
+      if (res.data.profiles) {
+        if (res.data.profiles.length > 0) {
+          console.log(res.data.profiles);
+          return res.data.profiles[0].author_id;
+        }
+      }
     })
     .catch((err) => {
       console.error(err);
@@ -107,9 +112,7 @@ const googleScholarSearch = async (author) => {
         .get(
           `${options.urls.base}engine=${options.urls.author_engine}&api_key=${process.env.SERP_API_KEY}&author_id=${id}&citation_id=${id}&view_op=${options.operation}`
         )
-        .then((res) => {
-          return res.data;
-        })
+        .then((res) => res.data)
     )
   );
 
@@ -120,9 +123,21 @@ exports.create = functions
   .region("europe-west2")
   .https.onCall(async (data, context) => {
     const {author} = data;
-    // const {articles: ieeeArticles} = await ieeeXploreSearch(author);
-    // const scholRes = await googleScholarSearch(author);
-    const pubMedRes = await pubMedSearch(author);
+    // const {error: ieeeErr, articles: ieeeArticles} = await ieeeXploreSearch(
+    //   author
+    // );
+    // const {error: scholErr, articles: scholRes} = await googleScholarSearch(
+    //   author
+    // );
+    const {error: pubMedErr, articles: pubMedRes} = await pubMedSearch(author);
 
-    return pubMedRes;
+    // status 3 === everything went fine
+    // status 2 === most things went fine
+    // status 1 === all errored
+    // status 0 === uncaught error
+    return {
+      // ...scholRes,
+      ...pubMedRes,
+      //  ...ieeeArticles
+    };
   });

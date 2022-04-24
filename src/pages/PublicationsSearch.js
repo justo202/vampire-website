@@ -64,7 +64,6 @@ export const PublicationsSearch = () => {
 
     create({author: searchTerm}).then((res) => {
       if (res.data) {
-        console.log(res.data);
         let returnedData = [];
         let filteredData = [];
         let articlesFound = 0;
@@ -73,8 +72,14 @@ export const PublicationsSearch = () => {
           let found =
             existingItems.filter(
               (exItem) =>
-                exItem.title.includes(item.title) ||
-                item.title.includes(exItem.title)
+                exItem.title
+                  .replace(/[^\w\s]|_/g, "")
+                  .replace(/\s+/g, " ")
+                  .includes(item.title) ||
+                item.title
+                  .replace(/[^\w\s]|_/g, "")
+                  .replace(/\s+/g, " ")
+                  .includes(exItem.title)
             ).length > 0;
           if (!found) {
             filteredData.push(item);
@@ -82,6 +87,7 @@ export const PublicationsSearch = () => {
           returnedData.push(item);
           articlesFound++;
         });
+        articlesFound--;
         setFilteredItems(filteredData);
         setItems(returnedData);
         setStatus({
@@ -104,44 +110,65 @@ export const PublicationsSearch = () => {
   };
 
   const uploadPublications = () => {
-    Object.values(items).forEach((item) => {
-      if (!item.checked) {
-        return;
-      }
+    const upload = new Promise((res, rej) => {
+      let itemsUploaded = 0;
+      let itemsToUpload = 0;
+      let loading = true;
+      Object.values(items).forEach((item, idx) => {
+        if (!item.checked) {
+          return;
+        }
+        itemsToUpload++;
 
-      if (!item.title) {
-        setStatus({
-          code: "error",
-          message: "There was an issue with uploading one or more items.",
+        if (!item.title) {
+          setStatus({
+            code: "error",
+            message: "There was an issue with uploading one or more items.",
+          });
+        }
+
+        const instance = new Publication(item);
+
+        instance.id = uuidv4();
+
+        let values = {};
+
+        instance.getAttributes().forEach((item) => {
+          values[item.name] = item.value;
         });
-      }
 
-      const instance = new Publication(item);
+        updateFirebase("publications", instance.id, values)
+          .then((res) => {
+            itemsUploaded++;
+            getExistingItems();
+          })
+          .catch((e) => {
+            console.error("Error on " + item.title);
+            console.error(e);
+          });
 
-      instance.id = uuidv4();
-
-      let values = {};
-
-      instance.getAttributes().forEach((item) => {
-        values[item.name] = item.value;
+        if (idx - 1 === Object.values(items).length) {
+          loading = false;
+        }
       });
-
-      updateFirebase("publications", instance.id, values)
-        .then((res) => {
-          console.log("uploaded");
-          getExistingItems();
-        })
-        .catch((e) => {
-          console.error("Error on " + item.title);
-          console.error(e);
-        });
+      if (!loading) {
+        res({itemsToUpload, itemsUploaded});
+      }
     });
+    upload
+      .then((res) => {
+        console.log(res);
+        console.log("wow");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  const updateChecked = (id) => {
+  const updateChecked = (title) => {
     const temp = items.slice();
 
-    const found = temp.find((item) => item.id === id || item.uid === id);
+    const found = temp.find((item) => item.title === title);
 
     if (found.checked) {
       setCount((curr) => (curr -= 1));
@@ -259,13 +286,10 @@ export const PublicationsSearch = () => {
             ? Object.values(showDuplicates ? items : filteredItems).map(
                 (item, idx) =>
                   item.title && (
-                    <ListItem
-                      className={classes.listItem}
-                      key={item.id || item.uid}
-                    >
+                    <ListItem className={classes.listItem} key={item.title}>
                       <Checkbox
                         checked={item.checked || false}
-                        onChange={(e) => updateChecked(item.id || item.uid)}
+                        onChange={(e) => updateChecked(item.title)}
                       />
                       <Container className={classes.item}>
                         <Typography>

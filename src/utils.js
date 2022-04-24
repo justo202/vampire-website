@@ -1,4 +1,3 @@
-import axios from "axios";
 import {deleteDoc, doc, setDoc} from "firebase/firestore";
 import {TeamMember} from "./content";
 import {Project} from "./content/Project";
@@ -6,21 +5,6 @@ import {Publication} from "./content/Publication";
 import {Testimonial} from "./content/Testimonial";
 import {Update} from "./content/Update";
 import db from "./firebase";
-export const uploadFile = (file, location) => {
-  let reader = new FileReader();
-  reader.readAsDataURL(file);
-  return (reader.onloadend = (e) => {
-    return axios
-      .post("http://localhost:5000/vampire-research/europe-west2/upload", {
-        data: {
-          image: reader.result.toString().replace(/^data:(.*,)?/, ""),
-          path: `${location}/${file.name}`,
-        },
-      })
-      .then((res) => res)
-      .catch((e) => e);
-  });
-};
 
 const error = (message) => {
   return {code: "error", message};
@@ -48,13 +32,14 @@ export const deleteFirebase = (type, id) => {
 };
 
 const verifyDate = (data) => {
-  if (data.hasOwnProperty("date") && !data.date) {
+  const {date, startDate, endDate} = data;
+  if (data.hasOwnProperty("date") && !date) {
     data.date = new Date().valueOf();
   } else if (
     data.hasOwnProperty("endDate") &&
-    !data.endDate &&
+    !endDate &&
     data.hasOwnProperty("startDate") &&
-    !data.startDate
+    !startDate
   ) {
     data.endDate = new Date().valueOf();
     data.startDate = new Date().valueOf();
@@ -64,42 +49,48 @@ const verifyDate = (data) => {
 
 export const updateFirebase = async (type, id, data) => {
   // data = verifyDate(data);
-  // if (typeof data.startDate === "object") {
+  // const {startDate, endDate} = data;
+
+  // if (typeof startDate === "object") {
   //   try {
-  //     data.startDate = data.startDate.toMillis();
+  //     data.startDate = startDate.toMillis();
   //   } catch (e) {
-  //     data.startDate = data.startDate.valueOf();
-  //   }
-  // }
-  // if (typeof data.endDate === "object") {
-  //   try {
-  //     data.endDate = data.endDate.toMillis();
-  //   } catch (e) {
-  //     data.endDate = data.endDate.valueOf();
+  //     data.startDate = startDate.valueOf();
   //   }
   // }
 
-  // if (data.name === "" || data.title === "") {
-  //   return error(
-  //     "Please ensure that there is a valid name or title to your item before saving."
-  //   );
+  // if (typeof endDate === "object") {
+  //   try {
+  //     data.endDate = endDate.toMillis();
+  //   } catch (e) {
+  //     data.endDate = endDate.valueOf();
+  //   }
   // }
+
+  if (data.name === "" || data.title === "") {
+    return error(
+      "Please ensure that there is a valid name or title to your item before saving."
+    );
+  }
 
   const tempId = data.id;
 
   delete data.id;
 
   return await setDoc(doc(db, type, id), data)
-    .then(() => {
+    .then((e) => {
       data.id = tempId;
+      console.log(e);
       return success("Document successfully updated!");
     })
-    .catch(() => {
+    .catch((e) => {
+      console.log(e);
       data.id = tempId;
       return error("Document failed to update.");
     });
 };
 
+// function to create and return an instance having specified type and data
 export const createInstance = (type, data = {}) => {
   switch (type) {
     case "team":

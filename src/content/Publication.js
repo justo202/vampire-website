@@ -123,6 +123,7 @@ export class Publication extends ContentModel {
 
   parseAuthors(authors) {
     let type;
+    if (!authors) return [];
     if (authors.length > 0) {
       if (typeof authors[0] === "object") {
         type = "nested";

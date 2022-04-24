@@ -38,30 +38,53 @@ const EditList = () => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const navigate = useNavigate();
 
-  const fieldChangeFunction = (fieldId, e, index, isNew, toDelete) => {
+  const fieldChangeFunction = (e, options) => {
+    const {newValue, fieldId, arrayIndex, isNew, toDelete, fieldLabel} =
+      options;
+
+    // checks if event has been triggered
     if (!e) return;
+
+    // determines which field type has been modified on the page
+    // and works with the specific type's data to update the component state
     if (fieldId === "collaborators") {
+      // creates copy of collaborators array to avoid data manipulation
       let temp = values.collaborators.slice();
+
+      // determines if action is to create, update or delete
       if (isNew) {
+        // pushes a default instance of a collaborator to the temporary collaborators array
         temp.push({name: "New Person", institution: ""});
       } else if (toDelete) {
-        temp.splice(index, 1);
+        // removes collaborator from temporary array by index
+        temp.splice(arrayIndex, 1);
       } else {
-        temp[index][e.index] = e.newValue;
+        // updates value of field depending on e.index being either "name" or "institution"
+        temp[arrayIndex][fieldLabel] = newValue;
       }
+
+      // updates values state using the updated array
       setValues((curr) => ({
         ...curr,
         collaborators: temp,
       }));
     } else if (fieldId === "authors") {
+      // creates copy of authors array
       let temp = values.authors.slice();
+
+      // determines if action is to create, update or delete
       if (isNew) {
-        temp.push(e);
+        // adds new author to array
+        temp.push("New Person");
       } else if (toDelete) {
-        temp.splice(index, 1);
+        // deletes author at index of array
+        temp.splice(arrayIndex, 1);
       } else {
-        temp[index] = e.target.value;
+        // updates value at specified index using
+        temp[arrayIndex] = newValue;
       }
+
+      // updates values state using the updated array
       setValues((curr) => ({
         ...curr,
         authors: temp,
@@ -71,16 +94,20 @@ const EditList = () => {
       fieldId === "startDate" ||
       fieldId === "endDate"
     ) {
-      if (index) {
-        setValues((curr) => ({...curr, [index]: e}));
+      // updates the current value in values state using provided values
+      if (arrayIndex) {
+        setValues((curr) => ({...curr, [arrayIndex]: newValue}));
       } else {
-        setValues((curr) => ({...curr, [fieldId]: e}));
+        setValues((curr) => ({...curr, [fieldId]: newValue}));
       }
     } else {
+      // state update for all non-custom components that require an id and update value
+      // there is no need to have a create or delete parameter for these fields
       setValues((curr) => ({...curr, [fieldId]: e.target.value}));
     }
   };
 
+  // mapping of component names to custom components
   const components = {
     img: ImageEdit,
     text: TextField,
@@ -89,82 +116,104 @@ const EditList = () => {
     authors: Authors,
   };
 
+  // this function will be triggered on initial render of EditList as well as when the value
+  // of "loading" updates
   useEffect(() => {
+    // creates reference to document in Firestore using document type and id which have
+    // been acquired from the URL location
+    // e.g. type may equal "publications" and id may equal "1234abcd"
+    // eventually getting a reference to document in collection "publications" with id
+    // equalling "1234abcd"
     const docRef = doc(db, type, id);
+
+    // sends request to document using acquired reference and waits for response
     getDoc(docRef).then((res) => {
+      // initialises variables
+      let instance = null,
+        values = {};
+
+      // checks if the document exists
       if (res.exists()) {
-        const temp = createInstance(type, res.data());
-        temp.id = id;
-        let values = {};
-        temp.getAttributes().forEach((item) => {
-          values[item.name] = item.value;
-        });
-        setValues(values);
-        setInstance(temp);
-        setLoading(false);
+        // create an instance, passing in the type and document data
+        instance = createInstance(type, res.data());
+        // attaches id of document to temporary
+        instance.id = id;
       } else {
+        // if the document doesn't exist, default to a new instance of the specific type
         navigate(`/cms/${type}/new`, {replace: true});
-        const temp = createInstance(type, null);
-        temp.id = customId;
-        let values = {};
-        temp.getAttributes().forEach((item) => {
-          values[item.name] = item.value;
-        });
-        setValues(values);
-        setInstance(temp);
-        setLoading(false);
+
+        // create an empty instance of specific type
+        instance = createInstance(type, null);
+
+        // use a unique ID stored in component state for the new item
+        instance.id = customId;
       }
+
+      // exports data fields to state where they can be mapped out on the page
+      instance.getAttributes().forEach((item) => {
+        values[item.name] = item.value;
+      });
+
+      // updates component state
+      setValues(values);
+      setInstance(instance);
+      setLoading(false);
     });
   }, [loading]);
-
+  // creates a skeleton of the item to use while the document is being loaded into state
   if (loading) {
-    <>
-      <Jumbotron title='Edit Item' />
-      <Container>
-        <Grid container>
-          <Grid item xs={12}>
-            <Skeleton variant='text' />
+    return (
+      <>
+        <Jumbotron title='Edit Item' />
+        <Container>
+          <Grid container>
+            <Grid item xs={12}>
+              <Skeleton variant='text' />
+            </Grid>
+            <Grid item xs={12}>
+              <Skeleton variant='text' />
+            </Grid>
+            <Grid item xs={12}>
+              <Skeleton variant='text' />
+            </Grid>
+            <Grid item xs={12}>
+              <Skeleton variant='text' />
+            </Grid>
+            <Grid item xs={12}>
+              <Skeleton variant='text' />
+            </Grid>
+            <Grid item xs={12}>
+              <Skeleton variant='text' />
+            </Grid>
+            <Grid item xs={12}>
+              <Skeleton variant='text' />
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Skeleton variant='text' />
-          </Grid>
-          <Grid item xs={12}>
-            <Skeleton variant='text' />
-          </Grid>
-          <Grid item xs={12}>
-            <Skeleton variant='text' />
-          </Grid>
-          <Grid item xs={12}>
-            <Skeleton variant='text' />
-          </Grid>
-          <Grid item xs={12}>
-            <Skeleton variant='text' />
-          </Grid>
-          <Grid item xs={12}>
-            <Skeleton variant='text' />
-          </Grid>
-        </Grid>
-      </Container>
-    </>;
+        </Container>
+      </>
+    );
   }
 
+  // function to map out values state once loading has complete
   const displayItem = () => {
+    // ensures that instance exists as well as loading being complete
     if (instance && !loading) {
+      // loops through field in item
       return instance.getAttributes().map((item) => {
         const TagName = components[item.tag.name];
-        if (
-          item.tag.name === "date" ||
-          item.tag.name === "authors" ||
-          item.tag.name === "collaborators"
-        ) {
+        const {
+          tag: {name},
+        } = item;
+
+        if (name === "date" || name === "authors" || name === "collaborators") {
           item.tag.props.handleFieldChange = fieldChangeFunction;
         }
 
-        if (item.tag.name === "img") {
+        if (name === "img") {
           item.tag.props.hasImage = instance._hasImage;
         }
 
-        if (item.tag.name === "hasImage") return <></>;
+        if (name === "hasImage") return <></>;
 
         return (
           <Grid
@@ -178,7 +227,7 @@ const EditList = () => {
               id={id}
               type={type}
               value={values[item.name]}
-              onChange={(e) => fieldChangeFunction(item.name, e)}
+              onChange={(e) => fieldChangeFunction(e, {fieldId: item.name})}
             />
           </Grid>
         );
@@ -186,24 +235,30 @@ const EditList = () => {
     }
   };
 
+  // function handler used when closing status alert
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
+    // updates open state of alert
     setOpen(false);
   };
 
+  // function hanlder for popup confirming deletion of document
   const handleConfirm = (answer) => {
+    // closes popup
+    setDeleteOpen(false);
+
+    // if deletion is confirmed then call deleteFirebase using type and id
     if (answer) {
       deleteFirebase(type, id).then((res) => {
         const {code, message} = res;
         setStatus({code, message});
-        setDeleteOpen((curr) => true);
+
+        // navigate back one page as the document no longer exists
         navigate(-1, {replace: true});
       });
-    } else {
-      setDeleteOpen(false);
     }
   };
 
@@ -277,10 +332,13 @@ const EditList = () => {
                     const idToUse = id === "new" ? customId : id;
                     updateFirebase(type, idToUse, values).then((res) => {
                       const {code, message} = res;
-                      setStatus({code, message});
-                      setOpen((curr) => true);
+
+                      // checks the status of the
                       if (code === "success") {
                         navigate(`/cms/${type}/${idToUse}`, {replace: true});
+                      } else {
+                        setStatus({code, message});
+                        setOpen((curr) => true);
                       }
                     });
                   }}
