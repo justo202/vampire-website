@@ -3,11 +3,7 @@ import DatePicker from "@mui/lab/DatePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import {TextField} from "@mui/material";
 
-// import useStyles from "../styles/Collaborators";
-
 const CustomDatePicker = ({value, handleFieldChange, index, ...props}) => {
-  // const classes = useStyles();
-
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
@@ -22,7 +18,10 @@ const CustomDatePicker = ({value, handleFieldChange, index, ...props}) => {
   );
 };
 
+// Wrapper component that can deal with the LocalizationProvider and DatePicker from
+// Material UI
 export const CustomDatePickerWrapper = (props) => {
+  // function to determine the fieldId/label of the date component
   const getIndex = (label) => {
     switch (label) {
       case "End Date":
@@ -34,6 +33,7 @@ export const CustomDatePickerWrapper = (props) => {
     }
   };
 
+  // returns component with calculated props
   return <CustomDatePicker index={getIndex(props.label)} {...props} />;
 };
 

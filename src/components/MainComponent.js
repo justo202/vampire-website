@@ -56,7 +56,7 @@ class Main extends Component {
     super(props);
     this.state = {
       loggedIn: false,
-      email: ""
+      email: "",
     };
   }
 
@@ -74,12 +74,12 @@ class Main extends Component {
         // https://firebase.google.com/docs/reference/js/firebase.User
         this.setState({
           loggedIn: true,
-          email: user.email
+          email: user.email,
         });
       } else {
         this.setState({
           loggedIn: false,
-          email: ""
+          email: "",
         });
       }
     });
@@ -98,10 +98,7 @@ class Main extends Component {
             }}
           >
             <Router>
-              <Navbar
-                isLogged={this.state.loggedIn}
-                email={this.state.email}
-              />
+              <Navbar isLogged={this.state.loggedIn} email={this.state.email} />
               <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/publications' element={<Publications />} />
@@ -116,7 +113,7 @@ class Main extends Component {
                 <Route path='/cms/:type' element={<NavigationList />} />
                 <Route path='/cms' element={<ContentManagementSystem />} />
               </Routes>
-              <Footer 
+              <Footer
                 isLogged={this.state.loggedIn}
                 signUserOut={this.signUserOut}
               />

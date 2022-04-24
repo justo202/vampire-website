@@ -20,11 +20,12 @@ export const Collaborators = ({handleFieldChange, ...props}) => {
                   value={collaborator.name}
                   placeholder='Name'
                   onChange={(e) => {
-                    handleFieldChange(
-                      "collaborators",
-                      {index: "name", newValue: e.target.value},
-                      idx
-                    );
+                    handleFieldChange({
+                      fieldId: "collaborators",
+                      newValue: e.target.value,
+                      fieldLabel: "name",
+                      arrayIndex: idx,
+                    });
                   }}
                 />
               </Grid>
@@ -34,11 +35,12 @@ export const Collaborators = ({handleFieldChange, ...props}) => {
                   value={collaborator.institution}
                   placeholder='Institution'
                   onChange={(e) => {
-                    handleFieldChange(
-                      "collaborators",
-                      {index: "institution", newValue: e.target.value},
-                      idx
-                    );
+                    handleFieldChange({
+                      fieldId: "collaborators",
+                      newValue: e.target.value,
+                      fieldLabel: "institution",
+                      arrayIndex: idx,
+                    });
                   }}
                 />
               </Grid>
@@ -47,7 +49,11 @@ export const Collaborators = ({handleFieldChange, ...props}) => {
                   variant='contained'
                   color='error'
                   onClick={() =>
-                    handleFieldChange("collaborators", true, idx, 0, true)
+                    handleFieldChange({
+                      fieldId: "collaborators",
+                      toDelete: true,
+                      arrayIndex: idx,
+                    })
                   }
                 >
                   <Delete />
@@ -60,12 +66,10 @@ export const Collaborators = ({handleFieldChange, ...props}) => {
       <Grid item xs={12} md={6}>
         <Button
           onClick={(e) =>
-            handleFieldChange(
-              "collaborators",
-              {name: "New Person", institution: ""},
-              -1,
-              true
-            )
+            handleFieldChange({
+              fieldId: "collaborators",
+              isNew: true,
+            })
           }
         >
           <Add /> Add Collaborator

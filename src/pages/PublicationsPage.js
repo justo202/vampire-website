@@ -2,15 +2,13 @@ import {Card, CardContent, Container, Grid, Typography} from "@mui/material";
 import {collection, getDocs} from "firebase/firestore";
 import {useEffect, useState} from "react";
 import Jumbotron from "../components/JumbotronComponent";
-import firebase, {getAuth} from "../firebase";
+import firebase from "../firebase";
 import {createInstance} from "../utils";
 
 const Publications = () => {
   const [pubs, setPubs] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const user = getAuth();
-    console.log(user);
     async function getData() {
       const snapshot = await getDocs(collection(firebase, "publications"));
       setPubs(
@@ -35,7 +33,7 @@ const Publications = () => {
           {pubs.length > 0 &&
             pubs.map((pub, idx) => {
               return (
-                <Grid key={idx} item xs={6}>
+                <Grid key={idx} item xs={12} md={6} sm={12}>
                   <Card sx={{height: "100%"}}>
                     <CardContent>
                       <Typography variant='p'>{pub}</Typography>

@@ -17,15 +17,23 @@ export const Authors = ({handleFieldChange, ...props}) => {
               <TextField
                 fullWidth
                 value={author}
-                onChange={(e) => {
-                  handleFieldChange("authors", e, idx);
-                }}
+                onChange={(e) =>
+                  handleFieldChange({
+                    fieldId: "authors",
+                    newValue: e.target.value,
+                    arrayIndex: idx,
+                  })
+                }
                 InputProps={{
                   endAdornment: (
                     <IconButton
                       edge='end'
                       onClick={() =>
-                        handleFieldChange("authors", true, idx, 0, true)
+                        handleFieldChange({
+                          fieldId: "authors",
+                          toDelete: true,
+                          arrayIndex: idx,
+                        })
                       }
                     >
                       <Delete />
@@ -38,7 +46,7 @@ export const Authors = ({handleFieldChange, ...props}) => {
         })}
       <Grid item xs={12} sm={6} md={2}>
         <Button
-          onClick={(e) => handleFieldChange("authors", "New Person", -1, true)}
+          onClick={(e) => handleFieldChange({fieldId: "authors", isNew: true})}
         >
           <Add /> Add Author
         </Button>

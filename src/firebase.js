@@ -1,28 +1,22 @@
-import { initializeApp } from "firebase/app";
+import {initializeApp} from "firebase/app";
 import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import {getFirestore} from "firebase/firestore";
 
 const app = initializeApp({
-  apiKey: "AIzaSyCqvF0Y-w4fTN32f-iOVzfSh6VVvfxJ-WA",
-  authDomain: "vampire-research.firebaseapp.com",
-  projectId: "vampire-research",
-  storageBucket: "vampire-research.appspot.com",
-  messagingSenderId: "444693724107",
-  appId: "1:444693724107:web:f2eef9f917aa270381944e",
-  measurementId: "G-L6P85RGSFE",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 });
 
-export {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-  app,
-};
+export {getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, app};
 
 export default getFirestore();
