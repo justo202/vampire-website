@@ -78,7 +78,6 @@ const googleScholarSearch = async (author) => {
     .then((res) => {
       if (res.data.profiles) {
         if (res.data.profiles.length > 0) {
-          console.log(res.data.profiles);
           return res.data.profiles[0].author_id;
         }
       }

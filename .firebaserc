@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "vampire-research"
-  }
+    "default": "vampire-research",
+    "vampire-research": "vampire-research"
+  },
+  "targets": {}
 }

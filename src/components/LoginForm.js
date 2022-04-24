@@ -1,17 +1,15 @@
-import React, {useState} from "react";
+import {LockOutlined} from "@mui/icons-material";
 import {
   Avatar,
+  Button,
   Grid,
   Paper,
-  Typography,
   TextField,
-  Button,
+  Typography,
 } from "@mui/material";
-import { useTheme } from "@mui/styles";
-import { LockOutlined } from "@mui/icons-material";
-import { getAuth, signInWithEmailAndPassword } from "../firebase";
-
-const auth = getAuth();
+import {useTheme} from "@mui/styles";
+import {useState} from "react";
+import {getAuth, signInWithEmailAndPassword} from "../firebase";
 
 const handleSubmit = (e, close, setError) => {
   const email = e.target[0].value;
@@ -19,7 +17,7 @@ const handleSubmit = (e, close, setError) => {
 
   e.preventDefault();
 
-  signInWithEmailAndPassword(auth, email, password)
+  signInWithEmailAndPassword(getAuth(), email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
@@ -30,13 +28,13 @@ const handleSubmit = (e, close, setError) => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      setError(errorMessage)
+      setError(errorMessage);
     });
 };
 
-const LoginForm = ({ closeForm }) => {
-  const theme = useTheme()
-  const [error, setError] = useState(null)
+const LoginForm = ({closeForm}) => {
+  const theme = useTheme();
+  const [error, setError] = useState(null);
 
   return (
     <Paper
@@ -52,48 +50,48 @@ const LoginForm = ({ closeForm }) => {
         container
         alignItems={"center"}
         rowGap={2}
-        direction="column"
+        direction='column'
         width={"300px"}
         p={3}
       >
         <Avatar>
           <LockOutlined />
         </Avatar>
-        <Typography variant="h4" mb={2}>
+        <Typography variant='h4' mb={2}>
           Sign in
         </Typography>
         <Typography
-        hidden={!error}
-        sx={{
-          padding: "1rem",
-          backgroundColor: `${theme.palette.error.main}22`,
-          width: '80%'
-        }}
-      >
-        {error}
-      </Typography>
+          hidden={!error}
+          sx={{
+            padding: "1rem",
+            backgroundColor: `${theme.palette.error.main}22`,
+            width: "80%",
+          }}
+        >
+          {error}
+        </Typography>
         <form onSubmit={(e) => handleSubmit(e, closeForm, setError)}>
           <TextField
-            label="Email"
-            name="email"
-            placeholder="Enter your Email"
-            variant="standard"
-            type="email"
+            label='Email'
+            name='email'
+            placeholder='Enter your Email'
+            variant='standard'
+            type='email'
             fullWidth
             required
-            sx={{ marginBottom: "5px" }}
+            sx={{marginBottom: "5px"}}
           />
           <TextField
-            label="Password"
-            name="password"
+            label='Password'
+            name='password'
             type={"password"}
-            placeholder="Enter your password"
-            variant="standard"
+            placeholder='Enter your password'
+            variant='standard'
             fullWidth
             required
-            sx={{ marginBottom: "30px" }}
+            sx={{marginBottom: "30px"}}
           />
-          <Button fullWidth type="submit" variant="contained" color="accent">
+          <Button fullWidth type='submit' variant='contained' color='accent'>
             Log in
           </Button>
         </form>

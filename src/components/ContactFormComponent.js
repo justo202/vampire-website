@@ -1,6 +1,6 @@
-import { Button, Grid, TextField, Typography } from "@mui/material";
-import React, { Component } from "react";
+import {Button, Grid, TextField, Typography} from "@mui/material";
 import axios from "axios";
+import {Component} from "react";
 import ReCaptchaV2 from "react-google-recaptcha";
 
 const required = (val) => val && val.length;
@@ -33,7 +33,7 @@ class ContactForm extends Component {
     };
   }
   validate = (values = this.state) => {
-    let error = { ...this.state.errors };
+    let error = {...this.state.errors};
     if ("name" in values)
       error.name = required(values.name)
         ? minLength(3, values.name)
@@ -127,49 +127,49 @@ class ContactForm extends Component {
   };
 
   handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const {name, value} = e.target;
     this.setState({
       [name]: value,
     });
-    this.validate({ [name]: value });
+    this.validate({[name]: value});
   };
 
   handleToken = (token) => {
     this.setState((currentForm) => {
-      return { ...currentForm, token };
+      return {...currentForm, token};
     });
   };
   handleExpire = () => {
     this.setState((currentForm) => {
-      return { ...currentForm, token: null };
+      return {...currentForm, token: null};
     });
   };
   render() {
     return (
       <>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant='h5' gutterBottom>
           Contact Form
         </Typography>
         <hr />
-        <Typography variant="body2" component={"p"} color="lightBlack">
+        <Typography variant='body2' component={"p"} color='lightBlack'>
           Please fill out the form
         </Typography>
         <form
-          name="contact"
-          method="POST"
-          data-netlify-recaptcha="true"
-          data-netlify="true"
-          autoComplete="false"
+          name='contact'
+          method='POST'
+          data-netlify-recaptcha='true'
+          data-netlify='true'
+          autoComplete='false'
           onSubmit={(e) => this.handleSubmit(e)}
         >
           <Grid container spacing={1}>
             <Grid xs={12} sm={6} item>
               <TextField
-                label="Name"
-                name="name"
+                label='Name'
+                name='name'
                 value={this.state.name}
-                placeholder="Please enter your full name"
-                variant="outlined"
+                placeholder='Please enter your full name'
+                variant='outlined'
                 fullWidth
                 required
                 onBlur={this.handleInputChange}
@@ -180,12 +180,12 @@ class ContactForm extends Component {
             </Grid>
             <Grid xs={12} sm={6} item>
               <TextField
-                label="Email"
-                name="email"
+                label='Email'
+                name='email'
                 type={"email"}
                 value={this.state.email}
-                placeholder="Please enter your Email"
-                variant="outlined"
+                placeholder='Please enter your Email'
+                variant='outlined'
                 fullWidth
                 required
                 onBlur={this.handleInputChange}
@@ -196,11 +196,11 @@ class ContactForm extends Component {
             </Grid>
             <Grid xs={12} item>
               <TextField
-                label="Affiliation"
-                name="affiliation"
+                label='Affiliation'
+                name='affiliation'
                 value={this.state.affiliation}
-                placeholder="Please enter your Affiliation"
-                variant="outlined"
+                placeholder='Please enter your Affiliation'
+                variant='outlined'
                 fullWidth
                 required
                 onBlur={this.handleInputChange}
@@ -211,13 +211,13 @@ class ContactForm extends Component {
             </Grid>
             <Grid xs={12} item>
               <TextField
-                label="Describe your project"
-                name="description"
+                label='Describe your project'
+                name='description'
                 multiline
                 rows={3}
                 value={this.state.description}
-                placeholder="Please describe your research project (max 200 words)"
-                variant="outlined"
+                placeholder='Please describe your research project (max 200 words)'
+                variant='outlined'
                 fullWidth
                 required
                 onBlur={this.handleInputChange}
@@ -228,13 +228,13 @@ class ContactForm extends Component {
             </Grid>
             <Grid xs={12} item>
               <TextField
-                label="Why is VAMPIRE needed?"
-                name="need"
+                label='Why is VAMPIRE needed?'
+                name='need'
                 multiline
                 rows={3}
                 value={this.state.need}
-                placeholder="Why is VAMPIRE needed? (max 100 words)"
-                variant="outlined"
+                placeholder='Why is VAMPIRE needed? (max 100 words)'
+                variant='outlined'
                 fullWidth
                 required
                 onBlur={this.handleInputChange}
@@ -245,13 +245,13 @@ class ContactForm extends Component {
             </Grid>
             <Grid xs={12} item>
               <TextField
-                label="How many images would you like to measure?"
-                name="images"
+                label='How many images would you like to measure?'
+                name='images'
                 multiline
                 rows={3}
                 value={this.state.images}
-                placeholder="How many images would you like to measure with VAMPIRE, and from how many patients? (max 100 words)"
-                variant="outlined"
+                placeholder='How many images would you like to measure with VAMPIRE, and from how many patients? (max 100 words)'
+                variant='outlined'
                 fullWidth
                 required
                 onBlur={this.handleInputChange}
@@ -262,13 +262,13 @@ class ContactForm extends Component {
             </Grid>
             <Grid xs={12} item>
               <TextField
-                label="How did you hear of VAMPIRE?"
-                name="feedback"
+                label='How did you hear of VAMPIRE?'
+                name='feedback'
                 multiline
                 rows={5}
                 value={this.state.feedback}
-                placeholder="How did you hear of VAMPIRE? (max 100 words)"
-                variant="outlined"
+                placeholder='How did you hear of VAMPIRE? (max 100 words)'
+                variant='outlined'
                 fullWidth
                 required
                 onBlur={this.handleInputChange}
@@ -284,14 +284,13 @@ class ContactForm extends Component {
                   transform: "scale(0.7)",
                   transformOrigin: "0 0",
                 }}
-                sitekey={"6LfguJseAAAAAKWD94kvIrwRUFgzIx8uqKyIl5vd"}
+                sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
                 onChange={this.handleToken}
                 onExpired={this.handleExpire}
               />
-              {/*REMEMBER TO REMOVE SITE KEY WHEN SITE ACTUALLY GOES LIVE*/}
             </Grid>
             <Grid xs={12} item>
-              <Button type="submit" variant="contained" color="accent">
+              <Button type='submit' variant='contained' color='accent'>
                 Submit
               </Button>
             </Grid>
