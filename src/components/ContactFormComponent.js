@@ -1,13 +1,18 @@
 import {Button, Grid, TextField, Typography} from "@mui/material";
-import axios from "axios";
 import {Component} from "react";
 import ReCaptchaV2 from "react-google-recaptcha";
+import {getFunctions, httpsCallable} from "firebase/functions";
+import {app} from "../firebase";
 
 const required = (val) => val && val.length;
 const minLength = (len, val) => val && val.length >= len;
 const maxLength = (len, val) => val.split(" ").length <= len;
 const validEmail = (val) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+
+
+const functions = getFunctions(app, "europe-west2");
+const sendEmail = httpsCallable(functions, "sendEmail");
 
 class ContactForm extends Component {
   constructor(props) {
@@ -89,17 +94,13 @@ class ContactForm extends Component {
         feedback: this.state.feedback,
         token: this.state.token,
       };
-      axios({
-        method: "POST",
-        url: "/.netlify/functions/sendEmail",
-        data: data,
-      }).then((response) => {
+      sendEmail(data).then((response) => {
         if (response.data === "success") {
           alert("Message Sent.");
         } else if (response.data === "fail") {
           alert("Message failed to send.");
         }
-      });
+      })
       this.resetForm();
     } else {
       alert("Please fill out the captcha");
