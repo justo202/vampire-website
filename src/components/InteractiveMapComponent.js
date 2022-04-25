@@ -1,6 +1,6 @@
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MenuIcon from "@mui/icons-material/Menu";
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 
 import {
   Box,
@@ -12,16 +12,12 @@ import {
   Popover,
   Typography,
 } from "@mui/material";
-import {getFunctions, httpsCallable} from "firebase/functions";
-import {app} from "../firebase";
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import Map, {Marker, Popup} from "!react-map-gl";
 
-const functions = getFunctions(app, "europe-west2");
-const get_token = httpsCallable(functions, "get_token");
 
 const LOCATION_INFO = [
   {
@@ -137,14 +133,9 @@ const RenderMobileBar = (props) => {
 };
 
 function InteractiveMap(props) {
-  const [key, setKey] = useState(null);
 
-  useEffect(() => {
-    get_token({name: "mapbox", value: "token"}).then((result) =>
-      // setKey(result.data.result)
-      setKey(process.env.REACT_APP_MAPBOX_TOKEN)
-    );
-  });
+  const key = process.env.REACT_APP_MAPBOX_TOKEN;
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [popoverText, setpopoverText] = useState(null);
 
