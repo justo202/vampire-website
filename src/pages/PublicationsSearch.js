@@ -28,6 +28,7 @@ import useStyles from "../styles/PublicationSearch";
 import {updateFirebase} from "../utils";
 
 export const PublicationsSearch = () => {
+  // initialise state values
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState();
   const classes = useStyles();
@@ -39,6 +40,8 @@ export const PublicationsSearch = () => {
   const [filteredItems, setFilteredItems] = useState([]);
   const [existingItems, setExistingItems] = useState([]);
 
+  // function to get existing items in publications
+  // and then set them in state
   const getExistingItems = () => {
     getDocs(collection(db, "publications")).then((res) => {
       let documents = [];
@@ -49,10 +52,14 @@ export const PublicationsSearch = () => {
     });
   };
 
+  // function runs on intial component render
   useEffect(() => {
     getExistingItems();
   }, []);
 
+  // function will send off request to Firebase Function "create"
+  // to have items returned using a search term
+  // it will then set all items into state
   const getItems = async () => {
     setItems(null);
     setLoading(true);
@@ -67,8 +74,15 @@ export const PublicationsSearch = () => {
         let returnedData = [];
         let filteredData = [];
         let articlesFound = 0;
+
+        // remove anomaly object from data
         if (res.data.uids) delete res.data.uids;
+        articlesFound--;
+
+        // loop through each item
         Object.values(res.data).forEach((item) => {
+          // checks if item already exists in publications using it's title and if so
+          // doesn't add it to main array of items
           let found =
             existingItems.filter(
               (exItem) =>
@@ -87,7 +101,8 @@ export const PublicationsSearch = () => {
           returnedData.push(item);
           articlesFound++;
         });
-        articlesFound--;
+
+        // state update functions
         setFilteredItems(filteredData);
         setItems(returnedData);
         setStatus({
@@ -105,15 +120,19 @@ export const PublicationsSearch = () => {
         });
         setOpen(true);
       }
+      // sets loading to false to declare data has now been loaded
       setLoading(false);
     });
   };
 
+  // function to upload item to Firebase Firestore Database
   const uploadPublications = () => {
     const upload = new Promise((res, rej) => {
       let itemsUploaded = 0;
       let itemsToUpload = 0;
-      let loading = true;
+
+      // loops through each item and creates a new instance of Publication
+      // then uploads each item individually to the Database.
       Object.values(items).forEach((item, idx) => {
         if (!item.checked) {
           return;
@@ -148,34 +167,43 @@ export const PublicationsSearch = () => {
             });
             console.error(e);
           });
-
-        if (idx - 1 === Object.values(items).length) {
-          loading = false;
-        }
       });
-      if (!loading) {
-        res({itemsToUpload, itemsUploaded});
-      }
+
+      res({itemsToUpload, itemsUploaded});
     });
+
+    // calls function
     upload
       .then((res) => {
         setStatus({code: "success", message: "Successfully uploaded items."});
+        setOpen(true);
       })
       .catch((error) => {
+        setStatus({
+          code: "error",
+          message:
+            "Failed to upload item(s), please contact a site administrator if this continues to happen.",
+        });
+        setOpen(true);
         console.log(error);
       });
   };
 
+  // function to handle the checking of a publication item
   const updateChecked = (title) => {
     const temp = items.slice();
 
+    // finds item by title in array
     const found = temp.find((item) => item.title === title);
 
+    // increments count value depending on item being found
     if (found.checked) {
       setCount((curr) => (curr -= 1));
     } else {
       setCount((curr) => (curr += 1));
     }
+
+    // updates state and checked value
     found.checked = !found.checked;
     setItems(temp);
   };
@@ -219,6 +247,10 @@ export const PublicationsSearch = () => {
             publication database. This function has been carried out using the
             publication title and no other fields.
           </Typography>
+          <Typography variant='p' display='block' fontStyle='italic'>
+            This Publication Search Tool has been made possible with the help of{" "}
+            <Link to='https://serpapi.com'>SerpAPI</Link>.
+          </Typography>
         </Container>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -240,7 +272,7 @@ export const PublicationsSearch = () => {
               placeholder="Enter search term e.g. 'Joe Bloggs'"
             />
           </Grid>
-          <Grid item md={2} xs={8} className={classes.toolbarItem}>
+          <Grid item md={2} xs={12} className={classes.toolbarItem}>
             <Button
               variant='contained'
               color='primary'
@@ -251,7 +283,7 @@ export const PublicationsSearch = () => {
               Search
             </Button>
           </Grid>
-          <Grid item xs={4} md={2} className={classes.toolbarItem}>
+          <Grid item xs={12} md={2} className={classes.toolbarItem}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -264,19 +296,19 @@ export const PublicationsSearch = () => {
           </Grid>
           {count > 0 && (
             <>
-              <Grid item md={10}>
+              <Grid item md={10} xs={12}>
                 <Typography>{`${count} item${
                   count > 1 ? "s" : ""
                 } selected`}</Typography>
               </Grid>
-              <Grid item md={2}>
+              <Grid item md={2} xs={12}>
                 <Button
                   color='success'
                   variant='contained'
                   fullWidth
                   onClick={() => uploadPublications()}
                 >
-                  Done
+                  Upload Items
                 </Button>
               </Grid>
             </>

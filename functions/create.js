@@ -34,13 +34,11 @@ const pubMedSearch = async (author) => {
 };
 
 const ieeeXploreSearch = (author) => {
-  if (!functions.config().search.ieeexplore_api_key) {
+  if (!process.env.IEEEXPLORE_API_KEY) {
     return {error: "IEEEXPLORE_API_KEY NOT SET"};
   }
 
-  const baseUrl = `http://ieeexploreapi.ieee.org/api/v1/search/articles?apikey=${
-    functions.config().search.ieeexplore_api_key
-  }&format=json`;
+  const baseUrl = `http://ieeexploreapi.ieee.org/api/v1/search/articles?apikey=${process.env.IEEEXPLORE_API_KEY}&format=json`;
   const query = `&author=${author}`;
   return axios
     .get(`${baseUrl}${query}`)
@@ -132,7 +130,7 @@ exports.create = functions
     // );
     // const {error: pubMedErr, articles: pubMedRes} = await pubMedSearch(author);
 
-    console.log(ieeeErr);
+    // console.log(ieeeErr);
     // status 3 === everything went fine
     // status 2 === most things went fine
     // status 1 === all errored

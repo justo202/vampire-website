@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import {getFirestore} from "firebase/firestore";
 
+// initialises firebase application using secret environment variables
 const app = initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -17,6 +18,7 @@ const app = initializeApp({
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 });
 
+// exports necessary functions that are use throughout the application
 export {getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, app};
 
 export default getFirestore();

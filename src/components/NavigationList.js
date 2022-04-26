@@ -15,30 +15,43 @@ import Jumbotron from "../components/JumbotronComponent";
 import db from "../firebase";
 import useStyles from "../styles/ContentManagementSystem";
 
+// this component is used when listing navigational items such as Collections and Documents within Collections.
 const NavigationList = () => {
+  // initialises state including values to be mapped, component styles, and navigational hooks
   const {type} = useParams();
   const classes = useStyles();
   const [values, setValues] = useState([]);
   const navigate = useNavigate();
 
+  // this function will run when the NavigationList component is rendered
   useEffect(() => {
+    // if there is a current collection type found in the URL path
+    // i.e. /cms/edit, type = "edit" whereas /cms, type = undefined
     if (type) {
+      // send a getDocs() request on all documents in specified Collection
       getDocs(collection(db, type)).then((res) => {
         let results = [];
+        // loop through each document in the collection and format it into a JSON variable "results"
+        // items will then be able to indexed using values[item.id] when mapping through the array
         res.forEach((item) => {
           if (item.id) {
             results[item.id] = {...item.data(), id: item.id};
           }
         });
+
+        // sets state to generated array
         setValues(results);
       });
     }
   }, []);
 
+  // dynamic function that will allow the user to add a new document to specific type
   const addNew = () => {
     navigate(`/cms/${type}/new`, {replace: false});
   };
 
+  // default rendered layout including Jumbtron, Breadcrumbs, Add New Button and a
+  // rendering of the mapped items in the values state array
   return (
     <>
       <Jumbotron title={`Edit ${type[0].toUpperCase()}${type.slice(1)}`} />
@@ -82,6 +95,8 @@ const NavigationList = () => {
         <List className={classes.list}>
           {values &&
             Object.values(values).map((item) => {
+              // this list will only be mapped if there are currently values in the array
+              // otherwise, this loop would cause an error to be triggered
               const {name, title} = item;
               return (
                 <RouterLink

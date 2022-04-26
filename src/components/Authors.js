@@ -3,6 +3,7 @@ import {Button, Grid, IconButton, InputLabel, TextField} from "@mui/material";
 import useStyles from "../styles/FormElements";
 
 export const Authors = ({handleFieldChange, ...props}) => {
+  // object containing component styles
   const classes = useStyles();
 
   return (
@@ -10,6 +11,9 @@ export const Authors = ({handleFieldChange, ...props}) => {
       <Grid item md={12} sm={12} xs={12}>
         <InputLabel className={classes.label}>Authors</InputLabel>
       </Grid>
+      {
+        // Maps out values that have been passed down through component props
+      }
       {props.value &&
         props.value.map((author, idx) => {
           return (
