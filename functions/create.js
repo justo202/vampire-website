@@ -122,21 +122,22 @@ exports.create = functions
   .region("europe-west2")
   .https.onCall(async (data, context) => {
     const {author} = data;
-    // const {error: ieeeErr, articles: ieeeArticles} = await ieeeXploreSearch(
-    //   author
-    // );
+    const {error: ieeeErr, articles: ieeeArticles} = await ieeeXploreSearch(
+      author
+    );
     // const {error: scholErr, articles: scholRes} = await googleScholarSearch(
     //   author
     // );
-    const {error: pubMedErr, articles: pubMedRes} = await pubMedSearch(author);
+    // const {error: pubMedErr, articles: pubMedRes} = await pubMedSearch(author);
 
+    // console.log(ieeeErr);
     // status 3 === everything went fine
     // status 2 === most things went fine
     // status 1 === all errored
     // status 0 === uncaught error
     return {
       // ...scholRes,
-      ...pubMedRes,
-      //  ...ieeeArticles
+      // ...pubMedRes,
+      ...ieeeArticles,
     };
   });

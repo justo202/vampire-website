@@ -4,12 +4,16 @@ import React from "react";
 import useStyles from "../styles/FormElements";
 
 export const Collaborators = ({handleFieldChange, ...props}) => {
+  // object containing component styles
   const classes = useStyles();
   return (
     <Grid container spacing={3} rowSpacing={1} alignItems='center'>
       <Grid item md={12} xs={12}>
         <InputLabel className={classes.label}>Collaborators</InputLabel>
       </Grid>
+      {
+        // Maps out values that have been passed down through component props
+      }
       {props.value &&
         props.value.map((collaborator, idx) => {
           return (

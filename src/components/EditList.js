@@ -38,6 +38,10 @@ const EditList = () => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const navigate = useNavigate();
 
+  const handleStatusUpdate = (code, message) => {
+    setStatus({code, message});
+  };
+
   const fieldChangeFunction = (e, options) => {
     const {newValue, fieldId, arrayIndex, isNew, toDelete, fieldLabel} =
       options;
@@ -116,9 +120,25 @@ const EditList = () => {
     authors: Authors,
   };
 
+  const acceptedType = () => {
+    return (
+      type === "publications" ||
+      type === "projects" ||
+      type === "team" ||
+      type === "testimonials" ||
+      type === "partners"
+    );
+  };
+
   // this function will be triggered on initial render of EditList as well as when the value
   // of "loading" updates
   useEffect(() => {
+    if (acceptedType()) {
+      navigate("/", {replace: true});
+      console.log("yo!");
+      console.log(type);
+      return;
+    }
     // creates reference to document in Firestore using document type and id which have
     // been acquired from the URL location
     // e.g. type may equal "publications" and id may equal "1234abcd"
@@ -160,6 +180,7 @@ const EditList = () => {
       setLoading(false);
     });
   }, [loading]);
+
   // creates a skeleton of the item to use while the document is being loaded into state
   if (loading) {
     return (
@@ -168,25 +189,25 @@ const EditList = () => {
         <Container>
           <Grid container>
             <Grid item xs={12}>
-              <Skeleton variant='text' />
+              <Skeleton variant='text' width='100%' height='40' />
             </Grid>
             <Grid item xs={12}>
-              <Skeleton variant='text' />
+              <Skeleton variant='text' width='100%' height='40' />
             </Grid>
             <Grid item xs={12}>
-              <Skeleton variant='text' />
+              <Skeleton variant='text' width='100%' height='40' />
             </Grid>
             <Grid item xs={12}>
-              <Skeleton variant='text' />
+              <Skeleton variant='text' width='100%' height='40' />
             </Grid>
             <Grid item xs={12}>
-              <Skeleton variant='text' />
+              <Skeleton variant='text' width='100%' height='40' />
             </Grid>
             <Grid item xs={12}>
-              <Skeleton variant='text' />
+              <Skeleton variant='text' width='100%' height='40' />
             </Grid>
             <Grid item xs={12}>
-              <Skeleton variant='text' />
+              <Skeleton variant='text' width='100%' height='40' />
             </Grid>
           </Grid>
         </Container>
@@ -198,23 +219,32 @@ const EditList = () => {
   const displayItem = () => {
     // ensures that instance exists as well as loading being complete
     if (instance && !loading) {
+      console.log(instance);
       // loops through field in item
       return instance.getAttributes().map((item) => {
+        // creates a TagName using name found in item's
         const TagName = components[item.tag.name];
         const {
           tag: {name},
         } = item;
 
+        // if the item is of type date, authors or collaborators, the state updater function will be passed down
+        // this would not work on a component if it did not accept/expect this prop
         if (name === "date" || name === "authors" || name === "collaborators") {
           item.tag.props.handleFieldChange = fieldChangeFunction;
         }
 
+        // checks if the item is an image, and if so, pass it the hasImage prop as well
         if (name === "img") {
+          item.tag.props.handleStatusUpdate = handleStatusUpdate;
           item.tag.props.hasImage = instance._hasImage;
         }
 
+        // if the name of the item is hasImage, return a hidden field / only used for updating state
         if (name === "hasImage") return <></>;
 
+        // create a Grid item around the generated component with it's respective layout demands
+        // and pass down all necessary props to the component
         return (
           <Grid
             item
@@ -262,6 +292,7 @@ const EditList = () => {
     }
   };
 
+  // default return of page containing Jumbotron, breadcrumbs, Firebase action buttons as well as the item to be displayed also
   return (
     <>
       <Jumbotron title={`Edit Item`} />
@@ -328,19 +359,22 @@ const EditList = () => {
                 <Button
                   variant='contained'
                   color='success'
-                  onClick={() => {
+                  onClick={async () => {
                     const idToUse = id === "new" ? customId : id;
-                    updateFirebase(type, idToUse, values).then((res) => {
-                      const {code, message} = res;
+                    const {code, message} = await updateFirebase(
+                      type,
+                      idToUse,
+                      values
+                    );
 
-                      // checks the status of the
-                      if (code === "success") {
-                        navigate(`/cms/${type}/${idToUse}`, {replace: true});
-                      } else {
-                        setStatus({code, message});
-                        setOpen((curr) => true);
-                      }
-                    });
+                    // checks the status of the update
+                    if (code === "success") {
+                      setStatus({code, message});
+                      navigate(`/cms/${type}/${idToUse}`, {replace: true});
+                    } else {
+                      setStatus({code, message});
+                      setOpen((curr) => true);
+                    }
                   }}
                 >
                   Save
