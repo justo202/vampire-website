@@ -1,3 +1,5 @@
+import {collection, getDocs} from "@firebase/firestore/lite";
+import {getFunctions, httpsCallable} from "@firebase/functions";
 import {
   Alert,
   Button,
@@ -12,8 +14,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import {collection, getDocs} from "firebase/firestore";
-import {getFunctions, httpsCallable} from "firebase/functions";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {v4 as uuidv4} from "uuid";
@@ -21,6 +21,7 @@ import Jumbotron from "../components/JumbotronComponent";
 import {Publication} from "../content/Publication";
 import db, {app} from "../firebase";
 import useStyles from "../styles/PublicationSearch";
+import {updateFirebase} from "../utils";
 
 export const PublicationsSearch = () => {
   // initialise state values
@@ -151,18 +152,18 @@ export const PublicationsSearch = () => {
 
         console.log(instance);
 
-        // updateFirebase("publications", instance.id, values)
-        //   .then((res) => {
-        //     itemsUploaded++;
-        //     getExistingItems();
-        //   })
-        //   .catch((e) => {
-        //     setStatus({
-        //       code: "error",
-        //       message: "There was an issue with uploading one or more items.",
-        //     });
-        //     console.error(e);
-        //   });
+        updateFirebase("publications", instance.id, values)
+          .then((res) => {
+            itemsUploaded++;
+            getExistingItems();
+          })
+          .catch((e) => {
+            setStatus({
+              code: "error",
+              message: "There was an issue with uploading one or more items.",
+            });
+            console.error(e);
+          });
       });
 
       res({itemsToUpload, itemsUploaded});

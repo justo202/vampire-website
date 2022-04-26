@@ -1,21 +1,15 @@
-import {
-  Alert,
-  Breadcrumbs,
-  Button,
-  Collapse,
-  Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Grid,
-  Link,
-  Skeleton,
-  TextField,
-  Typography,
-} from "@mui/material";
-import {doc, getDoc} from "firebase/firestore";
+import {doc, getDoc} from "@firebase/firestore/lite";
+import Alert from "@mui/material/Alert";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Button from "@mui/material/Button";
+import Collapse from "@mui/material/Collapse";
+import Container from "@mui/material/Container";
+import Dialog from "@mui/material/Dialog";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import Skeleton from "@mui/material/Skeleton";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import {useEffect, useState} from "react";
 import {Link as RouterLink, useNavigate, useParams} from "react-router-dom";
 import {v4 as uuidv4} from "uuid";
@@ -311,15 +305,15 @@ const EditList = () => {
             </Collapse>
           </Grid>
           <Dialog open={deleteOpen} onClose={() => handleConfirm(false)}>
-            <DialogTitle>
+            <Dialog.Title>
               Are you sure you would like to delete this item?
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText>
+            </Dialog.Title>
+            <Dialog.Content>
+              <Dialog.ContentText>
                 You will not able to undo this action.
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
+              </Dialog.ContentText>
+            </Dialog.Content>
+            <Dialog.Actions>
               <Button
                 color='info'
                 variant='contained'
@@ -334,7 +328,7 @@ const EditList = () => {
               >
                 Yes
               </Button>
-            </DialogActions>
+            </Dialog.Actions>
           </Dialog>
           {displayItem()}
           <Grid item md={12}>

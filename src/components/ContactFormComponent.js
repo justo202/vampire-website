@@ -1,7 +1,10 @@
-import {Button, Grid, TextField, Typography} from "@mui/material";
+import {getFunctions, httpsCallable} from "@firebase/functions";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import {Component} from "react";
 import ReCaptchaV2 from "react-google-recaptcha";
-import {getFunctions, httpsCallable} from "firebase/functions";
 import {app} from "../firebase";
 
 const required = (val) => val && val.length;
@@ -9,7 +12,6 @@ const minLength = (len, val) => val && val.length >= len;
 const maxLength = (len, val) => val.split(" ").length <= len;
 const validEmail = (val) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
-
 
 const functions = getFunctions(app, "europe-west2");
 const sendEmail = httpsCallable(functions, "sendEmail");
@@ -100,7 +102,7 @@ class ContactForm extends Component {
         } else if (response.data === "fail") {
           alert("Message failed to send.");
         }
-      })
+      });
       this.resetForm();
     } else {
       alert("Please fill out the captcha");

@@ -1,3 +1,6 @@
+import {doc, updateDoc} from "@firebase/firestore/lite";
+import {getFunctions, httpsCallable} from "@firebase/functions";
+import {deleteObject, getStorage, ref} from "@firebase/storage";
 import {
   Alert,
   Button,
@@ -7,9 +10,6 @@ import {
   InputLabel,
   Typography,
 } from "@mui/material";
-import {doc, updateDoc} from "firebase/firestore";
-import {getFunctions, httpsCallable} from "firebase/functions";
-import {deleteObject, getStorage, ref} from "firebase/storage";
 import {useEffect, useState} from "react";
 import db, {app} from "../firebase";
 import useStyles from "../styles/FormElements";

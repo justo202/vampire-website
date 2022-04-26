@@ -1,6 +1,10 @@
-import {Box, Card, Grid, Typography} from "@mui/material";
-import {makeStyles, useTheme} from "@mui/styles";
-import {collection, getDocs} from "firebase/firestore";
+import {collection, getDocs} from "@firebase/firestore/lite";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import makeStyles from "@mui/styles/makeStyles";
+import useTheme from "@mui/styles/useTheme";
 import {useEffect, useState} from "react";
 import Carousel from "react-material-ui-carousel";
 import db from "../firebase";

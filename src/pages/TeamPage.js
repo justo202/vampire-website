@@ -1,3 +1,4 @@
+import {collection, getDocs} from "@firebase/firestore";
 import {
   Card,
   CardContent,
@@ -7,7 +8,6 @@ import {
   Skeleton,
   Typography,
 } from "@mui/material";
-import {collection, getDocs} from "firebase/firestore";
 import {useEffect, useState} from "react";
 import Jumbotron from "../components/JumbotronComponent";
 import db from "../firebase";

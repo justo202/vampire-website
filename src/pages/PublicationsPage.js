@@ -1,12 +1,9 @@
-import {
-  Card,
-  CardContent,
-  Container,
-  Grid,
-  Skeleton,
-  Typography,
-} from "@mui/material";
-import {collection, getDocs} from "firebase/firestore";
+import {collection, getDocs} from "@firebase/firestore/lite";
+import Card from "@mui/material/Card";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Skeleton from "@mui/material/Skeleton";
+import Typography from "@mui/material/Typography";
 import {useEffect, useState} from "react";
 import Jumbotron from "../components/JumbotronComponent";
 import firebase from "../firebase";
@@ -53,9 +50,9 @@ const Publications = () => {
         return (
           <Grid key={idx} item xs={12} md={6} sm={12}>
             <Card sx={{height: "100%"}}>
-              <CardContent>
+              <Card.Content>
                 <Typography variant='p'>{pub}</Typography>
-              </CardContent>
+              </Card.Content>
             </Card>
           </Grid>
         );

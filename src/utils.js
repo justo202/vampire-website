@@ -1,4 +1,4 @@
-import {deleteDoc, doc, setDoc} from "firebase/firestore";
+import {deleteDoc, doc, setDoc} from "@firebase/firestore";
 import {TeamMember} from "./content";
 import {Project} from "./content/Project";
 import {Publication} from "./content/Publication";

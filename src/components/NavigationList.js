@@ -1,14 +1,13 @@
-import {Add, ArrowRightAlt} from "@mui/icons-material";
-import {
-  Breadcrumbs,
-  Button,
-  Container,
-  Grid,
-  Link,
-  List,
-  Typography,
-} from "@mui/material";
-import {collection, getDocs} from "firebase/firestore";
+import {collection, getDocs} from "@firebase/firestore/lite";
+import Add from "@mui/icons-material/Add";
+import ArrowRightAlt from "@mui/icons-material/ArrowRightAlt";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
 import {useEffect, useState} from "react";
 import {Link as RouterLink, useNavigate, useParams} from "react-router-dom";
 import Jumbotron from "../components/JumbotronComponent";
