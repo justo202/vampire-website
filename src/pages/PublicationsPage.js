@@ -1,5 +1,6 @@
 import {collection, getDocs} from "@firebase/firestore/lite";
 import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Skeleton from "@mui/material/Skeleton";
@@ -50,9 +51,9 @@ const Publications = () => {
         return (
           <Grid key={idx} item xs={12} md={6} sm={12}>
             <Card sx={{height: "100%"}}>
-              <Card.Content>
+              <CardContent>
                 <Typography variant='p'>{pub}</Typography>
-              </Card.Content>
+              </CardContent>
             </Card>
           </Grid>
         );

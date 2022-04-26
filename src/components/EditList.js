@@ -5,6 +5,9 @@ import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
 import Container from "@mui/material/Container";
 import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Skeleton from "@mui/material/Skeleton";
@@ -305,14 +308,14 @@ const EditList = () => {
             </Collapse>
           </Grid>
           <Dialog open={deleteOpen} onClose={() => handleConfirm(false)}>
-            <Dialog.Title>
+            <DialogTitle>
               Are you sure you would like to delete this item?
-            </Dialog.Title>
-            <Dialog.Content>
-              <Dialog.ContentText>
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
                 You will not able to undo this action.
-              </Dialog.ContentText>
-            </Dialog.Content>
+              </DialogContentText>
+            </DialogContent>
             <Dialog.Actions>
               <Button
                 color='info'
