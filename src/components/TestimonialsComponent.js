@@ -1,6 +1,5 @@
 import {Box, Card, Grid, Typography} from "@mui/material";
 import {makeStyles, useTheme} from "@mui/styles";
-import { padding } from "@mui/system";
 import {collection, getDocs} from "firebase/firestore";
 import {useEffect, useState} from "react";
 import Carousel from "react-material-ui-carousel";
@@ -26,12 +25,11 @@ const useStyles = makeStyles((theme) => {
     cardContainer: {
       height: "100%",
       position: "relative",
-      width: '100%',
-      
+      width: "100%",
     },
     cardMedia: {
       height: "100%",
-      width: '100%',
+      width: "100%",
       position: "relative",
     },
   };
@@ -93,37 +91,41 @@ const Testimonials = () => {
 
   var testimonialCards = [];
   items &&
-    items.forEach((element) => {
+    items.forEach((element, idx) => {
       testimonialCards.push(
-        <Grid xs={12} sm={4} item className={styles.cardContainer}>
+        <Grid xs={12} sm={4} item className={styles.cardContainer} key={idx}>
           <Card
             className={styles.cardMedia}
             title={"hello"}
-            sx={{ borderBottom: "2px #FF7700  solid", display:'flex', justifyContent:'center', flexDirection: 'column'}}
-           
+            sx={{
+              borderBottom: "2px #FF7700  solid",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
           >
-              <Typography
-                sx={{
-                  textAlign: "justify",
-                  zIndex: 99,
-                  margin: '0.8rem'
-                }}
-                variant='body2'
-                color='text.secondary'
-              >
-                {element.text}
-              </Typography>
-              <Typography
-                sx={{
-                  textAlign: "center",
-                  zIndex: 99,
-                  fontStyle: "italic",
-                  fontWeight: "bolder",
-                }}
-                align='center'
-              >
-                {element.name}
-              </Typography>
+            <Typography
+              sx={{
+                textAlign: "justify",
+                zIndex: 99,
+                margin: "0.8rem",
+              }}
+              variant='body2'
+              color='text.secondary'
+            >
+              {element.text}
+            </Typography>
+            <Typography
+              sx={{
+                textAlign: "center",
+                zIndex: 99,
+                fontStyle: "italic",
+                fontWeight: "bolder",
+              }}
+              align='center'
+            >
+              {element.name}
+            </Typography>
           </Card>
         </Grid>
       );

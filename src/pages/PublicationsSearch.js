@@ -127,11 +127,10 @@ export const PublicationsSearch = () => {
           });
         }
 
-        const instance = new Publication(item);
+        const instance = new Publication(item),
+          values = {};
 
         instance.id = uuidv4();
-
-        let values = {};
 
         instance.getAttributes().forEach((item) => {
           values[item.name] = item.value;
@@ -143,7 +142,10 @@ export const PublicationsSearch = () => {
             getExistingItems();
           })
           .catch((e) => {
-            console.error("Error on " + item.title);
+            setStatus({
+              code: "error",
+              message: "There was an issue with uploading one or more items.",
+            });
             console.error(e);
           });
 
@@ -157,8 +159,7 @@ export const PublicationsSearch = () => {
     });
     upload
       .then((res) => {
-        console.log(res);
-        console.log("wow");
+        setStatus({code: "success", message: "Successfully uploaded items."});
       })
       .catch((error) => {
         console.log(error);

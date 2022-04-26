@@ -328,19 +328,22 @@ const EditList = () => {
                 <Button
                   variant='contained'
                   color='success'
-                  onClick={() => {
+                  onClick={async () => {
                     const idToUse = id === "new" ? customId : id;
-                    updateFirebase(type, idToUse, values).then((res) => {
-                      const {code, message} = res;
+                    const {code, message} = await updateFirebase(
+                      type,
+                      idToUse,
+                      values
+                    );
 
-                      // checks the status of the
-                      if (code === "success") {
-                        navigate(`/cms/${type}/${idToUse}`, {replace: true});
-                      } else {
-                        setStatus({code, message});
-                        setOpen((curr) => true);
-                      }
-                    });
+                    // checks the status of the update
+                    if (code === "success") {
+                      setStatus({code, message});
+                      navigate(`/cms/${type}/${idToUse}`, {replace: true});
+                    } else {
+                      setStatus({code, message});
+                      setOpen((curr) => true);
+                    }
                   }}
                 >
                   Save
