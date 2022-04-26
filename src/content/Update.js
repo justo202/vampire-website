@@ -1,4 +1,4 @@
-import {Timestamp} from "firebase/firestore";
+import {Timestamp} from "@firebase/firestore/lite";
 import {ContentModel} from "./ContentModel";
 
 export class Update extends ContentModel {

@@ -9,7 +9,8 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import {makeStyles, useTheme} from "@mui/styles";
+import makeStyles from "@mui/styles/makeStyles";
+import useTheme from "@mui/styles/useTheme";
 import {useState} from "react";
 import {Link} from "react-router-dom";
 
@@ -32,33 +33,35 @@ const useStyles = makeStyles((theme) => {
 });
 
 const LoginBar = ({email}) => {
-  if(email !== "")
+  if (email !== "")
     return (
-      <Box sx={{display: 'flex', backgroundColor: "darkBackground.main", justifyContent: 'center'}}>
-      <Box sx={{width: '100%', maxWidth: '1100px'}} >
-        <Box sx={{float: 'right'}} display={'inline-flex'}>
-        <Typography
-          variant="body1"
-          color={'grayText.main'}
-          mr={1}>
-          Hello,
-        </Typography>
-          <Typography
-          variant="body1"
-          color={'grayText.main'}
-          sx={{fontWeight: 'bolder'}}>
-          {email}
-          </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          backgroundColor: "darkBackground.main",
+          justifyContent: "center",
+        }}
+      >
+        <Box sx={{width: "100%", maxWidth: "1100px"}}>
+          <Box sx={{float: "right"}} display={"inline-flex"}>
+            <Typography variant='body1' color={"grayText.main"} mr={1}>
+              Hello,
+            </Typography>
+            <Typography
+              variant='body1'
+              color={"grayText.main"}
+              sx={{fontWeight: "bolder"}}
+            >
+              {email}
+            </Typography>
+          </Box>
         </Box>
-
       </Box>
-
-    </Box>
-    )
-  return null
-}
+    );
+  return null;
+};
 const Navbar = (props) => {
-  const {isLogged, email } = props;
+  const {isLogged, email} = props;
   const theme = useTheme();
   const styles = useStyles(theme);
 
@@ -68,28 +71,28 @@ const Navbar = (props) => {
     {
       name: "Publications",
       url: "/publications",
-      show: true
+      show: true,
     },
     {
       name: "Team",
       url: "/team",
-      show: true
+      show: true,
     },
     {
       name: "Research",
       url: "/research",
-      show: true
+      show: true,
     },
     {
       name: "Contact us",
       url: "/contact",
-      show: true
+      show: true,
     },
     {
       name: "CMS",
       url: "/cms",
-      show: isLogged
-    }
+      show: isLogged,
+    },
   ];
 
   const handleOpenNavMenu = (event) => {
@@ -148,7 +151,7 @@ const Navbar = (props) => {
                 }}
               >
                 {pages.map((page, idx) => {
-                  if(page.show)
+                  if (page.show)
                     return (
                       <MenuItem key={idx} onClick={handleCloseNavMenu}>
                         <Typography textAlign='center'>
@@ -158,7 +161,7 @@ const Navbar = (props) => {
                         </Typography>
                       </MenuItem>
                     );
-                  return null
+                  return null;
                 })}
               </Menu>
             </Box>
@@ -185,9 +188,8 @@ const Navbar = (props) => {
               }}
             >
               {pages.map((page, idx) => {
-                if(page.show)
+                if (page.show)
                   return (
-               
                     <Typography
                       sx={{m: 1, display: "block"}}
                       key={idx}
@@ -198,19 +200,16 @@ const Navbar = (props) => {
                         {page.name}
                       </Link>
                     </Typography>
-                  )
-                return null
-
-
+                  );
+                return null;
               })}
             </Box>
           </Toolbar>
         </Container>
-        <LoginBar email={email}/>
+        <LoginBar email={email} />
       </AppBar>
 
       <div className={styles.toolbarHeigh}></div>
-      
     </>
   );
 };

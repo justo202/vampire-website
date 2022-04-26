@@ -1,5 +1,7 @@
-import {ArrowRightAlt} from "@mui/icons-material";
-import {Container, List, Typography} from "@mui/material";
+import ArrowRightAlt from "@mui/icons-material/ArrowRightAlt";
+import Container from "@mui/material/Container";
+import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
 import Jumbotron from "../components/JumbotronComponent";
 import useStyles from "../styles/ContentManagementSystem";

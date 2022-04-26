@@ -1,11 +1,11 @@
-import {initializeApp} from "firebase/app";
+import {initializeApp} from "@firebase/app";
 import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
-} from "firebase/auth";
-import {getFirestore} from "firebase/firestore";
+} from "@firebase/auth";
+import {getFirestore} from "@firebase/firestore/lite";
 
 // initialises firebase application using secret environment variables
 const app = initializeApp({

@@ -1,15 +1,20 @@
+import {collection, getDocs} from "@firebase/firestore/lite";
 import {Card, CardContent, Grid, Skeleton, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import db from "../firebase";
-import { getDocs,collection } from "firebase/firestore";
 
 const NewsItem = ({date, text, title}) => {
   return (
     <Grid item xs={12} sm={4}>
-      
-      <Card sx={{width: "100%", minHeight: '300px', borderBottom: "2px #FF7700  solid"}}>
+      <Card
+        sx={{
+          width: "100%",
+          minHeight: "300px",
+          borderBottom: "2px #FF7700  solid",
+        }}
+      >
         <CardContent>
-        <Typography variant='caption' color='text.primary'>
+          <Typography variant='caption' color='text.primary'>
             {date.toLocaleDateString()}
           </Typography>
           <Typography gutterBottom variant='h5' component='div'>
@@ -18,7 +23,6 @@ const NewsItem = ({date, text, title}) => {
           <Typography variant='body2' color='text.secondary'>
             {text}
           </Typography>
-
         </CardContent>
       </Card>
     </Grid>
@@ -34,13 +38,12 @@ const NewsSection = () => {
     async function getData() {
       const snapshot = await getDocs(collection(db, "updates"));
       setUpdates(() => {
-       var temp = snapshot.docs.slice(0, 3).map((doc, idx) => {
+        var temp = snapshot.docs.slice(0, 3).map((doc, idx) => {
           return {...doc.data(), id: doc.id};
-        })
-        return temp.sort((a, b) => b.date.seconds - a.date.seconds)
-      }
-      );
-      
+        });
+        return temp.sort((a, b) => b.date.seconds - a.date.seconds);
+      });
+
       setLoading(false);
     }
     getData();
@@ -64,7 +67,6 @@ const NewsSection = () => {
       </Grid>
     );
   }
-  
 
   return (
     <Grid container spacing={1}>
