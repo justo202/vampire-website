@@ -8,11 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import {doc, updateDoc} from "firebase/firestore";
-import {
-  connectFunctionsEmulator,
-  getFunctions,
-  httpsCallable,
-} from "firebase/functions";
+import {getFunctions, httpsCallable} from "firebase/functions";
 import {deleteObject, getStorage, ref} from "firebase/storage";
 import {useEffect, useState} from "react";
 import db, {app} from "../firebase";
@@ -53,7 +49,6 @@ export const ImageEdit = ({
 
   const uploadImage = (e) => {
     const functions = getFunctions(app, "europe-west2");
-    connectFunctionsEmulator(functions, "localhost", 5000);
     const upload = httpsCallable(functions, "upload");
     const reader = new FileReader();
     const file = document.querySelector("input[type=file]").files[0];

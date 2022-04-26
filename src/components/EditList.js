@@ -120,25 +120,9 @@ const EditList = () => {
     authors: Authors,
   };
 
-  const acceptedType = () => {
-    return (
-      type === "publications" ||
-      type === "projects" ||
-      type === "team" ||
-      type === "testimonials" ||
-      type === "partners"
-    );
-  };
-
   // this function will be triggered on initial render of EditList as well as when the value
   // of "loading" updates
   useEffect(() => {
-    if (acceptedType()) {
-      navigate("/", {replace: true});
-      console.log("yo!");
-      console.log(type);
-      return;
-    }
     // creates reference to document in Firestore using document type and id which have
     // been acquired from the URL location
     // e.g. type may equal "publications" and id may equal "1234abcd"
