@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import Box from "@mui/material/Box";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {Component} from "react";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";

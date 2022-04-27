@@ -1,4 +1,4 @@
-import {deleteDoc, doc, setDoc} from "firebase/firestore";
+import {deleteDoc, doc, setDoc} from "@firebase/firestore";
 import {TeamMember} from "./content";
 import {Project} from "./content/Project";
 import {Publication} from "./content/Publication";
@@ -77,10 +77,9 @@ export const updateFirebase = async (type, id, data) => {
 
   delete data.id;
 
-  return await setDoc(doc(db, type, id), data)
+  const result = await setDoc(doc(db, type, id), data)
     .then((e) => {
       data.id = tempId;
-      console.log(e);
       return success("Document successfully updated!");
     })
     .catch((e) => {
@@ -88,6 +87,8 @@ export const updateFirebase = async (type, id, data) => {
       data.id = tempId;
       return error("Document failed to update.");
     });
+
+  return result;
 };
 
 // function to create and return an instance having specified type and data

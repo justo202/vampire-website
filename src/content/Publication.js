@@ -121,20 +121,14 @@ export class Publication extends ContentModel {
     return this.citation;
   }
 
-  parseAuthors(authors) {
-    let type;
-    if (!authors) return [];
-    if (authors.length > 0) {
-      if (typeof authors[0] === "object") {
-        type = "nested";
-      } else {
-        type = "flat";
-      }
-    }
-    if (type === "nested") {
-      return authors.map((author) => author.name);
+  parseAuthors(newAuthors) {
+    if (!newAuthors) return [];
+    if (newAuthors.hasOwnProperty("authors")) {
+      return newAuthors.authors.map(
+        (author) => author.name || author.full_name
+      );
     } else {
-      return authors;
+      return newAuthors;
     }
   }
 

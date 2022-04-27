@@ -1,5 +1,5 @@
+import {collection, getDocs} from "@firebase/firestore/lite";
 import {Grid} from "@mui/material";
-import {collection, getDocs} from "firebase/firestore";
 import {useEffect, useState} from "react";
 import Jumbotron from "../components/JumbotronComponent";
 import ResearchSection from "../components/researchComponent";

@@ -1,21 +1,18 @@
-import {
-  Alert,
-  Breadcrumbs,
-  Button,
-  Collapse,
-  Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Grid,
-  Link,
-  Skeleton,
-  TextField,
-  Typography,
-} from "@mui/material";
-import {doc, getDoc} from "firebase/firestore";
+import {doc, getDoc} from "@firebase/firestore/lite";
+import Alert from "@mui/material/Alert";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Button from "@mui/material/Button";
+import Collapse from "@mui/material/Collapse";
+import Container from "@mui/material/Container";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import Skeleton from "@mui/material/Skeleton";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import {useEffect, useState} from "react";
 import {Link as RouterLink, useNavigate, useParams} from "react-router-dom";
 import {v4 as uuidv4} from "uuid";
@@ -37,6 +34,10 @@ const EditList = () => {
   const [customId, setCustomId] = useState(uuidv4());
   const [deleteOpen, setDeleteOpen] = useState(false);
   const navigate = useNavigate();
+
+  const handleStatusUpdate = (code, message) => {
+    setStatus({code, message});
+  };
 
   const fieldChangeFunction = (e, options) => {
     const {newValue, fieldId, arrayIndex, isNew, toDelete, fieldLabel} =
@@ -160,6 +161,7 @@ const EditList = () => {
       setLoading(false);
     });
   }, [loading]);
+
   // creates a skeleton of the item to use while the document is being loaded into state
   if (loading) {
     return (
@@ -168,25 +170,25 @@ const EditList = () => {
         <Container>
           <Grid container>
             <Grid item xs={12}>
-              <Skeleton variant='text' />
+              <Skeleton variant='text' width='100%' height='40' />
             </Grid>
             <Grid item xs={12}>
-              <Skeleton variant='text' />
+              <Skeleton variant='text' width='100%' height='40' />
             </Grid>
             <Grid item xs={12}>
-              <Skeleton variant='text' />
+              <Skeleton variant='text' width='100%' height='40' />
             </Grid>
             <Grid item xs={12}>
-              <Skeleton variant='text' />
+              <Skeleton variant='text' width='100%' height='40' />
             </Grid>
             <Grid item xs={12}>
-              <Skeleton variant='text' />
+              <Skeleton variant='text' width='100%' height='40' />
             </Grid>
             <Grid item xs={12}>
-              <Skeleton variant='text' />
+              <Skeleton variant='text' width='100%' height='40' />
             </Grid>
             <Grid item xs={12}>
-              <Skeleton variant='text' />
+              <Skeleton variant='text' width='100%' height='40' />
             </Grid>
           </Grid>
         </Container>
@@ -198,23 +200,32 @@ const EditList = () => {
   const displayItem = () => {
     // ensures that instance exists as well as loading being complete
     if (instance && !loading) {
+      console.log(instance);
       // loops through field in item
       return instance.getAttributes().map((item) => {
+        // creates a TagName using name found in item's
         const TagName = components[item.tag.name];
         const {
           tag: {name},
         } = item;
 
+        // if the item is of type date, authors or collaborators, the state updater function will be passed down
+        // this would not work on a component if it did not accept/expect this prop
         if (name === "date" || name === "authors" || name === "collaborators") {
           item.tag.props.handleFieldChange = fieldChangeFunction;
         }
 
+        // checks if the item is an image, and if so, pass it the hasImage prop as well
         if (name === "img") {
+          item.tag.props.handleStatusUpdate = handleStatusUpdate;
           item.tag.props.hasImage = instance._hasImage;
         }
 
+        // if the name of the item is hasImage, return a hidden field / only used for updating state
         if (name === "hasImage") return <></>;
 
+        // create a Grid item around the generated component with it's respective layout demands
+        // and pass down all necessary props to the component
         return (
           <Grid
             item
@@ -262,6 +273,7 @@ const EditList = () => {
     }
   };
 
+  // default return of page containing Jumbotron, breadcrumbs, Firebase action buttons as well as the item to be displayed also
   return (
     <>
       <Jumbotron title={`Edit Item`} />
@@ -304,7 +316,7 @@ const EditList = () => {
                 You will not able to undo this action.
               </DialogContentText>
             </DialogContent>
-            <DialogActions>
+            <Dialog.Actions>
               <Button
                 color='info'
                 variant='contained'
@@ -319,7 +331,7 @@ const EditList = () => {
               >
                 Yes
               </Button>
-            </DialogActions>
+            </Dialog.Actions>
           </Dialog>
           {displayItem()}
           <Grid item md={12}>
@@ -328,19 +340,22 @@ const EditList = () => {
                 <Button
                   variant='contained'
                   color='success'
-                  onClick={() => {
+                  onClick={async () => {
                     const idToUse = id === "new" ? customId : id;
-                    updateFirebase(type, idToUse, values).then((res) => {
-                      const {code, message} = res;
+                    const {code, message} = await updateFirebase(
+                      type,
+                      idToUse,
+                      values
+                    );
 
-                      // checks the status of the
-                      if (code === "success") {
-                        navigate(`/cms/${type}/${idToUse}`, {replace: true});
-                      } else {
-                        setStatus({code, message});
-                        setOpen((curr) => true);
-                      }
-                    });
+                    // checks the status of the update
+                    if (code === "success") {
+                      setStatus({code, message});
+                      navigate(`/cms/${type}/${idToUse}`, {replace: true});
+                    } else {
+                      setStatus({code, message});
+                      setOpen((curr) => true);
+                    }
                   }}
                 >
                   Save

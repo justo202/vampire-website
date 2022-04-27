@@ -103,40 +103,36 @@ const googleScholarSearch = async (author) => {
       console.error(err);
     });
 
-  const query = `${options.urls.base}engine=${options.urls.author_engine}&api_key=${process.env.SERP_API_KEY}&author_id=${id}&citation_id=${articleIds[0]}&view_op=${options.operation}`;
-
-  const citations = await Promise.allSettled(
-    articleIds.map((id) =>
+  return await Promise.allSettled(
+    articleIds.slice(0, 2).map((id) =>
       axios
         .get(
           `${options.urls.base}engine=${options.urls.author_engine}&api_key=${process.env.SERP_API_KEY}&author_id=${id}&citation_id=${id}&view_op=${options.operation}`
         )
-        .then((res) => res.data)
+        .then((res) => {
+          return res.data;
+        })
     )
   );
-
-  return citations;
 };
 
 exports.create = functions
   .region("europe-west2")
   .https.onCall(async (data, context) => {
     const {author} = data;
-    // const {error: ieeeErr, articles: ieeeArticles} = await ieeeXploreSearch(
-    //   author
-    // );
-    // const {error: scholErr, articles: scholRes} = await googleScholarSearch(
-    //   author
-    // );
-    const {error: pubMedErr, articles: pubMedRes} = await pubMedSearch(author);
+    const {articles} = await ieeeXploreSearch(author);
+    const scholRes = await googleScholarSearch(author).then((res) =>
+      res.map((item) => item.value.citation)
+    );
+    const pubMedRes = await pubMedSearch(author);
 
     // status 3 === everything went fine
     // status 2 === most things went fine
     // status 1 === all errored
     // status 0 === uncaught error
     return {
-      // ...scholRes,
+      ...scholRes,
       ...pubMedRes,
-      //  ...ieeeArticles
+      ...articles,
     };
   });
