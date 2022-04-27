@@ -163,8 +163,6 @@ class ContactForm extends Component {
         <form
           name='contact'
           method='POST'
-          data-netlify-recaptcha='true'
-          data-netlify='true'
           autoComplete='false'
           onSubmit={(e) => this.handleSubmit(e)}
         >

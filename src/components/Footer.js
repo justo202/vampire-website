@@ -34,6 +34,7 @@ const styles = makeStyles((theme) => {
       padding: "0",
       color: 'white',
       border: 'none',
+      width: '20%',
       "&:hover": {
         color: theme.palette.accent.main,
       }
@@ -58,6 +59,7 @@ const AccountButton = ({isLogged, logout, openModal, useStyle}) => {
     <Typography
       variant='h6'
       sx={{padding: '0', textTransform: "none"}}
+      textAlign={'center'}
     >
       {isLogged ? "Logout" : "Editor Login"} 
     </Typography>
