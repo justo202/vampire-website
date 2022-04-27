@@ -115,6 +115,7 @@ const Research = () => {
         maxWidth={"1100px"}
       >
         {researchListMap}
+
       </Grid>
     </>
   );

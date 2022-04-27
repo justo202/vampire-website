@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => {
     },
     imageContainer: {
       width: "100%",
-      height: "300px",
+      height: "400px",
     },
   };
 });
@@ -66,7 +66,7 @@ const TextSection = ({
   collaborators,
 }) => {
   return (
-    <Grid xs={7} item>
+    <Grid xs={12} sm={7}  item>
       <Typography variant='h5' gutterBottom>
         {title}
       </Typography>
@@ -93,14 +93,14 @@ const TextSection = ({
 };
 const ImageSection = ({styles, id, hasImage, pointers}) => {
   return (
-    <Grid xs={5} item alignItems={"center"}>
+    <Grid xs={12} sm={5} item alignItems={"center"}>
       {hasImage && (
         <Box className={styles.imageContainer} mb={1} sx={{boxShadow: 3}}>
           <img
             className={styles.researchImage}
             alt='research'
             src={
-              `https://storage.googleapis.com/vampire-research.appspot.com/projects/${id}` ||
+             `https://storage.googleapis.com/vampire-research.appspot.com/projects/${id}` ||
               "https://picsum.photos/200"
             }
           />
@@ -113,6 +113,42 @@ const ImageSection = ({styles, id, hasImage, pointers}) => {
     </Grid>
   );
 };
+
+const MobileView = ({
+  title,
+  description,
+  grants = "",
+  endDate,
+  startDate,
+  id,
+  hasImage,
+  collaborators = [],
+  pointers = [],
+  styles
+}) => {
+
+  return(
+    <Grid sx={{display: {sm: 'none'}}}container spacing={2} mb={2}>
+        <ImageSection
+          styles={styles}
+          id={id}
+          hasImage={hasImage}
+          pointers={pointers}
+        />
+     
+        <TextSection
+          title={title}
+          description={description}
+          grants={grants}
+          endDate={endDate}
+          startDate={startDate}
+          collaborators={collaborators}
+        />
+
+    </Grid>
+  )
+
+}
 
 const ResearchSection = ({
   title,
@@ -128,7 +164,9 @@ const ResearchSection = ({
 }) => {
   const styles = useStyles();
   return (
-    <Grid container spacing={2}>
+    <>
+    
+    <Grid sx={{display: {sm: 'flex', xs: 'none'}}} container spacing={2}>
       {imageLeft ? (
         <ImageSection
           styles={styles}
@@ -164,6 +202,8 @@ const ResearchSection = ({
         />
       )}
     </Grid>
+    <MobileView title={title} description={description} grants={grants} endDate={endDate} startDate={startDate} id={id} hasImage={hasImage} collaborators={collaborators} pointers={pointers} styles={styles} />
+    </>
   );
 };
 

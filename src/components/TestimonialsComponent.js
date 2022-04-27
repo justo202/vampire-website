@@ -1,6 +1,5 @@
 import {Box, Card, Grid, Typography} from "@mui/material";
 import {makeStyles, useTheme} from "@mui/styles";
-import { padding } from "@mui/system";
 import {collection, getDocs} from "firebase/firestore";
 import {useEffect, useState} from "react";
 import Carousel from "react-material-ui-carousel";

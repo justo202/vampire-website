@@ -12,6 +12,7 @@ import Research from "../pages/Research";
 import Team from "../pages/TeamPage";
 import EditList from "./EditList";
 import Footer from "./Footer";
+import Jumbotron from "./JumbotronComponent";
 import Navbar from "./NavbarComponent";
 import NavigationList from "./NavigationList";
 
@@ -66,6 +67,7 @@ class Main extends Component {
   };
 
   componentDidMount() {
+    
     const auth = getAuth();
 
     onAuthStateChanged(auth, (user) => {
@@ -112,6 +114,7 @@ class Main extends Component {
                 <Route path='/cms/:type/:id' element={<EditList />} />
                 <Route path='/cms/:type' element={<NavigationList />} />
                 <Route path='/cms' element={<ContentManagementSystem />} />
+                <Route path='*' element={<Jumbotron title='Page not found' />} />
               </Routes>
               <Footer
                 isLogged={this.state.loggedIn}
