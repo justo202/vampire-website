@@ -1,4 +1,4 @@
-import {getFunctions, httpsCallable} from "@firebase/functions";
+import {connectFunctionsEmulator, getFunctions, httpsCallable} from "@firebase/functions";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -14,6 +14,7 @@ const validEmail = (val) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
 const functions = getFunctions(app, "europe-west2");
+connectFunctionsEmulator(functions, "localhost", 5000);
 const sendEmail = httpsCallable(functions, "sendEmail");
 
 class ContactForm extends Component {
@@ -84,6 +85,7 @@ class ContactForm extends Component {
       return Object.values(error).every((item) => item === "");
   };
   handleSubmit = (e) => {
+ 
     e.preventDefault();
     if (this.state.token !== null) {
       const data = {
@@ -96,10 +98,11 @@ class ContactForm extends Component {
         feedback: this.state.feedback,
         token: this.state.token,
       };
+    
       sendEmail(data).then((response) => {
-        if (response.data === "success") {
+        if (response.data.statusCode === 200) {
           alert("Message Sent.");
-        } else if (response.data === "fail") {
+        } else {
           alert("Message failed to send.");
         }
       });
