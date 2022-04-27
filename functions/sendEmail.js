@@ -16,9 +16,10 @@ exports.handler = async (event, context, callback) => {
   } = JSON.parse(event.body);
   var success = "fail";
 
-  const res = await axios
+  await axios
     .post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}` //change secret tokennnnn!!!
+      `https://www.google.com/recaptcha/api/siteverify?
+      secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}` 
     )
     .then((res) => {
       if (res.data.success) {
