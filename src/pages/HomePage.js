@@ -54,7 +54,7 @@ const Home = () => {
             className={styles.headers}
             variant='h5'
           >
-            Partners
+            Some of our recent Partners
           </Typography>
 
           <Logos />

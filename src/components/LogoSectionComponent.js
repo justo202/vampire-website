@@ -1,37 +1,19 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
+import { LOGO_IMAGES } from "../data/LOGO_IMAGES";
 
 const Logos = () => {
-  const logoImages = [
-    {
-      imageURL: "https://picsum.photos/200",
-      key: 1,
-    },
-    {
-      imageURL: "https://picsum.photos/200",
-      key: 2,
-    },
-    {
-      imageURL: "https://picsum.photos/200",
-      key: 3,
-    },
-    {
-      imageURL: "https://picsum.photos/200",
-      key: 4,
-    },
-  ];
-  const logoMap = logoImages.map((image) => {
+  
+  const logoMap = LOGO_IMAGES.map((image) => {
     return (
       <Grid key={image.key} item xs={6} md={3}>
-        <a href={"https://mui.com/components/grid/"}>
-          {" "}
           <img
             height={"150px"}
             width={"100%"}
             alt="logo"
+            style={{objectFit: 'contain'}}
             src={image.imageURL}
-          />{" "}
-        </a>
+          />
       </Grid>
     );
   });

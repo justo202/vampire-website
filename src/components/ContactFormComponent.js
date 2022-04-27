@@ -14,7 +14,6 @@ const validEmail = (val) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
 const functions = getFunctions(app, "europe-west2");
-connectFunctionsEmulator(functions, "localhost", 5000);
 const sendEmail = httpsCallable(functions, "sendEmail");
 
 class ContactForm extends Component {
@@ -163,8 +162,6 @@ class ContactForm extends Component {
         <form
           name='contact'
           method='POST'
-          data-netlify-recaptcha='true'
-          data-netlify='true'
           autoComplete='false'
           onSubmit={(e) => this.handleSubmit(e)}
         >

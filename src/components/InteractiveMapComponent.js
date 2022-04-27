@@ -1,7 +1,7 @@
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MenuIcon from "@mui/icons-material/Menu";
 import React, { useState} from "react";
-
+import { LOCATION_INFO } from "../data/LOCATION_INFO";
 import {
   Box,
   Button,
@@ -12,50 +12,31 @@ import {
   Popover,
   Typography,
 } from "@mui/material";
-
-// eslint-disable-next-line import/no-webpack-loader-syntax
-
+import { makeStyles } from "@mui/styles";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import Map, {Marker, Popup} from "!react-map-gl";
 
+const useStyles = makeStyles(() => {
+  return {
+    scrollBar: {
+      '&::-webkit-scrollbar': {
+        height: '0.5rem'
+      },
+      '&::-webkit-scrollbar-track': {
+        '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: '#FF8040',
+        borderRadius: '30px'
+      }
+    }
+  };
+});
 
-const LOCATION_INFO = [
-  {
-    latitude: 55.953252,
-    longitude: 3.188267,
-    description: "This is Edinburgh",
-    organisation: "Edinburgh",
-    city: "Edinburgh",
-    id: 0,
-  },
-  {
-    latitude: 56.46127,
-    longitude: -2.9676,
-    description: "This is Dundee",
-    organisation: "Dundee",
-    city: "Dundee",
-    id: 1,
-  },
-  {
-    latitude: 55.864237,
-    longitude: -4.251806,
-    description: "This is Glasgow",
-    organisation: "Glasgow",
-    city: "Glasgow",
-    id: 2,
-  },
-  {
-    latitude: 51.507351,
-    longitude: -0.127758,
-    description:
-      "This is London awet waiut aituh aiwehut pae pawiu aiwu hiuwah touawo awoiu awja isa j",
-    organisation: "London",
-    city: "London",
-    id: 3,
-  },
-];
+
 
 const RenderButtonGrid = (props) => {
+  const style = useStyles()
   const {organisations, mapRef} = props;
 
   const buttonGrid = organisations.map((org) => {
@@ -63,7 +44,7 @@ const RenderButtonGrid = (props) => {
       <Button
         key={org.id}
         color='accent'
-        sx={{mb: 1, display: {xs: "none", sm: "block"}}}
+        sx={{mb: 1, minWidth: '5rem', flexShrink: '0'}}
         variant='text'
         onClick={() =>
           mapRef.current.flyTo({
@@ -77,7 +58,7 @@ const RenderButtonGrid = (props) => {
     );
   });
   return (
-    <Box sx={{width: "100%", justifyContent: "center", display: "inline-flex"}}>
+    <Box className={style.scrollBar} sx={{mx: {md: 0, xs: 3},width: "100%", justifyContent: "center", display: {xs: "none", sm: "inline-flex"}, maxWidth: '1100px', overflow: 'scroll hidden'}}>
       {buttonGrid}
     </Box>
   );
@@ -96,6 +77,7 @@ const RenderMobileBar = (props) => {
   return (
     <Box
       sx={{
+        width: '100%',
         backgroundColor: "lightBlack.main",
         display: {xs: "block", sm: "none"},
       }}
@@ -160,7 +142,7 @@ function InteractiveMap(props) {
   if (key != null) {
     return (
       <Grid container columnSpacing={1}>
-        <Grid item xs={12} height='100%'>
+        <Grid item xs={12} height='100%' display={'flex'} justifyContent={'center'}>
           <RenderButtonGrid
             organisations={LOCATION_INFO}
             mapRef={mapRef}

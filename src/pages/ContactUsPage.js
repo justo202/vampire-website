@@ -13,10 +13,10 @@ const ContactUs = () => {
         />
       </Grid>
 
-      <Grid xs={8} md={5} item p={5}>
+      <Grid xs={8} md={5} item sx={{p: {md: 5, xs: 1}}}>
         <Typography variant='h5'>Interested in VAMPIRE?</Typography>
         <hr />
-        <Box p={3}>
+        <Box sx={{p: {md: 3, xs: 0}}}>
           <Typography variant='p'>
             Please fill in this form to help us understand your project and
             needs.
