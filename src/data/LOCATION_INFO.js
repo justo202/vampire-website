@@ -1,7 +1,7 @@
 export const LOCATION_INFO = [
     {
-      latitude: 55.953252,
-      longitude: 3.188267,
+      latitude: 55.953251,
+      longitude: -3.188267,
       description: "This is Edinburgh",
       organisation: "Edinburgh",
       city: "Edinburgh",
