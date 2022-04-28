@@ -135,12 +135,7 @@ const Footer = (props) => {
                 variant='outlined'
                 onClick={handleOpen}
               >
-                <Typography
-                  variant='h6'
-                  sx={{padding: '0', textTransform: "none"}}
-                >
-                  Editor Login
-                </Typography>
+  <AccountButton  isLogged={isLogged} logout={signUserOut} openModal={handleOpen} useStyle={useStyle}/>
               </Button>
             </Box>
           </Grid>
