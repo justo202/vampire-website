@@ -61,8 +61,9 @@ const Jumbotron = ({title, subtitle, button, image = ""}) => {
         style={{
           alignItems: "center",
           justifyContent: "center",
-          flexFlow: "column wrap",
+          flexFlow: "row wrap",
           color: "white",
+          gap: '2rem'
         }}
       >
 
@@ -72,7 +73,8 @@ const Jumbotron = ({title, subtitle, button, image = ""}) => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            maxWidth: '1100px'
+            maxWidth: '1100px',
+            
           }}
         >
 
@@ -100,7 +102,12 @@ const Jumbotron = ({title, subtitle, button, image = ""}) => {
             </Button>
           )}
         </Box>
-
+        <img
+                  alt='logo'
+                  width={"300px"}
+                  style={{zIndex: 99}}
+                  src='/images/vampire_logo.png'
+                />
         {image ? (
           <img
             className={styles.backgroundImage}
@@ -114,7 +121,7 @@ const Jumbotron = ({title, subtitle, button, image = ""}) => {
             src='/images/jumbotron_decoration.svg'
           />
         )}
- 
+        
       </div>
       <Modal
         open={open}
@@ -136,7 +143,7 @@ const Jumbotron = ({title, subtitle, button, image = ""}) => {
             alignSelf: "center",
           }}
         >
-          <YoutubeEmbed embedId={"Zm5WwuYcUwE"} />
+          <YoutubeEmbed embedId={"s7lO_0gmucE"} />
         </Box>
       </Modal>
     </>
