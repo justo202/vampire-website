@@ -36,3 +36,5 @@ ui-debug.log
 package-lock.json
 
 functions/.runtimeconfig.json
+
+firestore-debug.log

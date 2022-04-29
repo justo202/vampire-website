@@ -7,7 +7,7 @@ export class TeamMember extends ContentModel {
     this.name = name || "";
     this.institute = institute || "";
     this.description = description || "";
-    this.hasImage = hasImage || "";
+    this.hasImage = hasImage || false;
   }
 
   set name(newName) {

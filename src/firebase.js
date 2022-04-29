@@ -9,13 +9,12 @@ import {getFirestore} from "@firebase/firestore/lite";
 
 // initialises firebase application using secret environment variables
 const app = initializeApp({
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+  apiKey: "AIzaSyDbZqh5-ViLAhLxKk6TPZqWd30WlQZ7KU0",
+  authDomain: "vampire-project2.firebaseapp.com",
+  projectId: "vampire-project2",
+  storageBucket: "vampire-project2.appspot.com",
+  messagingSenderId: "560663838442",
+  appId: "1:560663838442:web:701ea0e3389dd1aa55a193",
 });
 
 // exports necessary functions that are use throughout the application

@@ -1,4 +1,4 @@
-import {deleteDoc, doc, setDoc} from "@firebase/firestore";
+import {deleteDoc, doc, setDoc} from "@firebase/firestore/lite";
 import {TeamMember} from "./content";
 import {Project} from "./content/Project";
 import {Publication} from "./content/Publication";
@@ -67,6 +67,8 @@ export const updateFirebase = async (type, id, data) => {
   //   }
   // }
 
+  console.log(db);
+
   if (data.name === "" || data.title === "") {
     return error(
       "Please ensure that there is a valid name or title to your item before saving."
@@ -83,7 +85,7 @@ export const updateFirebase = async (type, id, data) => {
       return success("Document successfully updated!");
     })
     .catch((e) => {
-      console.log(e);
+      console.log("here", e);
       data.id = tempId;
       return error("Document failed to update.");
     });
