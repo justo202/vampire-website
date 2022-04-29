@@ -1,4 +1,3 @@
-import {Timestamp} from "@firebase/firestore/lite";
 import {ContentModel} from "./ContentModel";
 
 export class Update extends ContentModel {
@@ -7,7 +6,7 @@ export class Update extends ContentModel {
     const {title, text, date, hasImage} = data || {};
     this.title = title || "";
     this.text = text || "";
-    this.date = (date && date.toMillis()) || new Timestamp().nanoseconds;
+    this.date = date ? date.valueOf() : new Date().valueOf();
     this.hasImage = hasImage || "";
   }
 
@@ -41,16 +40,6 @@ export class Update extends ContentModel {
 
   get hasImage() {
     return this._hasImage;
-  }
-
-  getState() {
-    return {
-      id: this._id,
-      title: this._title,
-      date: this._date,
-      text: this._text,
-      hasImage: this._hasImage,
-    };
   }
 
   getAttributes() {

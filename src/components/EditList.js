@@ -1,4 +1,5 @@
 import {doc, getDoc} from "@firebase/firestore/lite";
+import {DialogActions} from "@mui/material";
 import Alert from "@mui/material/Alert";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Button from "@mui/material/Button";
@@ -97,9 +98,9 @@ const EditList = () => {
     ) {
       // updates the current value in values state using provided values
       if (arrayIndex) {
-        setValues((curr) => ({...curr, [arrayIndex]: newValue}));
+        setValues((curr) => ({...curr, [arrayIndex]: new Date(e).valueOf()}));
       } else {
-        setValues((curr) => ({...curr, [fieldId]: newValue}));
+        setValues((curr) => ({...curr, [fieldId]: new Date(e).valueOf()}));
       }
     } else {
       // state update for all non-custom components that require an id and update value
@@ -126,7 +127,7 @@ const EditList = () => {
     // eventually getting a reference to document in collection "publications" with id
     // equalling "1234abcd"
     const docRef = doc(db, type, id);
-
+    console.log("requesting document");
     // sends request to document using acquired reference and waits for response
     getDoc(docRef).then((res) => {
       // initialises variables
@@ -200,7 +201,6 @@ const EditList = () => {
   const displayItem = () => {
     // ensures that instance exists as well as loading being complete
     if (instance && !loading) {
-      console.log(instance);
       // loops through field in item
       return instance.getAttributes().map((item) => {
         // creates a TagName using name found in item's
@@ -316,7 +316,7 @@ const EditList = () => {
                 You will not able to undo this action.
               </DialogContentText>
             </DialogContent>
-            <Dialog.Actions>
+            <DialogActions>
               <Button
                 color='info'
                 variant='contained'
@@ -331,7 +331,7 @@ const EditList = () => {
               >
                 Yes
               </Button>
-            </Dialog.Actions>
+            </DialogActions>
           </Dialog>
           {displayItem()}
           <Grid item md={12}>
@@ -342,6 +342,7 @@ const EditList = () => {
                   color='success'
                   onClick={async () => {
                     const idToUse = id === "new" ? customId : id;
+                    console.log(type, idToUse, values);
                     const {code, message} = await updateFirebase(
                       type,
                       idToUse,

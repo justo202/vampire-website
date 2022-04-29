@@ -119,6 +119,12 @@ const googleScholarSearch = async (author) => {
 exports.create = functions
   .region("europe-west2")
   .https.onCall(async (data, context) => {
+    if (context.app === undefined) {
+      throw new functions.https.HttpsError(
+        "failed-precondition",
+        "The function must be called from an App Check verified app."
+      );
+    }
     const {author} = data;
     const {articles} = await ieeeXploreSearch(author);
     const scholRes = await googleScholarSearch(author).then((res) =>

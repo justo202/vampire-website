@@ -15,7 +15,7 @@ const NewsItem = ({date, text, title}) => {
       >
         <CardContent>
           <Typography variant='caption' color='text.primary'>
-            {date.toLocaleDateString()}
+            {/* {date.toLocaleDateString()} */}
           </Typography>
           <Typography gutterBottom variant='h5' component='div'>
             {title}
@@ -73,7 +73,7 @@ const NewsSection = () => {
       {updates &&
         updates.map((item, idx) => (
           <NewsItem
-            date={item.date.toDate()}
+            // date={item.date.getDate()}
             key={idx}
             id={item.id}
             title={item.title}
